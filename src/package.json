@@ -11,7 +11,7 @@
 	"dependencies": {
 		"@aptos-labs/ts-sdk": "1.22.2",
 		"@aptos-labs/wallet-adapter-react": "^3.3.0",
-		"@irys/sdk": "^0.2.1",
+		"@irys/sdk": "^0.2.10",
 		"@nextui-org/accordion": "^2.0.38",
 		"@nextui-org/button": "2.0.37",
 		"@nextui-org/chip": "^2.0.32",
@@ -42,14 +42,13 @@
 		"axios": "^1.7.4",
 		"clsx": "2.1.1",
 		"copy-to-clipboard": "^3.3.3",
+		"crypto": "^1.0.1",
 		"crypto-browserify": "^3.12.0",
 		"framer-motion": "~11.1.1",
 		"hugeicons-react": "^0.3.0",
 		"intl-messageformat": "^10.5.0",
 		"next": "14.2.4",
 		"next-themes": "^0.2.1",
-		"os-browserify": "^0.3.0",
-		"path-browserify": "^1.0.1",
 		"petra-plugin-wallet-adapter": "^0.4.4",
 		"react": "18.3.1",
 		"react-dom": "18.3.1",
@@ -59,9 +58,10 @@
 		"react-responsive": "^10.0.0",
 		"react-simple-typewriter": "^5.0.1",
 		"react-toastify": "^10.0.5",
-		"stream-browserify": "^3.0.0"
+		"webpack": "^5.93.0"
 	},
 	"devDependencies": {
+		"@types/crypto-js": "^4.2.2",
 		"@types/node": "20.5.7",
 		"@types/react": "18.3.3",
 		"@types/react-dom": "18.3.0",

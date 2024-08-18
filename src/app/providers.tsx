@@ -7,7 +7,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
 import { WalletProvider } from "@/service";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
+import { LazyMotion, domAnimation } from "framer-motion"
 
 const queryClient = new QueryClient();
 export interface ProvidersProps {
@@ -21,9 +21,11 @@ export function Providers({ children, themeProps }: ProvidersProps) {
     <WalletProvider>
       <NextUIProvider navigate={router.push}>
         <NextThemesProvider {...themeProps}>
-            <QueryClientProvider client={queryClient}>
+          <QueryClientProvider client={queryClient}>
+            <LazyMotion features={domAnimation}>
               {children}
-            </QueryClientProvider>
+            </LazyMotion>
+          </QueryClientProvider>
         </NextThemesProvider>
       </NextUIProvider>
     </WalletProvider>

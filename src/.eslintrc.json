@@ -79,7 +79,7 @@
       }
     ],
     "padding-line-between-statements": [
-      "off",
+      "warn",
       {"blankLine": "always", "prev": "*", "next": "return"},
       {"blankLine": "always", "prev": ["const", "let", "var"], "next": "*"},
       {

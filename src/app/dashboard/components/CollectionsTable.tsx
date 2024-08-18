@@ -6,6 +6,7 @@ import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, SortDe
 import React from "react";
 import { useGetCollections } from "@/hooks/aptos/useGetAllCollections";
 import { truncateAddress } from "@aptos-labs/wallet-adapter-react";
+import { Link } from "@nextui-org/link";
 
 const columns = [
     { name: "Collection Name", uid: "collection_name", sortable: true },
@@ -184,7 +185,7 @@ export function CollectionsTable() {
                 loadingContent={'Loading...'}
             >
                 {(item) => (
-                    <TableRow key={item.collection_id}>
+                    <TableRow as={Link} key={item.collection_id} href={`../dashboard/collections/${item.collection_id}`} className="hover:bg-foreground-200 cursor-pointer">
                         {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
                     </TableRow>
                 )}

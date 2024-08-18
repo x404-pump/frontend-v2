@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 
 import { siteConfig } from "@/config/site";
-import { Navbar } from "./navbar";
-import { NavBar, SideBar } from "./sidebar";
+import { SideBar } from "./sidebar";
+import { NavBar } from "./navbar";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: {
@@ -21,14 +22,16 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex h-screen overflow-x-clip relative container mx-auto max-w-7xl">
-      <SideBar />
-      <div className="flex flex-col flex-grow w-full">
-        <NavBar />
-        <main className="container w-full pt-8 px-6">
-          {children}
-        </main>
+    <Providers>
+      <div className="flex h-screen overflow-visible relative container mx-auto max-w-7xl">
+        <SideBar />
+        <div className="flex flex-col w-full">
+          <NavBar />
+          <main className="flex-grow w-full pt-8 px-6">
+            {children}
+          </main>
+        </div>
       </div>
-    </div>
+    </Providers>
   );
 }
