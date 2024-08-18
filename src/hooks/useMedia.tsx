@@ -16,3 +16,4 @@ export const useMedia = (): TUseMediaContext => {
         isDesktop,
     };
 }
+export default useMedia;

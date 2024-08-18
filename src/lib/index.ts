@@ -1,2 +1,2 @@
-export * from './truncateAddress';
 export * from './formatDate';
+export * from './truncate';
