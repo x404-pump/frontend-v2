@@ -11,6 +11,7 @@ export async function getNfts(collectionId: string) {
                     collection_name
                     uri
                 }
+                token_data_id
                 token_name
                 token_uri
                 last_transaction_timestamp

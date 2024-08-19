@@ -10,7 +10,7 @@ export interface ProvidersProps {
 }
 
 export function Providers({ children, collection }: ProvidersProps) {
-
+    
     return (
         <CollectionProvider collection={collection}>
             {children}

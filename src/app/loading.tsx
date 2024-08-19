@@ -13,8 +13,8 @@ export default function Page() {
     return (
         <div className={'w-full flex flex-col items-center gap-2'}>
             <Spline scene="https://prod.spline.design/a21iDct4L7q6CYM7/scene.splinecode" style={{
-                width: '360px',
-                height: '360px',
+                width: '512px',
+                height: '512px',
             }}
             />
             <LoadingSpinner/>

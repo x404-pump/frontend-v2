@@ -1,4 +1,3 @@
-import { GradientBorder } from "@/components/GradientBorder";
 import { Chip } from "@nextui-org/chip";
 import clsx from "clsx";
 

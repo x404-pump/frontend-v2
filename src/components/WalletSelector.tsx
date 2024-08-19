@@ -1,27 +1,17 @@
 'use client';
 
 import {
-    APTOS_CONNECT_ACCOUNT_URL,
     AnyAptosWallet,
     WalletItem,
     getAptosConnectWallets,
-    isAptosConnectWallet,
     isInstallRequired,
     partitionWallets,
-    truncateAddress,
     useWallet,
 } from "@aptos-labs/wallet-adapter-react";
 import { useMedia } from "@/hooks";
-import copy from "copy-to-clipboard";
-import { toast } from "react-toastify";
 import React from "react";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
 import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
-import { HiMiniWallet } from "react-icons/hi2";
-import { LuCopy } from "react-icons/lu";
-import { MdOutlineManageSearch } from "react-icons/md";
-import { AiOutlineDisconnect } from "react-icons/ai";
 
 function ConnectWalletDialog() {
     const { wallets = [], connected, account, isLoading, disconnect } = useWallet();

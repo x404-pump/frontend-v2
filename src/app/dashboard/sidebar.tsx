@@ -94,7 +94,7 @@ export function SideBar() {
     return (
         <m.nav
             variants={containerVariants}
-            initial={"expanded"}
+            initial={"collapsed"}
             animate={containerControl}
             className={clsx(
                 "py-4 text-white h-screen flex flex-col gap-4 items-start overflow-hidden",
@@ -158,7 +158,7 @@ export function SideBar() {
                                 radius="lg"
                                 fullWidth
                                 variant="solid"
-                                href="../dashboard/create-collection"
+                                href="/dashboard/create-collection"
                                 endContent={<PiShootingStarBold size={16} />}
                             >
                                 Create collection

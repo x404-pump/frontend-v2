@@ -1,9 +1,8 @@
 import { getCollectionData } from "@/fetch-functions/getCollectionData";
-import { CollectionProvider } from "./context/collection";
 import { Providers } from "./providers";
 import { CollectionProfileArea } from "./components/CollectionProfileArea";
 import clsx from "clsx";
-import { NftsArea } from "./components/NftsArea";
+import { NftsArea } from "./components/nfts-area/NftsArea";
 
 export default async function Page({
     params,
@@ -13,8 +12,8 @@ export default async function Page({
     };
 }) {
     const { id } = params;
-    const collection = await getCollectionData(id);
-
+    const collection = await getCollectionData(id) as any;
+    
     return (
         <Providers collection={collection}>
             <div className="space-y-4 md:space-y-8">
