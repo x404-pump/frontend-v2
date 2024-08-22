@@ -1,12 +1,13 @@
-import { GetCollectionDataResponse } from "@aptos-labs/ts-sdk";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Pagination } from "@nextui-org/pagination";
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, SortDescriptor, Selection } from "@nextui-org/table";
 import React from "react";
-import { useGetCollections } from "@/hooks/aptos/useGetAllCollections";
 import { truncateAddress } from "@aptos-labs/wallet-adapter-react";
 import { Link } from "@nextui-org/link";
+import { useQuery } from "@tanstack/react-query";
+import { getCurrentCollectionsV2, ICurrentCollectionsV2 } from "@/fetch-functions/collection";
+import { Image } from "@nextui-org/image";
 
 const columns = [
     { name: "Collection Name", uid: "collection_name", sortable: true },
@@ -24,7 +25,11 @@ export function CollectionsTable() {
     const [page, setPage] = React.useState(1);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-    const { data: collections = [], isLoading } = useGetCollections(undefined, null, 100);
+    const { data: collections = [], isLoading } = useQuery({
+        queryKey: ["collections"],
+        queryFn: () => getCurrentCollectionsV2(),
+    });
+
 
     const hasSearchFilter = Boolean(filterValue);
     const headerColumns = React.useMemo(() => {
@@ -63,8 +68,10 @@ export function CollectionsTable() {
 
     const sortedItems = React.useMemo(() => {
         return items.sort((a, b) => {
-            const aVal = a[sortDescriptor.column as keyof GetCollectionDataResponse];
-            const bVal = b[sortDescriptor.column as keyof GetCollectionDataResponse];
+            const aVal = a[sortDescriptor.column as keyof ICurrentCollectionsV2];
+            const bVal = b[sortDescriptor.column as keyof ICurrentCollectionsV2];
+
+            if (!aVal || !bVal) return 0;
 
             if (aVal < bVal) {
                 return sortDescriptor.direction === "ascending" ? -1 : 1;
@@ -77,19 +84,30 @@ export function CollectionsTable() {
             return 0;
         });
     }, [sortDescriptor, items]);
+    const renderCell = React.useCallback((collection: ICurrentCollectionsV2, columnKey: React.Key) => {
+        const cellValue = collection[columnKey as keyof ICurrentCollectionsV2];
 
-    const renderCell = React.useCallback((collection: GetCollectionDataResponse, columnKey: React.Key) => {
-        const cellValue = collection[columnKey as keyof GetCollectionDataResponse];
-        console.log('cellValue', cellValue);
         switch (columnKey) {
             case "collection_name":
-                return <p className="max-w-32 break-words">{cellValue}</p>
+                return (
+                    <div className="flex items-center flex-row gap-2">
+                        <Image
+                            src={collection.uri}
+                            alt={collection.collection_name}
+                            radius="full"
+                            fallbackSrc="https://via.placeholder.com/500x500"
+                            width={32}
+                            height={32}
+                        />
+                        <p className="max-w-32 break-words">{cellValue?.toString()}</p>
+                    </div>
+                )
             case "collection_id":
-                return truncateAddress(cellValue);
+                return <span>{truncateAddress(cellValue?.toString())}</span>;
             case "creator_address":
-                return truncateAddress(cellValue);
+                return <span>{truncateAddress(cellValue?.toString())}</span>;
             case "current_supply":
-                return cellValue;
+                return <span>{cellValue?.toString()}</span>;
             default:
                 return null;
         }
@@ -185,7 +203,7 @@ export function CollectionsTable() {
                 loadingContent={'Loading...'}
             >
                 {(item) => (
-                    <TableRow as={Link} key={item.collection_id} href={`../dashboard/collections/${item.collection_id}`} className="hover:bg-foreground-200 cursor-pointer">
+                    <TableRow as={Link} key={item.collection_id} href={`../dashboard/collection/${item.collection_id}`} className="hover:bg-foreground-200 cursor-pointer">
                         {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
                     </TableRow>
                 )}

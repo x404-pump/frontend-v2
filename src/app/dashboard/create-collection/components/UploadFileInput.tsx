@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@nextui-org/button';
-import { Input, InputProps } from '@nextui-org/input';
+import { InputProps } from '@nextui-org/input';
 import { Tooltip } from '@nextui-org/tooltip';
 import clsx from 'clsx';
 import React, { useRef, useState } from 'react';
@@ -20,6 +20,7 @@ const truncateName = (name: string, length: number) => {
     if (name.length > length) {
         return `${name.slice(0, length)}...`;
     }
+
     return name;
 }
 
@@ -52,6 +53,7 @@ const UploadFileInput: React.FC<UploadFileInputProps> = ({ isUploading, account,
 
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = event.currentTarget.files;
+
         if (fileList) {
             try {
                 await loadFile(fileList); // Validate files
@@ -73,6 +75,7 @@ const UploadFileInput: React.FC<UploadFileInputProps> = ({ isUploading, account,
         if (files) {
             const updatedFiles = Array.from(files).filter(file => file !== fileToDelete);
             const dataTransfer = new DataTransfer();
+
             updatedFiles.forEach(file => dataTransfer.items.add(file));
             setFiles(dataTransfer.files);
         }

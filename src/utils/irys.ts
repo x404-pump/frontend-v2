@@ -8,7 +8,9 @@ const getWebIrys = async (aptosWallet: WalletContextState) => {
   const rpcUrl = "testnet"; // Aptos network "mainnet" || "testnet"
   const wallet = { rpcUrl: rpcUrl, name: "aptos", provider: aptosWallet };
   const webIrys = new WebIrys({ network, token, wallet });
+
   await webIrys.ready();
+
   return webIrys;
 };
 
@@ -32,12 +34,14 @@ export const checkIfFund = async (aptosWallet: WalletContextState, files: File[]
   if (currentAccountBalance > costToUpload.toNumber()) {
     try {
       await fundNode(aptosWallet, costToUpload.toNumber());
+
       return true;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       throw new Error(`Error funding node ${error}`);
     }
   }
+
   // 6. if payer balance < the amount, replenish the payer balance*/
   return false;
 };
@@ -47,7 +51,9 @@ export const fundNode = async (aptosWallet: WalletContextState, amount?: number)
 
   try {
     const fundTx = await webIrys.fund(amount ?? 1000000);
+
     console.log(`Successfully funded ${webIrys.utils.fromAtomic(fundTx.quantity)} ${webIrys.token}`);
+
     return true;
   } catch (e) {
     throw new Error(`Error uploading data ${e}`);
@@ -60,8 +66,10 @@ export const uploadFile = async (
   fileToUpload: File,
 ): Promise<string> => {
   const webIrys = await getWebIrys(aptosWallet);
+
   try {
     const receipt = await webIrys.uploadFile(fileToUpload, { tags: [] });
+
     return `https://gateway.irys.xyz/${receipt.id}`;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
@@ -79,6 +87,7 @@ export const uploadFolder = async (aptosWallet: WalletContextState, files: File[
       `Files uploaded. Manifest Id=${receipt.manifestId} Receipt Id=${receipt.id}
       access with: https://gateway.irys.xyz/${receipt.manifestId}/<image-name>`,
     );
+
     return `https://gateway.irys.xyz/${receipt.manifestId}`;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {

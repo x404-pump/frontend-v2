@@ -26,6 +26,7 @@ const WalletCard = () => {
         const balance = await accountAPTBalance({
             accountAddress: account.address,
         });
+
         setBalance(balance);
     }, [account]);
 

@@ -11,6 +11,7 @@ export async function getTokenActivities(tokenId: string) {
                             before_value
                             after_value
                             token_data_id
+                            entry_function_id_str
                             transaction_timestamp
                         }
                     }
@@ -28,6 +29,7 @@ export async function getTokenActivities(tokenId: string) {
         });
 
         const tokenData = res.token_activities_v2;
+
         return tokenData || [];
     } catch (error) {
         throw new Error("Failed to fetch token data");

@@ -36,17 +36,17 @@ export const useSidebarControl = () => React.useContext(SidebarControlContext);
 
 const items: {
     label: string;
-    value: string;
+    href: string;
     icon: React.ReactNode;
 }[] = [
         {
             label: 'Dashboard',
-            value: 'dashboard',
+            href: '/dashboard',
             icon: <DashboardCircleAddIcon className="min-w-8 w-8" />,
         },
         {
             label: 'Marketplace',
-            value: 'marketplace',
+            href: '/marketplace',
             icon: <Store01Icon className="min-w-8 w-8" />,
         },
     ];
@@ -113,8 +113,9 @@ export function SideBar() {
                         items.map((item) => (
                             <ListboxItem
                                 as={Link}
-                                key={item.value}
+                                key={item.href}
                                 startContent={item.icon}
+                                href={item.href}
                                 classNames={{
                                     base: clsx(
                                         "w-full text-default-500",

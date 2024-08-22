@@ -11,6 +11,7 @@ const FieldArea = ({ label, value }: { label: string; value: string }) => {
         </div>
     );
 }
+
 export default function CollectionDetailArea({ collectionName, description }: CollectionDetailAreaProps) {
     return (
         <div

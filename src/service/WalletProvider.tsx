@@ -2,7 +2,6 @@
 
 import { PropsWithChildren } from "react";
 import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
-import { PetraWallet } from "petra-plugin-wallet-adapter";
 import { toast } from "react-toastify";
 import { appConfig } from "@/config";
 

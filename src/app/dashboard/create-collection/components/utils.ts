@@ -7,12 +7,14 @@ export const loadFile = async (fileList: FileList) => {
     }
 
     const collectionFiles = files.filter((file) => file.name.includes("collection"));
+
     if (collectionFiles.length !== 2) {
         throw new Error("Please make sure you include both collection.json and collection image file");
     }
 
     // Check collection.json file exists
     const collectionMetadata = collectionFiles.find((file) => file.name === "collection.json");
+
     if (!collectionMetadata) {
         throw new Error("Collection metadata not found, please make sure you include collection.json file");
     }
@@ -20,6 +22,7 @@ export const loadFile = async (fileList: FileList) => {
     const collectionCover = collectionFiles.find((file) =>
         VALID_MEDIA_EXTENSIONS.some((ext) => file.name.endsWith(`.${ext}`)),
     );
+
     if (!collectionCover) {
         throw new Error("Collection cover not found, please make sure you include the collection image file");
     }
@@ -59,6 +62,7 @@ export const loadFile = async (fileList: FileList) => {
     // Check total file size doesn't exceed 2GB due to a Browse constraints
     const GIGABYTE = Math.pow(1024, 3);
     const MAX_SIZE = 2 * GIGABYTE;
+
     if (totalFileSize > MAX_SIZE) {
         throw new Error("Files size should not exceed 2GB");
     }
@@ -66,11 +70,13 @@ export const loadFile = async (fileList: FileList) => {
     for (const file of files) {
         if (file.name === 'collection.json') {
             const reader = new FileReader();
+
             reader.onload = (event) => {
                 if(!event.target) return;
                 try {
                     if (typeof event.target.result === "string") {
                         const jsonData = JSON.parse(event.target.result);
+
                         console.log(jsonData);
                     }
                 } catch (error: Error | any) {

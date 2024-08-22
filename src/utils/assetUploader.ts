@@ -1,6 +1,7 @@
 import { checkIfFund, uploadFolder } from "@/utils/irys";
 
 const VALID_MEDIA_EXTENSIONS = ["png", "jpg", "jpeg", "gltf"];
+
 type CollectionMetadata = {
   name: string;
   description: string;
@@ -31,17 +32,20 @@ export const uploadCollectionData = async (
 }> => {
   // Convert FileList type into a File[] type
   const files: File[] = [];
+
   for (let i = 0; i < fileList.length; i++) {
     files.push(fileList[i]);
   }
 
   const collectionFiles = files.filter((file) => file.name.includes("collection"));
+
   if (collectionFiles.length !== 2) {
     throw new Error("Please make sure you include both collection.json and collection image file");
   }
 
   // Check collection.json file exists
   const collectionMetadata = collectionFiles.find((file) => file.name === "collection.json");
+
   if (!collectionMetadata) {
     throw new Error("Collection metadata not found, please make sure you include collection.json file");
   }
@@ -49,6 +53,7 @@ export const uploadCollectionData = async (
   const collectionCover = collectionFiles.find((file) =>
     VALID_MEDIA_EXTENSIONS.some((ext) => file.name.endsWith(`.${ext}`)),
   );
+
   if (!collectionCover) {
     throw new Error("Collection cover not found, please make sure you include the collection image file");
   }
@@ -88,6 +93,7 @@ export const uploadCollectionData = async (
   // Check total file size doesn't exceed 2GB due to a Browse constraints
   const GIGABYTE = Math.pow(1024, 3);
   const MAX_SIZE = 2 * GIGABYTE;
+
   if (totalFileSize > MAX_SIZE) {
     throw new Error("Files size should not exceed 2GB");
   }
@@ -97,6 +103,7 @@ export const uploadCollectionData = async (
 
   if (funded) {
     let imageFolderReceipt: string;
+
     try {
       // Upload collection thumbnail image and all NFT images as a folder
       imageFolderReceipt = await uploadFolder(aptosWallet, [...imageFiles, collectionCover]);
@@ -107,6 +114,7 @@ export const uploadCollectionData = async (
 
     // Update collection metadata with the cover image
     const parsedCollectionMetadata: CollectionMetadata = JSON.parse(await collectionMetadata.text());
+
     parsedCollectionMetadata.image = `${imageFolderReceipt}/collection.${mediaExt}`;
     const updatedCollectionMetadata = new File([JSON.stringify(parsedCollectionMetadata)], "collection.json", {
       type: collectionMetadata.type,
@@ -117,6 +125,7 @@ export const uploadCollectionData = async (
       nftImageMetadatas.map(async (file) => {
         const metadata: ImageMetadata = JSON.parse(await file.text());
         const imageUrl = `${imageFolderReceipt}/${file.name.replace("json", `${mediaExt}`)}`;
+
         tokenNames.push(file.name.replace(".json", ""));
         metadata.image = imageUrl;
         const fileMetadata = new File([JSON.stringify(metadata)], file.name, {

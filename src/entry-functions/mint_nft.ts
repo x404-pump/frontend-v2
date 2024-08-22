@@ -8,6 +8,7 @@ export type MintNftArguments = {
 
 export const mintNFT = (args: MintNftArguments): InputTransactionData => {
   const { collectionId, amount } = args;
+
   return {
     data: {
       function: `${appConfig.constants.X404LIQUIDNFT_MODULE_ADDRESS}::launchpad::mint_nft`,

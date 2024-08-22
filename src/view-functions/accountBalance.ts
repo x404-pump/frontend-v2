@@ -13,5 +13,6 @@ export const accountAPTBalance = async (args: AccountAPTBalanceArguments): Promi
       functionArguments: [accountAddress],
     },
   });
+
   return balance[0];
 };

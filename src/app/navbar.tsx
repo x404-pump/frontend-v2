@@ -1,12 +1,11 @@
 'use client';
 
-import {usePathname} from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import {
   Navbar as NextUINavbar,
   NavbarContent,
   NavbarMenu,
   NavbarMenuToggle,
-  NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
 } from "@nextui-org/navbar";
@@ -56,14 +55,6 @@ export const Navbar = () => {
         <NavbarItem className="hidden sm:flex gap-2">
           <ThemeSwitch />
         </NavbarItem>
-        {isDashboard && (
-          <>
-            <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
-            <NavbarItem className="hidden md:flex">
-              <ConnectWalletDialog />
-            </NavbarItem>
-          </>
-        )}
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">

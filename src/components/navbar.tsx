@@ -1,6 +1,6 @@
 'use client';
 
-import {usePathname} from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -27,10 +27,12 @@ import {
   Logo,
 } from "@/components/icons";
 import { ConnectWalletDialog } from "./WalletSelector";
+import React from 'react';
 
-export const Navbar = () => {
+const Navbar = () => {
   const pathname = usePathname();
   const isDashboard = pathname === '/dashboard';
+  const [isBlurred, setIsBlurred] = React.useState(false);
 
   const searchInput = (
     <Input
@@ -54,8 +56,31 @@ export const Navbar = () => {
     />
   );
 
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 256) {
+        setIsBlurred(true);
+      } else {
+        setIsBlurred(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <NextUINavbar maxWidth="xl" position="sticky">
+    <NextUINavbar
+      maxWidth="xl"
+      position="sticky"
+      isBlurred={isBlurred}
+      className={clsx(
+        "bg-transparent",
+      )}
+    >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-2" href="/">
@@ -138,3 +163,5 @@ export const Navbar = () => {
     </NextUINavbar>
   );
 };
+
+export default Navbar;
