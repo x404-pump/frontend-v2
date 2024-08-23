@@ -19,7 +19,7 @@ export function FlexSection() {
             id="x404-flex"
             className={clsx(
                 "relative flex flex-col items-center justify-center w-full",
-                "py-32 md:py-64 overflow-visible z-10 2xl:mb-96"
+                "py-32 md:py-64 overflow-visible z-10 2xl:mb-64"
             )}
         >
             <div className="flex flex-col items-center gap-2 justify-center">

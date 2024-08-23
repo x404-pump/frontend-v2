@@ -5,7 +5,7 @@ export default function HeroIntroductionSection() {
     return (
         <section className={clsx(
             "flex flex-col-reverse md:flex-row w-full h-fit rounded-[64px] items-center justify-center gap-4 overflow-visible",
-            "p-8 md:p-16 z-10 my-32 md:my-64",
+            "p-8 md:p-16 z-10 mt-32 md:mt-64",
             "bg-foreground-50"
         )}>
             <div className="w-full flex flex-col items-center md:items-start space-y-2">

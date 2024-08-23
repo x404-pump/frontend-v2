@@ -58,7 +58,7 @@ export default function ServiceSection(props: ServiceSectionProps) {
     };
 
     return (
-        <section className="w-full flex flex-col justify-center items-center py-4 md:py-16">
+        <section className="w-full flex flex-col gap-8 justify-center items-center py-4 md:py-16">
             <SphereLightSvg width={"2048"} height={"2048"} className="absolute scale-50 2xl:scale-100 left-0 -translate-x-1/2 text-background -rotate-90 overflow-visible z-0" />
             <div className="w-full flex flex-col items-start gap-8 z-10 ml-auto  md:ml-[75vw]">
                 {

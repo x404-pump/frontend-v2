@@ -8,6 +8,7 @@ import { IntroductionSection } from "./components/IntroductionSection";
 import ServiceSection from "./components/SolutionSection";
 import { TX404YamlFile } from "@/types";
 import HeroIntroductionSection from "./components/HeroIntroductionSection";
+import HeroSolutionSection from "./components/HeroSolutionSection";
 
 function fetchX404AppYaml() {
   const x404AppFile = fs.readFileSync(path.join(process.cwd(), "config/x404.yaml"), "utf8");
@@ -21,6 +22,7 @@ export default function Home() {
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
       <HeroSection />
       <FlexSection />
+      <HeroSolutionSection />
       <ServiceSection app={x404.app} />
       <HeroIntroductionSection />
       <IntroductionSection app={x404.app}/>
