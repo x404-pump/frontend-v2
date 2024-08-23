@@ -1,7 +1,8 @@
-import { Chip } from "@nextui-org/chip";
+import { TX404AppYaml } from "@/types";
+import { Image } from "@nextui-org/image";
 import clsx from "clsx";
 
-interface ServiceCardProps {
+interface ServiceCardProps extends React.HTMLAttributes<HTMLDivElement> {
     title: string;
     description: string;
     tags?: string[];
@@ -10,82 +11,66 @@ interface ServiceCardProps {
         container?: string;
         title?: string;
         content?: string;
-    }
+    };
+    index?: number;
 }
 
-const services: {
-    title: string;
-    description: string;
-    tags?: string[];
-}[] = [
-        {
-            title: "NFT Operators",
-            description: "The best from tokens & NFTs No-code NFT Collection creation & instant launching",
-            tags: ["Token", "High quality", "Launchpad"],
-        },
-        {
-            title: "Care-free Trading",
-            description: "Evolving NFT Landscape...",
-            tags: ["NFT", "Trading", "Care free"],
-        },
-    ]
-
-function ServiceCard({ title, description, classNames, tags }: ServiceCardProps) {
+function FeatureCard({ title, description, classNames, tags, index }: ServiceCardProps) {
     return (
-        <div className={
-            clsx(
-                "flex flex-col gap-2 p-4 bg-foreground-50/95 rounded-2xl w-full h-full backdrop-blur-md border border-default/50",
-                classNames?.container
-            )
-        }>
+        <div
+            key={index}
+            className={
+                clsx(
+                    "flex flex-col items-center gap-2 p-4 bg-foreground-50 rounded-[32px] w-full h-full backdrop-blur-md border border-default/50",
+                    classNames?.container
+                )
+            }
+        >
+            <Image
+                src={`/assets/image-for-sol-${index}.svg`}
+                alt={title}
+                className="w-full"
+                classNames={{
+                    wrapper: "w-full"
+                }}
+            />
             <h2 className={clsx(
-                "text-2xl font-semibold text-secondary",
+                "text-2xl font-semibold text-foreground-900 text-center",
                 classNames?.title
-            )}>{title}</h2>
+            )}>
+                {title}
+            </h2>
             <p className={clsx(
                 "text-base text-default-500",
                 classNames?.content
-            )}>{description}</p>
-            {
-                tags && (
-                    <div className="flex flex-row gap-2 flex-wrap">
-                        {tags.map((tag) => (
-                            <Chip key={tag} variant="bordered" color="secondary" size="sm">{tag}</Chip>
-                        ))}
-                    </div>
-                )
-            }
+            )}>
+                {description}
+            </p>
         </div>
     )
 }
 
-export function IntroductionSection() {
+interface IntroductionSectionProps {
+    app: TX404AppYaml;
+}
+export function IntroductionSection({ app }: IntroductionSectionProps) {
     return (
         <section
             id="introduction"
-            className="w-full flex flex-col gap-8 justify-between py-8 md:py-16 relative"
+            className="w-full flex flex-col gap-8 justify-between items-center py-8 md:py-16 relative"
         >
-            <div
-                className="absolute top-0 left-0 bg-secondary w-[512px] rounded-full opacity-50 aspect-square blur-[180px] z-0"
-            />
             <h1 className="text-4xl font-bold text-default-foreground z-10">Introducing</h1>
-            <div className="flex flex-col md:flex-row gap-4">
-                <ServiceCard
-                    title={services[0].title}
-                    description={services[0].description}
-                    tags={services[0].tags}
-                    classNames={{
-                        container: "col-start-1 row-start-2 col-span-2 row-span-1 w-full h-full"
-                    }}
-                />
-                <ServiceCard
-                    title={services[1].title}
-                    description={services[1].description}
-                    tags={services[1].tags}
-                    classNames={{
-                        container: "col-start-2 row-start-2 col-span-2 row-span-1 w-full h-full"
-                    }}
-                />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {
+                    app.features && app.features.map((feature, index) => (
+                        <FeatureCard
+                            key={index}
+                            index={index + 1}
+                            title={feature.name}
+                            description={feature.description || ""}
+                        />
+                    ))
+                }
             </div>
         </section>
     )

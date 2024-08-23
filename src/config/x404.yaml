@@ -1,0 +1,48 @@
+app:
+  name: X404
+  hero: Fractional Ownership and Enhanced Liquidity for NFT Collections
+  description: No-code NFT Collection creation & instant launching
+  solutions:
+    - name: Benefits for Users & Creators
+      descriptions:
+        - Quick NFT creation & launching
+        - Fair exchange and fund raising platform
+      tags: 
+        - NFT Creation
+        - User Friendly
+        - Fund Raising
+    - name: For Blockchains
+      descriptions:
+        - New Token Standard, enrich the ecosystem
+        - Stimulate Community growth
+        - Significantly Boost Transaction Count and Transaction Volume
+      tags: 
+        - Token Standard
+        - Ecosystem Growth
+    - name: General
+      descriptions:
+        - Simplify access to NFT purchase
+        - Boost NFT liquidity
+        - Facilitate official listing on marketplace
+      tags: 
+        - NFT Access
+        - Liquidity
+  features:
+    - name: Wrap NFT into ERC404
+      description: 
+      tags:
+    - name: ERC404 in DeFi
+      description: 
+      tags: Liquidity mining (liquidity provision), collateral for lending protocols, deriatives, …
+    - name: Platform for users to interact, comment, social media
+      description: 
+      tags:
+    - name: Cross-chain NFT collection, bridge
+      description: 
+      tags:
+    - name: Governance token
+      description: Voting, whitelist chance
+      tags:
+    - name: Technical perspective
+      description: Randomness for NFT conversion,  Gasless creation
+      tags: 
