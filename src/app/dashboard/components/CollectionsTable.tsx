@@ -92,7 +92,7 @@ export function CollectionsTable() {
                 return (
                     <div className="flex items-center flex-row gap-2">
                         <Image
-                            src={collection.uri}
+                            src={collection.uri || collection.cdn_asset_uris?.cdn_image_uri}
                             alt={collection.collection_name}
                             radius="full"
                             fallbackSrc="https://via.placeholder.com/500x500"

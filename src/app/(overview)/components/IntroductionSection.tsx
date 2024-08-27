@@ -24,7 +24,7 @@ function FeatureCard({ title, description, classNames, tags, index }: ServiceCar
             key={index}
             className={
                 clsx(
-                    "flex flex-col items-center gap-2 p-4 bg-foreground-50 rounded-[64px] w-full h-full backdrop-blur-md border border-default/50",
+                    "flex flex-col items-center gap-2 p-2 md:p-4 bg-foreground-50 rounded-[32px] md:rounded-[64px] w-full h-full backdrop-blur-md border border-default/50",
                     classNames?.container
                 )
             }
@@ -42,13 +42,13 @@ function FeatureCard({ title, description, classNames, tags, index }: ServiceCar
                 }}
             />
             <h2 className={clsx(
-                "text-2xl font-semibold text-foreground-900 text-center",
+                "text-base md:text-2xl font-semibold text-foreground-900 text-center",
                 classNames?.title
             )}>
                 {title}
             </h2>
             <p className={clsx(
-                "text-base text-default-500",
+                "text-xs md:text-base text-default-500",
                 classNames?.content
             )}>
                 {description}

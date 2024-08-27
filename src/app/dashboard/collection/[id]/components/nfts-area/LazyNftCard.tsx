@@ -6,19 +6,27 @@ import { useRouter } from 'next/navigation';
 import { Tooltip } from '@nextui-org/tooltip';
 import clsx from 'clsx';
 
-import { truncate } from '@/lib';
+import { getImage, truncate } from '@/lib';
+import { ICurrentTokenDatasV2 } from '@/fetch-functions';
 
 
 interface NftCardProps extends React.HTMLAttributes<HTMLDivElement> {
-    token: Partial<GetTokenDataResponse>;
+    token: Partial<ICurrentTokenDatasV2>;
 }
 
 export function NftCard(props: NftCardProps) {
     const { token } = props;
     const router = useRouter();
+    const [imageSrc, setImageSrc] = useState<string | null>(null);
+    
+    const fetchImage = React.useCallback(async () => {
+        const image = await getImage(token);
+        setImageSrc(image);
+    }, [token]);
 
     React.useEffect(() => {
-    }, [token])
+        fetchImage();
+    }, [fetchImage]);
 
     return (
         <div
@@ -28,15 +36,16 @@ export function NftCard(props: NftCardProps) {
             onKeyDown={() => router.push(`/dashboard/nft/${token.token_data_id}`)}
         >
             <Image
-                src={token.token_uri}
+                src={imageSrc || ""}
                 alt={token.token_name}
                 className={clsx(
-                    "w-full aspect-square object-cover",
-                    token.token_uri ? "w-full" : "w-64"
+                    "w-full aspect-square object-cover"
                 )}
+                width={'100%'}
+                height={'100%'}
                 radius="lg"
-                isLoading={!token.token_uri}
-                fallbackSrc="https://via.placeholder.com/128x128"
+                isLoading={!imageSrc}
+                fallbackSrc="https://via.placeholder.com/500x500"
                 loading="lazy"
             />
             <div className="w-full">
@@ -53,7 +62,7 @@ export function NftCard(props: NftCardProps) {
 }
 
 interface LazyNftCardProps {
-    token: Partial<GetTokenDataResponse>;
+    token: Partial<ICurrentTokenDatasV2>;
 }
 
 const LazyNftCard: React.FC<LazyNftCardProps> = ({ token }) => {

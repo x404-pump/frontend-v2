@@ -50,29 +50,29 @@ const items: {
             icon: <Store01Icon className="min-w-8 w-8" />,
         },
     ];
+
 const containerVariants = {
     collapsed: {
         width: 0,
         minWidth: 0,
         transition: {
-            duration: 0.5,
-            damping: 15,
+            duration: 0.3,
+            damping: 10,
         },
     },
     expanded: {
         width: "16rem",
         minWidth: "16rem",
         transition: {
-            duration: 0.5,
-            damping: 15,
+            duration: 0.3,
+            damping: 10,
         },
     },
 };
 
-
 export function SideBar() {
     const containerControl = useAnimationControls();
-    const { isExpanded } = useSidebarControl();
+    const { setIsExpanded, isExpanded } = useSidebarControl();
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
@@ -116,16 +116,15 @@ export function SideBar() {
                                 key={item.href}
                                 startContent={item.icon}
                                 href={item.href}
+                                onClick={() => setIsExpanded(false)}
                                 classNames={{
                                     base: clsx(
                                         "w-full text-default-500",
                                         "hover:border hover:border-default/50",
                                         "rounded-large px-3 py-1.5",
                                         "data-[hover=true]:bg-foreground-50",
-
                                     ),
                                 }}
-
                             >
                                 {item.label}
                             </ListboxItem>
@@ -168,6 +167,6 @@ export function SideBar() {
                     </ListboxItem>
                 </Listbox>
             </li>
-        </m.nav >
+        </m.nav>
     );
 }

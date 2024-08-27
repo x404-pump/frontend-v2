@@ -55,20 +55,16 @@ export default async function Page({
 
     return (
         <Providers nft={nft} nftMarketplaceListings={nftMarketplaceListings}>
-            <div className="container mx-auto relative">
+            <div className="space-y-4 md:space-y-8 relative overflow-visible w-full">
                 <div className={clsx(
-                    "w-[30vw] aspect-square rounded-full bg-secondary/25 blur-[128px]",
-                    "absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none",
+                    "w-[100vw] h-72 md:h-64 blur-[128px] bg-gradient-to-b from-secondary/50 to-secondary/25",
+                    "absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none",
                 )} />
-                <div className={clsx(
-                    "w-[30vw] aspect-square rounded-full bg-secondary/25 blur-[128px]",
-                    "absolute top-1/2 right-0 translate-x-1/2 z-0 pointer-events-none",
-                )} />
-                <div className="mb-4">
+                <div className="mb-4 w-full">
                     <ImageArea />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
-                    <div className="flex flex-col gap-4 md:gap-8 md:col-span-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 w-full">
+                    <div className="flex flex-col gap-4 md:gap-8 md:col-span-2 w-full">
                         <ToolsArea />
                         <DescriptionArea />
                         <DetailsArea />

@@ -82,10 +82,13 @@ export interface ICurrentTokenDatasV2 {
 // ========================= COLLECTION =======================
 // ============================================================
 
-export async function getCurrentCollectionsV2(): Promise<ICurrentCollectionsV2[]> {
+export async function getCurrentCollectionsV2(offset?: number, limit?: number): Promise<ICurrentCollectionsV2[]> {
     const query = `
         query MyQuery {
-            current_collections_v2 {
+            current_collections_v2 (
+                limit: ${limit || 100},
+                offset: ${offset || 0},
+            ) {
                 collection_id
                 collection_name
                 creator_address

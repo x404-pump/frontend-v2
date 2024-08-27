@@ -41,6 +41,7 @@ export function NavBar() {
           maxWidth="full"
           classNames={{
             base: "bg-background/1 backdrop-blur-lg",
+            wrapper: "w-full",
           }}
           onMenuOpenChange={setIsMenuOpen}
       >

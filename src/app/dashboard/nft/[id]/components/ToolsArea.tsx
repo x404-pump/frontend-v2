@@ -31,19 +31,22 @@ export default function ToolsArea() {
     return (
         <div
             className={clsx(
-                "flex flex-col md:flex-row gap-4 justify-between items-center",
-                "px-8 py-5 rounded-3xl w-full",
+                "w-full flex flex-col md:flex-row gap-4 justify-between items-center",
+                "px-4 md:px-8 py-5 rounded-3xl w-full",
                 "bg-foreground-50 border border-default/25",
             )}
         >
             <div className="w-full">
                 <h3 className="text-2xl text-default-foreground font-semibold">{nft.token_name}</h3>
-                <div className="flex flex-row items-center justify-start gap-4">
-                    <span className="text-default-500 font-medium w-fit">Owned by</span>
+                <div className="flex flex-row items-center justify-start gap-4 w-full md:justify-between">
+                    <span className="text-default-500 font-medium w-fit text-base">Owned by</span>
                     <span className="text-yellow-500 font-medium cursor-pointer">
                         <Tooltip
                             content={ownerAddress}
                             placement="top"
+                            classNames={{
+                                content: "w-full break-words",
+                            }}
                         >
                             {truncateAddress(ownerAddress) || "-"}
                         </Tooltip>

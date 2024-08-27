@@ -4,18 +4,18 @@ import clsx from "clsx";
 export default function HeroIntroductionSection() {
     return (
         <section className={clsx(
-            "flex flex-col-reverse md:flex-row w-full h-fit rounded-[64px] items-center justify-center gap-4 overflow-visible",
+            "flex flex-col-reverse md:flex-row w-full h-fit rounded-[32px] md:rounded-[64px] items-center justify-center gap-4 overflow-visible",
             "p-8 md:p-16 z-10 mt-32 md:mt-64",
-            "bg-foreground-50"
+            "bg-secondary/25"
         )}>
             <div className="w-full flex flex-col items-center md:items-start space-y-2">
                 <div className="bg-gradient-to-r from-[rgba(0,0,0,0)] to-secondary rounded-full h-4 w-64" />
                 <h1
-                    className="text-4xl text-center md:text-start md:text-6xl capitalize font-normal text-default-foreground break-words w-full max-w-screen-sm"
+                    className="text-2xl text-center md:text-start md:text-6xl capitalize font-normal text-default-foreground break-words w-full max-w-screen-sm"
                 >
                     Discover all the <b>features</b> of the <span className="font-bold text-secondary">X404</span>
                 </h1>
-                <p className="text-base text-foreground-500 w-full break-words text-center md:text-start">What amazing features we bring for you</p>
+                <p className="text-sm md:text-base text-foreground-500 w-full break-words text-center md:text-start">What amazing features we bring for you</p>
             </div>
             <div className="relative">
                 <Image

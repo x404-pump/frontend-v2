@@ -12,7 +12,11 @@ export default function HeroSolutionSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    Solution - Introduction X404
+                    Solution - Introduction <span className='text-secondary'
+                        style={{
+                            textShadow: '0 0 15px hsl(270 59% 58%)'
+                        }}
+                    >X404</span>
                 </motion.h1>
                 <motion.p
                     className="text-base text-default-500 w-full max-w-screen-sm break-words text-center"

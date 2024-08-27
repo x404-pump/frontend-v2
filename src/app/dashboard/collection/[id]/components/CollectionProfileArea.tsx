@@ -28,6 +28,7 @@ function Field({ label, value, icon }: { label?: string; value?: string, icon?: 
                 variant="light"
                 className="cursor-pointer opacity-75 hover:opacity-100 transition-opacity duration-200 ease-in-out"
                 startContent={icon}
+
             >
                 {value || "-"}
             </Chip>
@@ -39,19 +40,20 @@ function Profile() {
     const collection = useCollection();
 
     return (
-        <div className="w-fit h-fit flex flex-col gap-4 items-center md:items-start">
+        <div className="w-fit h-fit flex flex-col gap-4 items-start">
             <Image
-                src={collection.uri}
+                src={collection.cdn_asset_uris?.cdn_image_uri || collection.uri || ""}
                 alt={collection.collection_name}
                 radius="full"
                 classNames={{
-                    wrapper: "object-cover aspect-square w-32",
+                    wrapper: "object-cover aspect-square w-16 md:w-32",
                 }}
+                isLoading={!collection.cdn_asset_uris?.cdn_image_uri}
                 fallbackSrc="https://via.placeholder.com/500x500"
                 loading="lazy"
             />
             <h1 className="flex flex-row gap-2 items-center justify-start">
-                <span className="text-2xl font-bold text-foreground-900">{collection.collection_name}</span>
+                <span className="text-2xl font-bold text-foreground-900 text-center md:text-start">{collection.collection_name}</span>
                 <span><CheckmarkBadge01Icon className="text-success" size={24} /></span>
             </h1>
             <Tooltip
@@ -80,7 +82,7 @@ function Profile() {
                 </Chip>
             </Tooltip>
             <div className="w-full">
-                <p className="text-base text-foreground-800 w-full break-words text-center md:text-start">{collection.description || "No description available"}</p>
+                <p className="text-sm md:text-base text-foreground-800 w-full break-words text-start">{collection.description || "No description available"}</p>
             </div>
         </div>
     );
@@ -121,7 +123,7 @@ function Details() {
                         value={detail.value}
                         icon={detail.icon}
                     />
-                    {index < details.length - 1 && <Divider orientation="vertical" className="w-1 rounded-full h-4"/>}
+                    {index < details.length - 1 && <Divider orientation="vertical" className="w-1 rounded-full h-4" />}
                 </React.Fragment>
             ))}
         </div>
@@ -129,7 +131,7 @@ function Details() {
 }
 function Tools() {
     return (
-        <div className="flex flex-row gap-4 items-center">
+        <div className="flex flex-row gap-4 items-center md:items-end w-full md:w-fit">
             <MintToken />
         </div>
     );

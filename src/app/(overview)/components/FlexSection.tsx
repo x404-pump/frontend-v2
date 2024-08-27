@@ -16,7 +16,7 @@ export function FlexSection() {
 
     return (
         <section
-            id="x404-flex"
+            id="flex"
             className={clsx(
                 "relative flex flex-col items-center justify-center w-full",
                 "py-32 md:py-64 overflow-visible z-10 2xl:mb-64"

@@ -60,6 +60,7 @@
 		"react-responsive": "^10.0.0",
 		"react-simple-typewriter": "^5.0.1",
 		"react-toastify": "^10.0.5",
+		"resize-observer-polyfill": "^1.5.1",
 		"webpack": "^5.93.0"
 	},
 	"devDependencies": {

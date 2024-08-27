@@ -27,7 +27,7 @@ function ActivityCard({ activity }: { activity: GetTokenActivityResponse[0] }) {
 
     return (
         <div className="flex flex-col gap-2 p-4 bg-foreground-50 rounded-[20px] border border-default/25">
-            <div className="flex flex-row items-center justify-between">
+            <div className="flex flex-row flex-wrap gap-2 items-center justify-between">
                 <Chip
                     color="secondary"
                     variant="bordered"
