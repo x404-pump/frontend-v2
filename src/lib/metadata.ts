@@ -1,4 +1,4 @@
-import { ICurrentTokenDatasV2 } from "@/frontend-next/src/fetch-functions";
+import { ICurrentTokenDatasV2 } from "@/fetch-functions";
 
 export async function getImage(token: Partial<ICurrentTokenDatasV2> | ICurrentTokenDatasV2): Promise<string | null> {
     if (!token.token_uri) {
