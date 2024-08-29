@@ -9,6 +9,7 @@ import { TX404YamlFile } from "@/types";
 import HeroIntroductionSection from "./components/HeroIntroductionSection";
 import HeroSolutionSection from "./components/HeroSolutionSection";
 import { FlexSection } from "./components/FlexSection";
+import DemoCreateCollectionSection from "./components/DemoCreateCollectionSection";
 
 function fetchX404AppYaml() {
   const x404AppFile = fs.readFileSync(path.join(process.cwd(), "config/x404.yaml"), "utf8");
@@ -24,6 +25,7 @@ export default function Home() {
         <FlexSection />
         <HeroSolutionSection />
         <ServiceSection app={x404.app} />
+        <DemoCreateCollectionSection />
         <HeroIntroductionSection />
         <IntroductionSection app={x404.app} />
       </section>

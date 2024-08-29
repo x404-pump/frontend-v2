@@ -1,16 +1,19 @@
 'use client';
+import { useState } from 'react';
 import { Chip } from "@nextui-org/chip";
 import dynamic from "next/dynamic";
 import { motion } from 'framer-motion';
 import { TX404AppYaml } from "@/types";
+import clsx from "clsx";
 
-const SphereLightSvg = dynamic(() => import('../assets/LightSphereSvg'), { ssr: false });
 
 interface SolutionCardProps extends React.HTMLAttributes<HTMLDivElement> {
     tags?: string[];
     title?: string;
     tagline?: string;
     descriptions?: string[];
+    isHovered?: boolean;
+    onHover?: (hovered: boolean) => void;
 }
 
 function SolutionCard(props: SolutionCardProps) {
@@ -19,15 +22,28 @@ function SolutionCard(props: SolutionCardProps) {
         title,
         tagline,
         descriptions,
+        isHovered,
+        onHover,
         ...rest
     } = props;
 
     return (
-        <div className="flex flex-col items-start w-full gap-4">
-            <div className="w-full flex flex-row flex-wrap gap-4">
+        <div
+            className={clsx(
+                "flex flex-col items-start justify-start w-full h-fit gap-4",
+                "p-4 md:p-8 rounded-[32px] border border-default/25",
+                "bg-transparent hover:bg-gradient-to-b from-secondary-500 to-secondary-700/0 to-85%",
+                "relative z-50",
+                "transition-transform-colors duration-1000 ease-in-out",
+                { 'hovered': isHovered }
+            )}
+            onMouseEnter={() => onHover?.(true)}
+            onMouseLeave={() => onHover?.(false)}
+        >
+            <div className="w-full flex flex-row justify-start flex-wrap gap-4">
                 {
                     tags?.map((tag, index) => (
-                        <Chip key={index} color="default" variant="bordered" className="border-default-foreground">{tag}</Chip>
+                        <Chip key={index} color="default" size="sm" variant="bordered" className="border-default-foreground">{tag}</Chip>
                     ))
                 }
             </div>
@@ -51,6 +67,7 @@ interface ServiceSectionProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 export default function ServiceSection(props: ServiceSectionProps) {
     const { app } = props;
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(0);
 
     const variants = {
         hidden: { opacity: 0, y: 50 },
@@ -58,28 +75,33 @@ export default function ServiceSection(props: ServiceSectionProps) {
     };
 
     return (
-        <section className="w-full flex flex-col gap-8 justify-center items-center py-4 md:py-16">
-            <SphereLightSvg width={"2048"} height={"2048"} className="absolute scale-50 2xl:scale-100 left-0 md:-translate-x-1/2 text-background -rotate-90 overflow-visible z-0" />
-            <div className="w-full flex flex-col items-start gap-8 z-10 ml-auto  md:ml-[75vw]">
-                {
-                    app.features && app.solutions.map((solution, index) => (
-                        <motion.div
-                            key={index}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            variants={variants}
-                            transition={{ duration: 1, delay: 0.2 * index }}
-                        >
-                            <SolutionCard
-                                tags={solution.tags}
-                                title={solution.name}
-                                descriptions={solution.descriptions}
+        <section className="w-full flex flex-col md:flex-row gap-16  items-center py-4">
+            {
+                app.features && app.solutions.map((solution, index) => (
+                    <motion.div
+                        key={index}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={variants}
+                        transition={{ duration: 1, delay: 0.2 * index }}
+                        className="relative overflow-visible"
+                    >
+                        <SolutionCard
+                            tags={solution.tags}
+                            title={solution.name}
+                            descriptions={solution.descriptions}
+                            isHovered={hoveredIndex === index}
+                            onHover={(hovered) => setHoveredIndex(hovered ? index : null)}
+                        />
+                        {hoveredIndex === index && (
+                            <div
+                                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-secondary blur-[64px] rounded-lg"
                             />
-                        </motion.div>
-                    ))
-                }
-            </div>
+                        )}
+                    </motion.div>
+                ))
+            }
         </section>
     )
 }

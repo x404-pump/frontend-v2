@@ -29,15 +29,11 @@ export default function Layout({
 }) {
   return (
     <div className="flex flex-col h-fit overflow-x-clip w-full relative">
-      <Image
-        src="/assets/pattern-light-sphere.svg"
-        alt="ligth sphere"
-        width={'auto'}
-        height={'auto'}
-        className="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2"
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[75vw] aspect-[3/1] bg-gradient-to-b from-secondary-500 to-secondary-700/0 blur-[128px] rounded-full"
       />
       <Navbar />
-      <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
+      <main className="container mx-auto max-w-7xl pt-4 px-6 flex-grow">
         {children}
       </main>
       <Footer />

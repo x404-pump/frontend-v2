@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 export default function HeroSolutionSection() {
     return (
-        <section className="w-full my-64">
+        <section className="w-full my-4">
             <div className="flex flex-col items-center justify-center">
                 <motion.h1
                     className="text-4xl font-bold text-default-foreground z-10 text-center"
