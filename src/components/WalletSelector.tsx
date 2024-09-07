@@ -8,15 +8,14 @@ import {
     partitionWallets,
     useWallet,
 } from "@aptos-labs/wallet-adapter-react";
-import { useMedia } from "@/hooks";
 import React from "react";
 import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from "@nextui-org/modal";
 import { Button } from "@nextui-org/button";
+import { Wallet01Icon } from "hugeicons-react";
 
 function ConnectWalletDialog() {
     const { wallets = [], connected, account, isLoading, disconnect } = useWallet();
     const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
-    const { isMobile } = useMedia();
     const {
         /** Wallets that use social login to create an account on the blockchain */
         aptosConnectWallets,
@@ -35,8 +34,17 @@ function ConnectWalletDialog() {
 
     return (
         <>
-            <Button fullWidth variant={'solid'} size={'md'} radius="full" className="bg-foreground-900 text-foreground-100 font-semibold" isLoading={isLoading} onClick={onOpen}>
-                {isLoading ? "Loading..." : "Connect Wallet"}
+            <Button
+                fullWidth
+                variant={'solid'}
+                size={'md'}
+                radius="full"
+                className="bg-foreground-900 text-foreground-100 font-semibold"
+                isLoading={isLoading}
+                onClick={onOpen}
+                isIconOnly
+            >
+                <Wallet01Icon />
             </Button>
             <Modal className="max-h-screen overflow-auto py-4" isOpen={isOpen} onOpenChange={onOpenChange} radius="lg" size="lg">
                 <ModalContent>

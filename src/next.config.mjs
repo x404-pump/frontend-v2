@@ -3,14 +3,10 @@
 const nextConfig = {
     webpack: (config, { isServer }) => {
         if (!isServer) {
-            // Cấu hình cho môi trường client-side
             config.resolve.fallback = {
-                ...config.resolve.fallback,
-                crypto: false,  
-                stream: false,
+                crypto: false,
             };
         }
-
         return config;
     },
 };

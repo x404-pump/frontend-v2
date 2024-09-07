@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
 import { Chip } from "@nextui-org/chip";
-import dynamic from "next/dynamic";
 import { motion } from 'framer-motion';
 import { TX404AppYaml } from "@/types";
 import clsx from "clsx";
@@ -30,7 +29,7 @@ function SolutionCard(props: SolutionCardProps) {
     return (
         <div
             className={clsx(
-                "flex flex-col items-start justify-start w-full h-fit gap-4",
+                "flex flex-col items-start justify-start w-full h-full gap-4",
                 "p-4 md:p-8 rounded-[32px] border border-default/25",
                 "bg-transparent hover:bg-gradient-to-b from-secondary-500 to-secondary-700/0 to-85%",
                 "relative z-50",
@@ -75,7 +74,7 @@ export default function ServiceSection(props: ServiceSectionProps) {
     };
 
     return (
-        <section className="w-full flex flex-col md:flex-row gap-16  items-center py-4">
+        <section className="w-full flex flex-col md:flex-row gap-16 items-start py-4">
             {
                 app.features && app.solutions.map((solution, index) => (
                     <motion.div
@@ -85,7 +84,7 @@ export default function ServiceSection(props: ServiceSectionProps) {
                         viewport={{ once: true }}
                         variants={variants}
                         transition={{ duration: 1, delay: 0.2 * index }}
-                        className="relative overflow-visible"
+                        className="relative overflow-visible h-full"
                     >
                         <SolutionCard
                             tags={solution.tags}

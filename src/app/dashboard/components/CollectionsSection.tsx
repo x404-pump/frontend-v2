@@ -1,9 +1,9 @@
 import { Tabs, Tab } from "@nextui-org/tabs";
+import dynamic from "next/dynamic";
 
+const DynamicCollectionsTable = dynamic(() => import("./CollectionsTable"));
 
-import { CollectionsTable } from "./CollectionsTable";
-
-export function CollectionsSection() {
+export default function CollectionsSection() {
     return (
         <section className="w-full mt-8">
             <Tabs
@@ -14,7 +14,7 @@ export function CollectionsSection() {
                     key={'collections'}
                     title={'Collections'}
                 >
-                    <CollectionsTable />
+                    <DynamicCollectionsTable />
                 </Tab>
                 <Tab
                     key={'nfts'}

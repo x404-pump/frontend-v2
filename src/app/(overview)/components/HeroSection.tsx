@@ -2,15 +2,19 @@
 
 import { IoRocketSharp } from "react-icons/io5";
 import { Button } from '@nextui-org/button';
-import Spline from '@splinetool/react-spline';
 import { motion } from 'framer-motion';
-
-import { GradientBorder } from '@/components/GradientBorder';
 import { useRouter } from 'next/navigation';
 import { ArrowDown01Icon } from 'hugeicons-react';
 import { Image } from "@nextui-org/image";
+import dynamic from "next/dynamic";
 
-export function HeroSection() {
+import { GradientBorder } from '@/components/GradientBorder';
+
+
+
+const DynamicSpline = dynamic(() => import('@splinetool/react-spline'));
+
+export default function HeroSection() {
     const router = useRouter();
 
     const handleScroll = () => {
@@ -37,7 +41,7 @@ export function HeroSection() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1 }}
                 >
-                    <Spline
+                    <DynamicSpline
                         scene="https://draft.spline.design/NqRsjdQPUgyBMUmX/scene.splinecode"
                         className='w-fit h-fit z-10'
                         style={{
@@ -65,7 +69,7 @@ export function HeroSection() {
                                 radius='full'
                                 color='secondary'
                                 endContent={<IoRocketSharp size={16} />}
-                                className="bg-secondary-200"
+                                className="bg-secondary"
                                 onClick={() => router.push('../dashboard')}
                             >
                                 Lauch now

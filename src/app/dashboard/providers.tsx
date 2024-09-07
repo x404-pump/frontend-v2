@@ -1,6 +1,5 @@
 "use client";
 
-import { SidebarControlProvider } from "./sidebar";
 
 interface ProvidersProps {
     children: React.ReactNode;
@@ -8,8 +7,8 @@ interface ProvidersProps {
 
 export function Providers({ children }: ProvidersProps) {
     return (
-        <SidebarControlProvider>
+        <>
             {children}
-        </SidebarControlProvider>
+        </>
     );
 }

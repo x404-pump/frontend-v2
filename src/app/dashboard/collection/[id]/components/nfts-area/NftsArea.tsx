@@ -26,7 +26,7 @@ export function NftsArea() {
         >
             {
                 isLoading
-                    ? Array.from({ length: 5 }).map((_, i) => (
+                    ? Array.from({ length: 100}).map((_, i) => (
                         <Skeleton key={i} className="w-full aspect-square rounded-2xl" />
                     ))
                     : data?.map((token) => (

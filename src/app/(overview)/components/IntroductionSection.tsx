@@ -60,7 +60,7 @@ function FeatureCard({ title, description, classNames, tags, index }: ServiceCar
 interface IntroductionSectionProps {
     app: TX404AppYaml;
 }
-export function IntroductionSection({ app }: IntroductionSectionProps) {
+export default function IntroductionSection({ app }: IntroductionSectionProps) {
     return (
         <section
             id="introduction"

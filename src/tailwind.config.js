@@ -1,4 +1,4 @@
-import { colors, nextui } from '@nextui-org/theme'
+import { colors, nextui, commonColors } from '@nextui-org/theme'
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -10,9 +10,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        secondary: {
-          DEFAULT: 'hsl(270, 59%, 58%)',
-        },
+        primary: {
+          DEFAULT: commonColors.purple[400],
+          ...commonColors.purple
+
+        }
       },
     },
 
@@ -20,12 +22,18 @@ module.exports = {
   darkMode: "class",
   plugins: [nextui({
     addCommonColors: true,
-    prefix: 'next',
+    prefix: 'my',
     themes: {
       dark: {
         extend: 'dark',
         colors: {
           background: '#090A0B',
+        }
+      },
+      light: {
+        extend: 'light',
+        colors: {
+          background: '#F7F8F8',
         }
       }
     }

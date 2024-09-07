@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 
 const RectangleForFlexSvg = dynamic(() => import('../assets/RectangleForFlexSvg'), { ssr: false });
 
-export function FlexSection() {
+export default function FlexSection() {
     const variants = {
         hidden: { opacity: 0, y: 50 },
         visible: { opacity: 1, y: 0 }

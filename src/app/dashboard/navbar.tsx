@@ -1,18 +1,14 @@
 'use client';
 
 import React from "react";
-import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Kbd } from "@nextui-org/kbd";
 import { Navbar, NavbarContent, NavbarItem } from "@nextui-org/navbar";
 
-import { SidebarLeftIcon } from "hugeicons-react";
-import { useSidebarControl } from "./sidebar";import { SearchIcon } from "@/components/icons";
+import { SearchIcon } from "@/components/icons";
 import { ThemeSwitch } from "@/components/theme-switch";
 
 export function NavBar() {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const { toggleIsExpanded } = useSidebarControl();
 
   const searchInput = (
       <Input
@@ -43,23 +39,11 @@ export function NavBar() {
             base: "bg-background/1 backdrop-blur-lg",
             wrapper: "w-full",
           }}
-          onMenuOpenChange={setIsMenuOpen}
       >
           <NavbarContent
               className="flex basis-1/5 sm:basis-full"
               justify="start"
           >
-              <NavbarItem>
-                  <Button
-                      aria-label="Open sidebar"
-                      isIconOnly
-                      radius="full"
-                      variant="light"
-                      onClick={toggleIsExpanded}
-                  >
-                      <SidebarLeftIcon size={24} />
-                  </Button>
-              </NavbarItem>
               {searchInput}
           </NavbarContent>
 

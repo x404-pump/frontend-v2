@@ -10,7 +10,7 @@ export default function DemoCreateCollectionSection() {
             className='w-full flex flex-col items-center justify-center gap-4 my-64'
         >
             <div className='flex flex-col items-center justify-center gap-0'>
-                <h1 className='text-lg md:text-4xl font-bold text-default-foreground text-center'>
+                <h1 className='text-2xl md:text-4xl font-bold text-default-foreground text-center'>
                     No-code NFT Collection
                     <br/>
                     creation & instant launching

@@ -18,7 +18,7 @@ const columns = [
 
 const INITIAL_VISIBLE_COLUMNS = ["collection_name", "collection_id", "creator_address", "current_supply"];
 
-export function CollectionsTable() {
+export default function CollectionsTable() {
     const [filterValue, setFilterValue] = React.useState("");
     const [visibleColumns, setVisibleColumns] = React.useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS));
     const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({ column: "collection_id", direction: "ascending" });

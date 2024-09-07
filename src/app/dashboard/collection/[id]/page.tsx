@@ -4,6 +4,9 @@ import { NftsArea } from "./components/nfts-area/NftsArea";
 import { CollectionProfileArea } from "./components/CollectionProfileArea";
 import { getCollectionData } from "@/fetch-functions/collection";
 import { notFound } from "next/navigation";
+import dynamic from "next/dynamic";
+
+const DynamicTrader = dynamic(() => import("./components/Trader"));
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
     const { id } = params;
@@ -29,7 +32,7 @@ export default async function Page({
         collection = await getCollectionData(id) as any;
     } catch (error) {
     }
-    
+
     if (!collection) {
         return notFound();
     }
@@ -38,11 +41,10 @@ export default async function Page({
         <Providers collection={collection}>
             <div className="space-y-4 md:space-y-8">
                 <CollectionProfileArea />
-                <NftsArea />
-                {/* <div className={clsx(
-                    "w-[30vw] aspect-square rounded-full bg-secondary/25 blur-[128px]",
-                    "absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none",
-                )} /> */}
+                <div className="flex flex-col md:flex-row gap-8 w-full">
+                    <DynamicTrader />
+                    <NftsArea />
+                </div>
             </div>
         </Providers>
     );

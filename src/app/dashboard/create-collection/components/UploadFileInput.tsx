@@ -6,8 +6,8 @@ import { Tooltip } from '@nextui-org/tooltip';
 import clsx from 'clsx';
 import React, { useRef, useState } from 'react';
 import { MdDeleteOutline } from "react-icons/md";
-import { TiUpload } from "react-icons/ti";
 import { loadFile } from './utils';
+import { Upload04Icon } from 'hugeicons-react';
 
 interface UploadFileInputProps extends InputProps {
     isUploading: boolean;
@@ -35,7 +35,7 @@ const FileCard: React.FC<{ file: File, onDelete: (file: File) => void }> = ({ fi
             <p className='text-xs text-default-500'>{file.size} bytes</p>
             <Button
                 radius='full'
-                color='danger'
+                color='default'
                 variant='light'
                 isIconOnly
                 onClick={() => onDelete(file)}
@@ -84,26 +84,31 @@ const UploadFileInput: React.FC<UploadFileInputProps> = ({ isUploading, account,
     return (
         <div
             className={clsx(
-                'flex flex-col gap-4 items-center justify-center w-full min-w-fit max-w-sm',
+                'flex flex-col gap-4 items-start justify-center w-full',
                 'p-4 rounded-3xl bg-foreground-100 border border-default/25'
             )}
-        >
-            <TiUpload size={48} className='text-secondary' />
-            <input
-                ref={inputRef}
-                id="upload"
-                disabled={isUploading || !account}
-                multiple
-                type="file"
-                /* @ts-expect-error */
-                webkitdirectory="true"
-                style={{ display: 'none' }}
-                onChange={handleFileChange}
-                {...inputProps}
-            />
-            <h3 className='text-base font-normal text-foreground-900'>
-                Upload your metadata file
-            </h3>
+        >   <h6 className='text-lg font-semibold text-foreground-900'>Upload metadata</h6>
+            <div
+                className='w-full flex flex-col items-center justify-center gap-4 rounded-3xl border border-default/25 p-8 cursor-pointer'
+                onClick={handleClick}
+            >
+                <Upload04Icon size={32} />
+                <input
+                    ref={inputRef}
+                    id="upload"
+                    disabled={isUploading || !account}
+                    multiple
+                    type="file"
+                    /* @ts-expect-error */
+                    webkitdirectory="true"
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                    {...inputProps}
+                />
+                <h3 className='text-sm font-normal text-foreground-500'>
+                    Drag & drop or click to choose files
+                </h3>
+            </div>
             {error && <p className='text-red-500'>{error}</p>}
             {files && (
                 <div className='w-full flex flex-col gap-2 items-start h-fit overflow-scroll'>
@@ -112,16 +117,6 @@ const UploadFileInput: React.FC<UploadFileInputProps> = ({ isUploading, account,
                     ))}
                 </div>
             )}
-            <Button
-                onClick={handleClick}
-                disabled={isUploading || !account}
-                fullWidth
-                radius='md'
-                color='secondary'
-                className='bg-yellow-500'
-            >
-                Upload Files
-            </Button>
         </div>
     );
 };
