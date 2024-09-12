@@ -1,7 +1,10 @@
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 
-const DynamicCreateCollectionForm = dynamic(() => import('./components/CreateCollectionForm'), { ssr: false });
+const DynamicCreateCollectionForm = dynamic(() => import('./components/CreateCollectionForm'), { 
+    ssr: false,
+        
+});
 const DynamicHeroSection = dynamic(() => import('./components/HeroSection'), { ssr: false });
 
 export const metadata: Metadata = {
