@@ -5,13 +5,13 @@ import yaml from "js-yaml";
 import { TX404YamlFile } from "@/types";
 import dynamic from "next/dynamic";
 
-const DynamicServiceSection = dynamic(() => import("./components/SolutionSection"));
-const DynamicHeroSection = dynamic(() => import("./components/HeroSection"));
-const DynamicIntroductionSection = dynamic(() => import("./components/IntroductionSection"));
-const DynamicHeroIntroductionSection = dynamic(() => import("./components/HeroIntroductionSection"));
-const DynamicHeroSolutionSection = dynamic(() => import("./components/HeroSolutionSection"));
-const DynamicFlexSection = dynamic(() => import("./components/FlexSection"));
-const DynamicDemoCreateCollectionSection = dynamic(() => import("./components/DemoCreateCollectionSection"));
+const ServiceSection = dynamic(() => import("./components/SolutionSection"));
+const HeroSection = dynamic(() => import("./components/HeroSection"));
+const IntroductionSection = dynamic(() => import("./components/IntroductionSection"));
+const HeroIntroductionSection = dynamic(() => import("./components/HeroIntroductionSection"));
+const HeroSolutionSection = dynamic(() => import("./components/HeroSolutionSection"));
+const FlexSection = dynamic(() => import("./components/FlexSection"));
+const DemoCreateCollectionSection = dynamic(() => import("./components/DemoCreateCollectionSection"));
 
 function fetchX404AppYaml() {
   const x404AppFile = fs.readFileSync(path.join(process.cwd(), "config/x404.yaml"), "utf8");
@@ -23,13 +23,13 @@ export default function Home() {
 
   return (
       <section className="flex flex-col items-center justify-center gap-4 py-4 md:py-10">
-        <DynamicHeroSection />
-        <DynamicFlexSection />
-        <DynamicHeroSolutionSection />
-        <DynamicServiceSection app={x404.app} />
-        <DynamicDemoCreateCollectionSection />
-        <DynamicHeroIntroductionSection />
-        <DynamicIntroductionSection app={x404.app} />
+        <HeroSection />
+        <FlexSection />
+        <HeroSolutionSection />
+        <ServiceSection app={x404.app} />
+        <DemoCreateCollectionSection />
+        <HeroIntroductionSection />
+        <IntroductionSection app={x404.app} />
       </section>
   );
 }

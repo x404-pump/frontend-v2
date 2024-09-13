@@ -12,7 +12,7 @@ import { GradientBorder } from '@/components/GradientBorder';
 
 
 
-const DynamicSpline = dynamic(() => import('@splinetool/react-spline'));
+const Spline = dynamic(() => import('@splinetool/react-spline'));
 
 export default function HeroSection() {
     const router = useRouter();
@@ -41,7 +41,7 @@ export default function HeroSection() {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1 }}
                 >
-                    <DynamicSpline
+                    <Spline
                         scene="https://draft.spline.design/NqRsjdQPUgyBMUmX/scene.splinecode"
                         className='w-fit h-fit z-10'
                         style={{

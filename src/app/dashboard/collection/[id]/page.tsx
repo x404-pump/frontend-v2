@@ -6,7 +6,7 @@ import { getCollectionData } from "@/fetch-functions/collection";
 import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
 
-const DynamicTrader = dynamic(() => import("./components/Trader"));
+const Trader = dynamic(() => import("./components/Trader"));
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
     const { id } = params;
@@ -42,7 +42,7 @@ export default async function Page({
             <div className="space-y-4 md:space-y-8">
                 <CollectionProfileArea />
                 <div className="flex flex-col md:flex-row gap-8 w-full">
-                    <DynamicTrader />
+                    <Trader />
                     <NftsArea />
                 </div>
             </div>

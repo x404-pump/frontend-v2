@@ -84,12 +84,12 @@ const UploadFileInput: React.FC<UploadFileInputProps> = ({ isUploading, account,
     return (
         <div
             className={clsx(
-                'flex flex-col gap-4 items-start justify-center w-full',
+                'flex flex-col gap-4 items-start justify-center w-full h-fit',
                 'p-4 rounded-3xl bg-foreground-100 border border-default/25'
             )}
         >   <h6 className='text-lg font-semibold text-foreground-900'>Upload metadata</h6>
             <div
-                className='w-full flex flex-col items-center justify-center gap-4 rounded-3xl border border-default/25 p-8 cursor-pointer'
+                className='w-full h-fit flex flex-col items-center justify-center gap-4 rounded-3xl border border-default/25 p-8 cursor-pointer'
                 onClick={handleClick}
             >
                 <Upload04Icon size={32} />

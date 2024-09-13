@@ -10,7 +10,7 @@ import { Tooltip } from "@nextui-org/tooltip";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 
-const DynamicWalletCard = dynamic(() => import("./WalletCard"));
+const WalletCard = dynamic(() => import("./WalletCard"));
 
 export const items: {
     label: string;
@@ -50,8 +50,8 @@ export default function SideBar() {
     return (
         <aside
             className={clsx(
-                "py-4 h-screen flex flex-col gap-4 items-center justify-center overflow-hidden",
-                "flex",
+                "py-4 h-full flex-col gap-4 items-center justify-center",
+                "md:flex hidden"
             )}
         >
             <Logo className="w-8 h-8" />
@@ -82,7 +82,7 @@ export default function SideBar() {
                     ))
                 }
             </Listbox>
-            <DynamicWalletCard />
+            <WalletCard />
         </aside>
     );
 }

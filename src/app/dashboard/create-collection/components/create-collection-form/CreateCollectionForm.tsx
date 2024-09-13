@@ -6,7 +6,7 @@ import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
-import { AutoCreateCoin } from "./AutoCreateCoin";
+import { AutoCreateCoin } from "../AutoCreateCoin";
 import { aptosClient } from "@/utils/aptosClient";
 import { createCollection } from "@/entry-functions/create_collection";
 import { uploadCollectionData } from "@/utils/assetUploader";
@@ -15,12 +15,10 @@ import { AccountAddress, createResourceAddress, MoveVector } from "@aptos-labs/t
 import { toast } from "react-toastify";
 import dynamic from "next/dynamic";
 
-export const runtime = "edge";
+const UploadFileInput = dynamic(() => import('../UploadFileInput'));
 
-const DynamicCollectionDetailArea = dynamic(() => import('./CollectionDetailArea'));
-const DynamicUploadFileInput = dynamic(() => import('./UploadFileInput'));
-
-export default function CreateCollectionForm() {
+interface CreateCollectionFormProps extends React.HTMLAttributes<HTMLFormElement> {}
+export default function CreateCollectionForm({ ...props }: CreateCollectionFormProps) {
     const aptosWallet = useWallet();
     const { account, wallet, signAndSubmitTransaction } = useWallet();
     const [isUploading, setIsUploading] = React.useState(false);
@@ -31,7 +29,8 @@ export default function CreateCollectionForm() {
     const [collectionDescription, setCollectionDescription] = React.useState<string | null>(null);
     const [imageSrc, setImageSrc] = React.useState<string | null>(null);
 
-    const onCreateCollection = async () => {
+    const onCreateCollection = async (e: any) => {
+        e.preventDefault();
         try {
             if (!account) throw new Error("Please connect your wallet");
             if (!files) throw new Error("Please upload files");
@@ -98,44 +97,46 @@ export default function CreateCollectionForm() {
             toast.error('Failed to create collection', {
                 type: 'error',
             });
+            console.error(error);
         } finally {
             setIsUploading(false);
         }
     };
 
     return (
-        <section className="mt-8 w-full overflow-visible relative flex flex-row justify-between items-start" id="create-collection-form">
-            <form className="relative w-full flex flex-col gap-8 items-start justify-start">
-                <div className="w-fit flex flex-row items-center gap-8 z-10">
-                    <DynamicUploadFileInput
-                        files={files}
-                        setFiles={setFiles}
-                        isUploading={isUploading}
-                        account={'account'}
-                    />
-                </div>
-                <div className="flex flex-row gap-8 items-center w-full">
-                    <Input
-                        label="Coin Address"
-                        className="w-[30vw]"
-                        description="You can type your coin address or create auto"
-                        fullWidth
-                        radius="full"
-                        placeholder="Enter collection name"
-                        labelPlacement="outside"
-                    />
-                    <AutoCreateCoin />
-                </div>
-                <Button
-                    type="submit"
-                    color="success"
+        <form className={clsx(
+            "relative h-full w-full flex flex-col gap-8 items-start",
+            props.className
+        )}>
+            <UploadFileInput
+                files={files}
+                setFiles={setFiles}
+                isUploading={isUploading}
+                account={'account'}
+            />
+            <div className="flex flex-row justify-between gap-4 items-center w-full h-fit">
+                <Input
+                    label="Coin Address"
+                    className="w-[30vw]"
+                    description="You can type your coin address or create auto"
+                    fullWidth
                     radius="full"
-                    size="md"
-                >
-                    Create
-                </Button>
-            </form>
-            <DynamicCollectionDetailArea />
-        </section>
+                    placeholder="Enter collection name"
+                    labelPlacement="outside"
+                    onChange={(e) => setCoinAdress(e.target.value)}
+                />
+                <AutoCreateCoin />
+            </div>
+            <Button
+                type="submit"
+                color="success"
+                radius="full"
+                size="lg"
+                fullWidth
+                onClick={onCreateCollection}
+            >
+                Create
+            </Button>
+        </form>
     );
 }

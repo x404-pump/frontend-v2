@@ -5,8 +5,8 @@ import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import dynamic from "next/dynamic";
 
-const DynamicNavbar = dynamic(() => import('@/components/navbar'), { ssr: false })
-const DynamicFooter = dynamic(() => import('./footer'), { ssr: false })
+const Navbar = dynamic(() => import('@/components/navbar'), { ssr: false })
+const Footer = dynamic(() => import('./footer'), { ssr: false })
 
 export const metadata: Metadata = {
   title: {
@@ -30,11 +30,11 @@ export default function Layout({
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[75vw] aspect-[3/1] bg-gradient-to-b from-secondary-500 to-secondary-700/0 blur-[128px] rounded-full"
       />
-      <DynamicNavbar />
+      <Navbar />
       <main className="container mx-auto max-w-7xl pt-4 px-6 flex-grow">
         {children}
       </main>
-      <DynamicFooter />
+      <Footer />
     </div>
   );
 }

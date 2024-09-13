@@ -1,11 +1,7 @@
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 
-const DynamicCreateCollectionForm = dynamic(() => import('./components/CreateCollectionForm'), { 
-    ssr: false,
-        
-});
-const DynamicHeroSection = dynamic(() => import('./components/HeroSection'), { ssr: false });
+const CreateCollectionForm = dynamic(() => import('./components/create-collection-form'));
 
 export const metadata: Metadata = {
     title: {
@@ -21,8 +17,7 @@ export const metadata: Metadata = {
 export default function Page() {
     return (
         <>
-            <DynamicHeroSection />
-            <DynamicCreateCollectionForm />
+            <CreateCollectionForm />
         </>
     )
 }
