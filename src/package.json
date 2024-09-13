@@ -10,12 +10,9 @@
 		"type-check": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@aptos-labs/ts-sdk": "^1.27.1",
 		"@aptos-labs/wallet-adapter-react": "^3.6.2",
 		"@irys/sdk": "^0.2.11",
-		"@irys/upload": "^0.0.4",
-		"@irys/upload-aptos": "^0.0.4",
-		"@irys/web-upload": "^0.0.4",
-		"@irys/web-upload-aptos": "^0.0.4",
 		"@keyv/redis": "^3.0.1",
 		"@nextui-org/accordion": "^2.0.38",
 		"@nextui-org/avatar": "^2.0.32",

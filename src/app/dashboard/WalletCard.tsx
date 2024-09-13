@@ -14,7 +14,7 @@ import { useAccount } from "@/hooks/useAccount";
 import { GradientBorder } from "@/components/GradientBorder";
 import { APTCoinIcon } from "@/components/icons";
 import { ConnectWalletDialog } from "@/components/WalletSelector";
-import { accountAPTBalance } from "@/view-functions/accountBalance";
+import { getAccountAPTBalance } from "@/view-functions/accountBalance";
 import { Copy02Icon, Logout04Icon, Wallet01Icon } from "hugeicons-react";
 
 export default function WalletCard() {
@@ -25,7 +25,7 @@ export default function WalletCard() {
 
     const fetchBalance = React.useCallback(async () => {
         if (!account) return;
-        const balance = await accountAPTBalance({
+        const balance = await getAccountAPTBalance({
             accountAddress: account.address,
         });
 

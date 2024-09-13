@@ -53,6 +53,7 @@ export default function Trader() {
         } catch (error: any) {
             if(error.message === 'Wallet not connected') {
                 toast.info('Please connect your wallet');
+
                 return;
             }
             toast.error(error.message);
@@ -79,6 +80,7 @@ export default function Trader() {
         } catch (error: any) {
             if(error.message === 'Wallet not connected') {
                 toast.info('Please connect your wallet');
+
                 return;
             }
             toast.error(error.message);

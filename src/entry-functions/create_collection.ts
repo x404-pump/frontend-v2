@@ -1,4 +1,4 @@
-import { MoveString, MoveVector } from "@aptos-labs/ts-sdk";
+import { MoveString, MoveVector, U64 } from "@aptos-labs/ts-sdk";
 import { InputTransactionData } from "@aptos-labs/wallet-adapter-react";
 
 import { appConfig } from "@/config";
@@ -6,32 +6,44 @@ import { appConfig } from "@/config";
 export type CreateCollectionArguments = {
   collectionDescription: string; // The collection description
   collectionName: string; // The collection name
-  projectUri: string;
-  tokenDescription: string,
+  collectionUri: string;
+  fa_symbol: string;
+  fa_icon: string;
+  supply: number;
+  tokenDescription: Array<string>
   tokenNames: Array<string>;
-  coinModuleAddress: string;
+  tokenUris: Array<string>;
+  amountAptIn: bigint; 
 };
 
 export const createCollection = (args: CreateCollectionArguments): InputTransactionData => {
   const {
     collectionDescription,
     collectionName,
-    projectUri,
+    collectionUri,
+    fa_symbol,
+    fa_icon,
+    supply,
     tokenDescription,
     tokenNames,
-    coinModuleAddress
+    tokenUris,
+    amountAptIn,
   } = args;
 
   return {
     data: {
-      function: `${appConfig.constants.X404LIQUIDNFT_MODULE_ADDRESS}::core::create_collection`,
-      typeArguments: [coinModuleAddress],
+      function: `${appConfig.constants.X404_ADDRESS}::bonding_curve_launchpad::create_fa_pair`,
       functionArguments: [
+        new U64(amountAptIn),
         new MoveString(collectionDescription),
+        new U64(supply),
         new MoveString(collectionName),
-        new MoveString(projectUri),
-        new MoveString(tokenDescription),
-        new MoveVector(tokenNames.map((tokenName) => new MoveString(tokenName)))
+        new MoveString(collectionUri),
+        new MoveString(fa_symbol),
+        new MoveString(fa_icon),
+        new MoveVector(tokenDescription.map((tokenDescription) => new MoveString(tokenDescription))),
+        new MoveVector(tokenNames.map((tokenName) => new MoveString(tokenName))),
+        new MoveVector(tokenUris.map((tokenUri) => new MoveString(tokenUri)))
       ] as any,
     },
   };

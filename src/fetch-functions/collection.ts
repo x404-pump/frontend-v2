@@ -1,4 +1,7 @@
+import { API_URL } from "@/config/contants";
 import { aptosClient } from "@/utils/aptosClient";
+import { AccountAddress } from "@aptos-labs/ts-sdk";
+import axios from "axios";
 
 // ============================================================
 // ========================= SCHEMA ===========================
@@ -32,6 +35,15 @@ export interface ICurrentCollectionsV2 {
         raw_image_uri?: string;
     }; // Assuming this is an object relationship
 }
+
+export type Collection = {
+  collection_address: AccountAddress;
+  collection_name: string;
+  collection_description: string;
+  collection_uri: string;
+  collection_creator: AccountAddress;
+  supply: number;
+};
 
 interface ICurrentTokenOwnershipsV2 {
     amount: number;
@@ -82,52 +94,60 @@ export interface ICurrentTokenDatasV2 {
 // ========================= COLLECTION =======================
 // ============================================================
 
-export async function getCurrentCollectionsV2(offset?: number, limit?: number): Promise<ICurrentCollectionsV2[]> {
-    const query = `
-        query MyQuery {
-            current_collections_v2 (
-                limit: ${limit || 100},
-                offset: ${offset || 0},
-            ) {
-                collection_id
-                collection_name
-                creator_address
-                current_supply
-                description
-                uri
-                collection_properties
-                total_minted_v2
-                cdn_asset_uris {
-                cdn_animation_uri
-                cdn_image_uri
-                cdn_json_uri
-                raw_animation_uri
-                raw_image_uri
-                }
-            }
-        }
-    `;
+// export async function getCurrentCollectionsV2(offset?: number, limit?: number): Promise<ICurrentCollectionsV2[]> {
+//     const query = `
+//         query MyQuery {
+//             current_collections_v2 (
+//                 limit: ${limit || 100},
+//                 offset: ${offset || 0},
+//             ) {
+//                 collection_id
+//                 collection_name
+//                 creator_address
+//                 current_supply
+//                 description
+//                 uri
+//                 collection_properties
+//                 total_minted_v2
+//                 cdn_asset_uris {
+//                 cdn_animation_uri
+//                 cdn_image_uri
+//                 cdn_json_uri
+//                 raw_animation_uri
+//                 raw_image_uri
+//                 }
+//             }
+//         }
+//     `;
 
-    const variables = {
-    };
+//     const variables = {
+//     };
 
-    try {
-        const res = await aptosClient().queryIndexer<{
-            current_collections_v2: ICurrentCollectionsV2[];
-        }>({
-            query: {
-                query,
-                variables
-            },
-        });
+//     try {
+//         const res = await aptosClient().queryIndexer<{
+//             current_collections_v2: ICurrentCollectionsV2[];
+//         }>({
+//             query: {
+//                 query,
+//                 variables
+//             },
+//         });
 
-        const collections = res.current_collections_v2;
+//         const collections = res.current_collections_v2;
 
-        return collections || [];
-    } catch (error) {
-        console.error("Error fetching collection data:", error);
-        throw new Error("Failed to fetch collection data");
-    }
+//         return collections || [];
+//     } catch (error) {
+//         console.error("Error fetching collection data:", error);
+//         throw new Error("Failed to fetch collection data");
+//     }
+// }
+
+export async function getCurrentCollectionsV2(offset?: number, limit?: number): Promise<Collection[]> {
+    const url = `${API_URL}/api/v1/collections?limit=${limit || 100}&offset=${offset || 0}`;
+    const res = await axios.get<Collection[]>(url);
+    const collections: Collection[] = res.data;
+
+    return collections;      
 }
 
 export async function getCollectionData(collection_id: string) {
