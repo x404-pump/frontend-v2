@@ -15,6 +15,8 @@ import { AccountAddress, createResourceAddress, MoveVector } from "@aptos-labs/t
 import { toast } from "react-toastify";
 import dynamic from "next/dynamic";
 
+export const runtime = "edge";
+
 const DynamicCollectionDetailArea = dynamic(() => import('./CollectionDetailArea'));
 const DynamicUploadFileInput = dynamic(() => import('./UploadFileInput'));
 

@@ -2,6 +2,8 @@ import { WebIrys } from "@irys/sdk";
 import { WalletContextState } from "@aptos-labs/wallet-adapter-react";
 import { accountAPTBalance } from "@/view-functions/accountBalance";
 
+export const runtime = 'experimental-edge'
+
 const getWebIrys = async (aptosWallet: WalletContextState) => {
   const network = "devnet"; // Irys network
   const token = "aptos";

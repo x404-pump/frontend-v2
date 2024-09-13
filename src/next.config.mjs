@@ -1,21 +1,16 @@
 /** @type {import('next').NextConfig} */
-import path from 'path';
-
 const nextConfig = {
-    webpack: (config, { isServer }) => {
-        // Polyfills for Node.js core modules
-        if (!isServer) {
-            config.resolve.fallback = {
-                crypto: "crypto-browserify",
-                stream: require.resolve('stream-browserify'),
-                os: require.resolve('os-browserify/browser'),
-                path: require.resolve('path-browserify'),
-                fs: false,
-            };
+    experimental: {
+        turbo: {
+            resolveAlias: {
+                buffer: 'buffer',
+                crypto: 'crypto-browserify',
+                stream: 'stream-browserify',
+                os: 'os-browserify/browser',
+                path: 'path-browserify',
+            }
         }
-
-        return config;
-    },
+    }
 };
 
 export default nextConfig;
