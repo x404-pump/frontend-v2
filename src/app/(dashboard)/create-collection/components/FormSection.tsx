@@ -6,8 +6,12 @@ const CreateCollectionForm = dynamic(() => import('./create-collection-form/Crea
     ssr: false,
 
 });
-const FormHeader = dynamic(() => import('./FormHeader'))
-const CollectionDetailArea = dynamic(() => import('./create-collection-form/CollectionDetailArea'))
+const FormHeader = dynamic(() => import('./create-collection-form/FormHeader'), {
+    ssr: false,
+});
+const CollectionDetailArea = dynamic(() => import('./create-collection-form/CollectionDetailArea'),{
+    ssr: false,
+});
 
 export default function FormSection() {
     return (

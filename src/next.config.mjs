@@ -8,6 +8,8 @@ const nextConfig = {
                 stream: 'stream-browserify',
                 os: 'os-browserify/browser',
                 path: 'path-browserify',
+                "csv-parse": "csv-parse/lib/sync",
+                
             }
         }
     }

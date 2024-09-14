@@ -2,6 +2,7 @@ import { Image } from "@nextui-org/image";
 import clsx from "clsx";
 import React from "react";
 import { MdPreview } from "react-icons/md";
+import { useCollectionMetadata } from "./context";
 
 interface CollectionDetailAreaProps extends React.HTMLAttributes<HTMLDivElement> {
     collectionName?: string;
@@ -20,24 +21,28 @@ const FieldArea = ({ label, value }: { label: string; value: string }) => {
 
 export default function CollectionDetailArea({ collectionName, description, imageSrc, ...props }: CollectionDetailAreaProps) {
     const [image, setImage] = React.useState<string | null>(null);
-    
-    const items = [
-        {
-            label: 'Collection Name',
-            value: collectionName,
-        },
-        {
-            label: 'Collection Description',
-            value: description,
-        }
+    const [name, setName] = React.useState<string | null>(null);
+    const [desc, setDesc] = React.useState<string | null>(null);
 
-    ];
+    const { collectionMetadata } = useCollectionMetadata();
 
     React.useEffect(() => {
-        if(imageSrc) {
-            setImage(imageSrc);
+        if(collectionMetadata?.image) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setImage(reader.result as string);
+                console.log('Image loaded', reader.result);
+            };
+            reader.readAsDataURL(collectionMetadata.image);
+
         }
-    }, [imageSrc]);
+        if(collectionMetadata?.name) {
+            setName(collectionMetadata.name);
+        }
+        if(collectionMetadata?.description) {
+            setDesc(collectionMetadata.description);
+        }
+    }, [collectionMetadata]);
 
     return (
         <div
@@ -47,17 +52,15 @@ export default function CollectionDetailArea({ collectionName, description, imag
             )}
         >
             <h4 className="text-lg md:text-2xl font-semibold text-foreground-900">Collection Detail</h4>
-            {items.map((item, index) => (
-                <FieldArea key={index} label={item.label} value={item.value || 'N/A'} />
-            ))}
+            <FieldArea label="Collection Name" value={name || collectionName || "N/A"} />
+            <FieldArea label="Collection Description" value={desc || description || "N/A"} />
             {image ?
                 <Image
                     src={image}
                     alt="Collection Image"
                     width={"100%"}
-                    height={'auto'}
+                    height={'100%'}
                     isLoading={image ? false : true}
-                    className="aspect-video"
                     classNames={{
                         wrapper: "w-full rounded-3xl overflow-hidden",
                     }}

@@ -8,6 +8,8 @@ import React, { useRef, useState } from 'react';
 import { MdDeleteOutline } from "react-icons/md";
 import { loadFile } from '../utils';
 import { Upload04Icon } from 'hugeicons-react';
+import { useCollectionMetadata } from './context';
+import { getCollectionFromFiles } from '@/utils/assetUploader';
 
 interface UploadFileInputProps extends InputProps {
     isUploading: boolean;
@@ -50,6 +52,7 @@ const FileCard: React.FC<{ file: File, onDelete: (file: File) => void }> = ({ fi
 const UploadFileInput: React.FC<UploadFileInputProps> = ({ isUploading, account, files, setFiles, ...inputProps }) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [error, setError] = useState<string | null>(null);
+    const { setCollectionMetadata } = useCollectionMetadata();
 
     const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = event.currentTarget.files;
@@ -59,6 +62,15 @@ const UploadFileInput: React.FC<UploadFileInputProps> = ({ isUploading, account,
                 await loadFile(fileList); // Validate files
                 setFiles(fileList); // Set files if valid
                 setError(null); // Clear any previous errors
+
+                const fileData = await getCollectionFromFiles(fileList);
+                console.log('fileData', fileData);
+                setCollectionMetadata({
+                    name: fileData.collectionMetadata.name,
+                    image: fileData.collectionCover,
+                    description: fileData.collectionMetadata.description,
+                });
+                
             } catch (err: any) {
                 setError(err.message); // Set error message
             }
@@ -78,6 +90,7 @@ const UploadFileInput: React.FC<UploadFileInputProps> = ({ isUploading, account,
 
             updatedFiles.forEach(file => dataTransfer.items.add(file));
             setFiles(dataTransfer.files);
+            setCollectionMetadata(null);
         }
     };
 
@@ -111,7 +124,7 @@ const UploadFileInput: React.FC<UploadFileInputProps> = ({ isUploading, account,
             </div>
             {error && <p className='text-red-500'>{error}</p>}
             {files && (
-                <div className='w-full flex flex-col gap-2 items-start h-fit overflow-scroll'>
+                <div className='w-full flex flex-col gap-2 items-start h-fit overflow-scroll max-h-[200px]'>
                     {Array.from(files).map((file) => (
                         <FileCard key={file.name} file={file} onDelete={handleDeleteFile} />
                     ))}

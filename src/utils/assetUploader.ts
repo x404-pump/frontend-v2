@@ -23,6 +23,134 @@ type ImageMetadata = {
   attributes: ImageAttribute[];
 };
 
+export const checkCollectionData = (files: FileList): boolean => {
+  // Convert FileList type into a File[] type
+  const filesArray: File[] = [];
+
+  for (let i = 0; i < files.length; i++) {
+    filesArray.push(files[i]);
+  }
+
+  const collectionFiles = filesArray.filter((file) => file.name.includes("collection"));
+
+  if (collectionFiles.length !== 2) {
+    return false;
+  }
+
+  // Check collection.json file exists
+  const collectionMetadata = collectionFiles.find((file) => file.name === "collection.json");
+
+  if (!collectionMetadata) {
+    return false;
+  }
+
+  const collectionCover = collectionFiles.find((file) =>
+    VALID_MEDIA_EXTENSIONS.some((ext) => file.name.endsWith(`.${ext}`)),
+  );
+
+  if (!collectionCover) {
+    return false;
+  }
+
+  const mediaExt = collectionCover?.name.split(".").pop();
+
+  if (!collectionCover) {
+    return false;
+  }
+
+  // Check nft metadata json files exist
+  const nftImageMetadatas = filesArray.filter((file) => file.name.endsWith("json") && file.name !== "collection.json");
+
+  if (nftImageMetadatas.length === 0) {
+    return false;
+  }
+
+  // Check NFT image files exist
+  const imageFiles = filesArray.filter((file) => file.name.endsWith(`.${mediaExt}`) && file.name !== collectionCover.name);
+
+  if (imageFiles.length === 0) {
+    return false;
+  }
+
+  // Check nft metadata json files amount is the same as the nft image files
+  if (nftImageMetadatas.length !== imageFiles.length) {
+    return false;
+  }
+
+  return true;
+}
+
+export const getCollectionFromFiles = async (
+  fileList: FileList,
+): Promise<{
+  collectionMetadata: CollectionMetadata;
+  collectionCover: File;
+  nftImageMetadatas: File[];
+  imageFiles: File[];
+}> => {
+  // Convert FileList type into a File[] type
+  const files: File[] = [];
+
+  for (let i = 0; i < fileList.length; i++) {
+    files.push(fileList[i]);
+  }
+
+  const collectionFiles = files.filter((file) => file.name.includes("collection"));
+
+  if (collectionFiles.length !== 2) {
+    throw new Error("Please make sure you include both collection.json and collection image file");
+  }
+
+  // Check collection.json file exists
+  const collectionMetadataFile = collectionFiles.find((file) => file.name === "collection.json");
+
+  if (!collectionMetadataFile) {
+    throw new Error("Collection metadata not found, please make sure you include collection.json file");
+  }
+
+  const collectionCover = collectionFiles.find((file) =>
+    VALID_MEDIA_EXTENSIONS.some((ext) => file.name.endsWith(`.${ext}`)),
+  );
+
+  if (!collectionCover) {
+    throw new Error("Collection cover not found, please make sure you include the collection image file");
+  }
+
+  const mediaExt = collectionCover?.name.split(".").pop();
+
+  if (!collectionCover) {
+    throw new Error("Collection cover not found, please make sure you include the collection image file");
+  }
+
+  // Check nft metadata json files exist
+  const nftImageMetadatas = files.filter((file) => file.name.endsWith("json") && file.name !== "collection.json");
+
+  if (nftImageMetadatas.length === 0) {
+    throw new Error("Image metadata not found, please make sure you include the NFT json files");
+  }
+
+  // Check NFT image files exist
+  const imageFiles = files.filter((file) => file.name.endsWith(`.${mediaExt}`) && file.name !== collectionCover.name);
+
+  if (imageFiles.length === 0) {
+    throw new Error("Image files not found, please make sure you include the NFT image files");
+  }
+
+  // Check nft metadata json files amount is the same as the nft image files
+  if (nftImageMetadatas.length !== imageFiles.length) {
+    throw new Error("Mismatch between NFT metadata json files and images files");
+  }
+
+  const collectionMetadata: CollectionMetadata = JSON.parse(await collectionMetadataFile.text());
+
+  return {
+    collectionMetadata,
+    collectionCover,
+    nftImageMetadatas,
+    imageFiles,
+  };
+};
+
 export const uploadCollectionData = async (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   aptosWallet: any,
@@ -126,7 +254,7 @@ export const uploadCollectionData = async (
     parsedCollectionMetadata.image = `${imageFolderReceipt}/collection.${mediaExt}`;
     const updatedCollectionMetadata = new File([JSON.stringify(parsedCollectionMetadata)], "collection.json", {
       type: collectionMetadata.type,
-    }); 
+    });
     const tokenNames: Array<string> = [];
     const tokenDescription: Array<string> = [];
     const tokenUris: Array<string> = [];

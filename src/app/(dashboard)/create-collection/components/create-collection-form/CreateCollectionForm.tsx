@@ -11,23 +11,27 @@ import { uploadCollectionData } from "@/utils/assetUploader";
 import { createCollection } from "@/entry-functions/create_collection";
 import { aptosClient } from "@/utils/aptosClient";
 
-export const runtime = "edge";
-
-const DynamicCollectionDetailArea = dynamic(() => import('./CollectionDetailArea'));
 const DynamicUploadFileInput = dynamic(() => import('./UploadFileInput'));
 
-interface CreateCollectionFormProps extends React.HTMLAttributes<HTMLFormElement> {}
+interface CreateCollectionFormProps extends React.HTMLAttributes<HTMLFormElement> { }
 export default function CreateCollectionForm({ ...props }: CreateCollectionFormProps) {
     const aptosWallet = useWallet();
+
     const { account, wallet, signAndSubmitTransaction } = useWallet();
     const [isUploading, setIsUploading] = React.useState(false);
     const [files, setFiles] = React.useState<FileList | null>(null);
     const [amountAptIn, setAmountAptIn] = React.useState<number>(0);
     const [initPrice, setInitPrice] = React.useState<number>(1);
 
-    const [collectionName, setCollectionName] = React.useState<string | null>(null);
-    const [collectionDescription, setCollectionDescription] = React.useState<string | null>(null);
-    const [imageSrc, setImageSrc] = React.useState<string | null>(null);
+    const handleChangeAmountAptIn = (e: any) => {
+        e.preventDefault();
+        setAmountAptIn(Number(e.target.value));
+    }
+    const handleChangeInitPrice = (e: any) => {
+        e.preventDefault();
+        setInitPrice(Number(e.target.value
+        ));
+    }
 
     const onCreateCollection = async (e: any) => {
         e.preventDefault();
@@ -43,7 +47,7 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
                 aptosWallet,
                 files,
             );
-
+            
             const createCollectionInputTransaction = createCollection({
                 collectionDescription,
                 collectionName,
@@ -81,42 +85,36 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
     return (
         <section className="mt-8 w-full overflow-visible relative flex flex-row justify-between items-start" id="create-collection-form">
             <form className="relative w-full flex flex-col gap-8 items-start justify-start">
-                <div className="w-fit flex flex-row items-center gap-8 z-10">
-                    <DynamicUploadFileInput
-                        files={files}
-                        setFiles={setFiles}
-                        isUploading={isUploading}
-                        account={'account'}
+                <DynamicUploadFileInput
+                    files={files}
+                    setFiles={setFiles}
+                    isUploading={isUploading}
+                    account={'account'}
+                />
+                <div className="flex flex-row gap-8 items-center w-full">
+                    <Input
+                        label="Amount Apt Int"
+                        className="w-[30vw]"
+                        fullWidth
+                        radius="full"
+                        placeholder="0"
+                        labelPlacement="outside"
+                        onChange={handleChangeAmountAptIn}
                     />
                 </div>
                 <div className="flex flex-row gap-8 items-center w-full">
-                    <Input
-                        label="Amount Apt In (optional)"
-                        className="w-[30vw]"
-                        description="Amount Apt In (optional)"
-                        fullWidth
-                        radius="full"
-                        placeholder="Amount Apt In (optional)"
-                        labelPlacement="outside"    
-                        onChange={(e) => {
-                            e.preventDefault();
-                            setAmountAptIn(Number(e.target.value));
-                        }}
-                    />
-                </div>
-                    <div className="flex flex-row gap-8 items-center w-full">
                     <Input
                         label="Initial price for each Token"
                         className="w-[30vw]"
                         description="Initial price for each Token, 1 APT for default"
                         fullWidth
+                        type="number"
                         radius="full"
-                        placeholder="1"
-                        labelPlacement="outside"    
-                        onChange={(e) => {
-                            e.preventDefault();
-                            setInitPrice(Number(e.target.value));
-                        }}
+                        placeholder="0"
+                        min={1}
+                        labelPlacement="outside"
+                        isRequired
+                        onChange={handleChangeInitPrice}
                     />
                 </div>
                 <Button
@@ -124,15 +122,11 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
                     color="success"
                     radius="full"
                     size="md"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        onCreateCollection();
-                    }}
+                    onClick={onCreateCollection}
                 >
                     Create
                 </Button>
             </form>
-            <DynamicCollectionDetailArea />
         </section>
     );
 }
