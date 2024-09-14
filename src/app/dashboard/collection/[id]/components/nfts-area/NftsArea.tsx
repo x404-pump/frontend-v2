@@ -14,8 +14,8 @@ export function NftsArea() {
     const collection = useCollection();
     
     const { data, isLoading } = useQuery({
-        queryKey: ['getNfts', collection.collection_id],
-        queryFn: () => getCollectionNfts(collection.collection_id!),
+        queryKey: ['getNfts', collection.collection_address],
+        queryFn: () => getCollectionNfts(collection.collection_address!),
     });
 
     return (

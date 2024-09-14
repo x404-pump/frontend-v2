@@ -1,12 +1,15 @@
-import { checkIfFund, uploadFolder } from "@/utils/irys";
+import { checkIfFund, uploadFolder } from "./irys";
 
 const VALID_MEDIA_EXTENSIONS = ["png", "jpg", "jpeg", "gltf"];
 
-type CollectionMetadata = {
+export type CollectionMetadata = {
   name: string;
   description: string;
+  uri: string;
+  fa_icon: string;
+  fa_symbol: string;
+  supply: number;
   image: string;
-  external_url: string;
 };
 type ImageAttribute = {
   trait_type: string;
@@ -16,7 +19,7 @@ type ImageMetadata = {
   name: string;
   description: string;
   image: string;
-  external_url: string;
+  uri: string;
   attributes: ImageAttribute[];
 };
 
@@ -27,8 +30,13 @@ export const uploadCollectionData = async (
 ): Promise<{
   collectionName: string;
   collectionDescription: string;
-  projectUri: string;
-  tokenNames: Array<string>
+  collectionUri: string;
+  fa_symbol: string;
+  fa_icon: string;
+  supply: number;
+  tokenNames: Array<string>;
+  tokenDescription: Array<string>;
+  tokenUris: Array<string>;
 }> => {
   // Convert FileList type into a File[] type
   const files: File[] = [];
@@ -98,7 +106,7 @@ export const uploadCollectionData = async (
     throw new Error("Files size should not exceed 2GB");
   }
 
-  // Check if need to first fund an Irys node
+  // // Check if need to first fund an Irys node
   const funded = await checkIfFund(aptosWallet, files);
 
   if (funded) {
@@ -120,6 +128,8 @@ export const uploadCollectionData = async (
       type: collectionMetadata.type,
     }); 
     const tokenNames: Array<string> = [];
+    const tokenDescription: Array<string> = [];
+    const tokenUris: Array<string> = [];
     // Update each image metadata with the related image URL
     const updatedImageMetadatas = await Promise.all(
       nftImageMetadatas.map(async (file) => {
@@ -132,6 +142,8 @@ export const uploadCollectionData = async (
           type: file.type,
         });
 
+        tokenDescription.push(metadata.description);
+
         return fileMetadata;
       }),
     );
@@ -143,10 +155,20 @@ export const uploadCollectionData = async (
         updatedCollectionMetadata,
       ]);
 
+
+      for (const name of tokenNames) {
+        tokenUris.push(`${metadataFolderReceipt}/${name}.json`);
+      }
+
       return {
-        projectUri: `${metadataFolderReceipt}/`,
+        collectionUri: `${metadataFolderReceipt}/`,
         collectionName: parsedCollectionMetadata.name,
         collectionDescription: parsedCollectionMetadata.description,
+        fa_icon: parsedCollectionMetadata.fa_icon,
+        fa_symbol: parsedCollectionMetadata.fa_symbol,
+        supply: parsedCollectionMetadata.supply,
+        tokenDescription,
+        tokenUris,
         tokenNames
       };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

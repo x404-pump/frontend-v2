@@ -1,7 +1,7 @@
-import { GetCollectionDataResponse } from '@aptos-labs/ts-sdk';
+import { Collection } from '@/fetch-functions';
 import React from 'react';
 
-export type CollectionContextType = Partial<GetCollectionDataResponse>;
+export type CollectionContextType = Partial<Collection>;
 export const CollectionContext = React.createContext<CollectionContextType>({});
 export function CollectionProvider({ children, collection }: { children: React.ReactNode; collection: CollectionContextType }) {
     return <CollectionContext.Provider value={collection}>{children}</CollectionContext.Provider>;

@@ -6,22 +6,22 @@ import React from "react";
 import { truncateAddress } from "@aptos-labs/wallet-adapter-react";
 import { Link } from "@nextui-org/link";
 import { useQuery } from "@tanstack/react-query";
-import { getCurrentCollectionsV2, ICurrentCollectionsV2 } from "@/fetch-functions/collection";
+import { Collection, getCurrentCollectionsV2 } from "@/fetch-functions/collection";
 import { Image } from "@nextui-org/image";
 
 const columns = [
     { name: "Collection Name", uid: "collection_name", sortable: true },
-    { name: "Collection Address", uid: "collection_id", sortable: true },
-    { name: "Collection Owner", uid: "creator_address", sortable: true },
-    { name: "Current Supply", uid: "current_supply", sortable: true },
+    { name: "Collection Address", uid: "collection_address", sortable: true },
+    { name: "Collection Creator", uid: "collection_creator", sortable: true },
+    { name: "Current Supply", uid: "supply", sortable: true },
 ];
 
-const INITIAL_VISIBLE_COLUMNS = ["collection_name", "collection_id", "creator_address", "current_supply"];
+const INITIAL_VISIBLE_COLUMNS = ["collection_name", "collection_address", "collection_creator", "supply"];
 
 export default function CollectionsTable() {
     const [filterValue, setFilterValue] = React.useState("");
     const [visibleColumns, setVisibleColumns] = React.useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS));
-    const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({ column: "collection_id", direction: "ascending" });
+    const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({ column: "collection_address", direction: "ascending" });
     const [page, setPage] = React.useState(1);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -68,8 +68,8 @@ export default function CollectionsTable() {
 
     const sortedItems = React.useMemo(() => {
         return items.sort((a, b) => {
-            const aVal = a[sortDescriptor.column as keyof ICurrentCollectionsV2];
-            const bVal = b[sortDescriptor.column as keyof ICurrentCollectionsV2];
+            const aVal = a[sortDescriptor.column as keyof Collection];
+            const bVal = b[sortDescriptor.column as keyof Collection];
 
             if (!aVal || !bVal) return 0;
 
@@ -84,8 +84,8 @@ export default function CollectionsTable() {
             return 0;
         });
     }, [sortDescriptor, items]);
-    const renderCell = React.useCallback((collection: ICurrentCollectionsV2, columnKey: React.Key) => {
-        const cellValue = collection[columnKey as keyof ICurrentCollectionsV2];
+    const renderCell = React.useCallback((collection: Collection, columnKey: React.Key) => {
+        const cellValue = collection[columnKey as keyof Collection];
 
         switch (columnKey) {
             case "collection_name":
@@ -104,11 +104,11 @@ export default function CollectionsTable() {
                             </div>
                         </div>
                 )
-            case "collection_id":
+            case "collection_address":
                 return <span>{truncateAddress(cellValue?.toString())}</span>;
-            case "creator_address":
+            case "collection_creator":
                 return <span>{truncateAddress(cellValue?.toString())}</span>;
-            case "current_supply":
+            case "supply":
                 return <span>{cellValue?.toString()}</span>;
             default:
                 return null;
@@ -205,7 +205,7 @@ export default function CollectionsTable() {
                 loadingContent={'Loading...'}
             >
                 {(item) => (
-                    <TableRow as={Link} key={item.collection_id} href={`../dashboard/collection/${item.collection_id}`} className="hover:bg-foreground-200 cursor-pointer">
+                    <TableRow as={Link} key={item.collection_address.toString()} href={`../dashboard/collection/${item.collection_address.toString()}`} className="hover:bg-foreground-200 cursor-pointer">
                         {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
                     </TableRow>
                 )}

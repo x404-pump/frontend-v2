@@ -1,4 +1,6 @@
+import { API_URL } from "@/config/contants";
 import { aptosClient } from "@/utils/aptosClient";
+import axios from "axios";
 
 // ============================================================
 // ========================= SCHEMA ===========================
@@ -32,6 +34,16 @@ export interface ICurrentCollectionsV2 {
         raw_image_uri?: string;
     }; // Assuming this is an object relationship
 }
+
+export type Collection = {
+  collection_address: string;
+  collection_name: string;
+  collection_description: string;
+  collection_uri: string;
+  collection_image?: string;
+  collection_creator: string;
+  supply: number;
+};
 
 interface ICurrentTokenOwnershipsV2 {
     amount: number;
@@ -82,101 +94,117 @@ export interface ICurrentTokenDatasV2 {
 // ========================= COLLECTION =======================
 // ============================================================
 
-export async function getCurrentCollectionsV2(offset?: number, limit?: number): Promise<ICurrentCollectionsV2[]> {
-    const query = `
-        query MyQuery {
-            current_collections_v2 (
-                limit: ${limit || 100},
-                offset: ${offset || 0},
-            ) {
-                collection_id
-                collection_name
-                creator_address
-                current_supply
-                description
-                uri
-                collection_properties
-                total_minted_v2
-                cdn_asset_uris {
-                cdn_animation_uri
-                cdn_image_uri
-                cdn_json_uri
-                raw_animation_uri
-                raw_image_uri
-                }
-            }
-        }
-    `;
+// export async function getCurrentCollectionsV2(offset?: number, limit?: number): Promise<ICurrentCollectionsV2[]> {
+//     const query = `
+//         query MyQuery {
+//             current_collections_v2 (
+//                 limit: ${limit || 100},
+//                 offset: ${offset || 0},
+//             ) {
+//                 collection_id
+//                 collection_name
+//                 creator_address
+//                 current_supply
+//                 description
+//                 uri
+//                 collection_properties
+//                 total_minted_v2
+//                 cdn_asset_uris {
+//                 cdn_animation_uri
+//                 cdn_image_uri
+//                 cdn_json_uri
+//                 raw_animation_uri
+//                 raw_image_uri
+//                 }
+//             }
+//         }
+//     `;
 
-    const variables = {
-    };
+//     const variables = {
+//     };
 
-    try {
-        const res = await aptosClient().queryIndexer<{
-            current_collections_v2: ICurrentCollectionsV2[];
-        }>({
-            query: {
-                query,
-                variables
-            },
-        });
+//     try {
+//         const res = await aptosClient().queryIndexer<{
+//             current_collections_v2: ICurrentCollectionsV2[];
+//         }>({
+//             query: {
+//                 query,
+//                 variables
+//             },
+//         });
 
-        const collections = res.current_collections_v2;
+//         const collections = res.current_collections_v2;
 
-        return collections || [];
-    } catch (error) {
-        console.error("Error fetching collection data:", error);
-        throw new Error("Failed to fetch collection data");
-    }
+//         return collections || [];
+//     } catch (error) {
+//         console.error("Error fetching collection data:", error);
+//         throw new Error("Failed to fetch collection data");
+//     }
+// }
+
+export async function getCurrentCollectionsV2(offset?: number, limit?: number): Promise<Collection[]> {
+    const url = `${API_URL}/api/v1/collection/get_all?limit=${limit || 100}&offset=${offset || 0}`;
+    const res = await axios.get<Collection[]>(url);
+    const collections: Collection[] = res.data;
+
+    return collections;      
 }
 
-export async function getCollectionData(collection_id: string) {
-    const query = `
-        query MyQuery($collection_id: String = "") {
-        current_collections_v2_by_pk(collection_id: $collection_id) {
-            collection_id
-            collection_name
-            collection_properties
-            creator_address
-            last_transaction_version
-            last_transaction_timestamp
-            description
-            current_supply
-            max_supply
-            mutable_description
-            mutable_uri
-            table_handle_v1
-            token_standard
-            total_minted_v2
-            uri
-            cdn_asset_uris {
-            cdn_image_uri
-            cdn_json_uri
-            }
-        }
-        }
-    `;
+export async function getCollectionData(collection_id: string): Promise<Collection> {
+    const url = `${API_URL}/api/v1/collection?collectionId=${collection_id}`;
+    const res = await axios.get<Collection>(url);
+    const collection: Collection = res.data;
 
-    const variables = {
-        collection_id,
-    };
-
-    try {
-        const res = await aptosClient().queryIndexer<{
-            current_collections_v2_by_pk: ICurrentCollectionsV2;
-        }>({
-            query: {
-                query,
-                variables
-            },
-        });
-
-        return res.current_collections_v2_by_pk;
-    } catch (error) {
-        console.error("Error fetching collection data:", error);
-        throw new Error("Failed to fetch collection data");
-    }
+    return collection;      
 }
+
+// export async function getCollectionData(collection_id: string) {
+//     const query = `
+//         query MyQuery($collection_id: String = "") {
+//         current_collections_v2_by_pk(collection_id: $collection_id) {
+//             collection_id
+//             collection_name
+//             collection_properties
+//             creator_address
+//             last_transaction_version
+//             last_transaction_timestamp
+//             description
+//             current_supply
+//             max_supply
+//             mutable_description
+//             mutable_uri
+//             table_handle_v1
+//             token_standard
+//             total_minted_v2
+//             uri
+//             cdn_asset_uris {
+//             cdn_image_uri
+//             cdn_json_uri
+//             }
+//         }
+//         }
+//     `;
+
+//     const variables = {
+//         collection_id,
+//     };
+
+//     try {
+//         const res = await aptosClient().queryIndexer<{
+//             current_collections_v2_by_pk: ICurrentCollectionsV2;
+//         }>({
+//             query: {
+//                 query,
+//                 variables
+//             },
+//         });
+
+//         return res.current_collections_v2_by_pk;
+//     } catch (error) {
+//         console.error("Error fetching collection data:", error);
+//         throw new Error("Failed to fetch collection data");
+//     }
+// }
 
 export async function getCollectionNfts(collection_id: string) {
     const query = `

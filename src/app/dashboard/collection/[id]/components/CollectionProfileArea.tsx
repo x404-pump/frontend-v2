@@ -42,13 +42,13 @@ function Profile() {
     return (
         <div className="w-fit h-fit flex flex-col gap-4 items-start">
             <Image
-                src={collection.cdn_asset_uris?.cdn_image_uri || collection.uri || ""}
+                src={collection.collection_image}
                 alt={collection.collection_name}
                 radius="full"
                 classNames={{
                     wrapper: "object-cover aspect-square w-16 md:w-32",
                 }}
-                isLoading={!collection.cdn_asset_uris?.cdn_image_uri}
+                isLoading={!collection.collection_image}
                 fallbackSrc="https://via.placeholder.com/500x500"
                 loading="lazy"
             />
@@ -57,7 +57,7 @@ function Profile() {
                 <span><CheckmarkBadge01Icon className="text-success" size={24} /></span>
             </h1>
             <Tooltip
-                content={collection.collection_id}
+                content={collection.collection_address}
             >
                 <Chip
                     color="secondary"
@@ -66,8 +66,8 @@ function Profile() {
                     endContent={<IoCopy />}
                     onClick={() => {
                         try {
-                            if (!collection.collection_id) return;
-                            copy(collection.collection_id);
+                            if (!collection.collection_address) return;
+                            copy(collection.collection_address);
                             toast.success("Copied to clipboard", {
                                 type: "success",
                             });
@@ -78,11 +78,11 @@ function Profile() {
                         }
                     }}
                 >
-                    {truncateAddress(collection.collection_id)}
+                    {truncateAddress(collection.collection_address?.toString())}
                 </Chip>
             </Tooltip>
             <div className="w-full">
-                <p className="text-sm md:text-base text-foreground-800 w-full break-words text-start">{collection.description || "No description available"}</p>
+                <p className="text-sm md:text-base text-foreground-800 w-full break-words text-start">{collection.collection_description || "No description available"}</p>
             </div>
         </div>
     );
