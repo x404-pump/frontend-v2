@@ -90,17 +90,19 @@ export default function CollectionsTable() {
         switch (columnKey) {
             case "collection_name":
                 return (
-                    <div className="flex items-center flex-row gap-2">
-                        <Image
-                            src={collection.uri || collection.cdn_asset_uris?.cdn_image_uri}
-                            alt={collection.collection_name}
-                            radius="full"
-                            fallbackSrc="https://via.placeholder.com/500x500"
-                            width={32}
-                            height={32}
-                        />
-                        <p className="max-w-32 break-words">{cellValue?.toString()}</p>
-                    </div>
+                        <div className="flex items-center flex-row gap-2">
+                            <Image
+                                src={collection.uri || collection.cdn_asset_uris?.cdn_image_uri}
+                                alt={collection.collection_name}
+                                radius="full"
+                                fallbackSrc="https://via.placeholder.com/500x500"
+                                width={32}
+                                height={32} />
+                            <div className="flex flex-col gap-1">
+                                <p className="max-w-full break-words text-sm font-semibold">{cellValue?.toString()}</p>
+                                <p className="text-xs">{truncateAddress(collection.collection_id?.toString())}</p>
+                            </div>
+                        </div>
                 )
             case "collection_id":
                 return <span>{truncateAddress(cellValue?.toString())}</span>;

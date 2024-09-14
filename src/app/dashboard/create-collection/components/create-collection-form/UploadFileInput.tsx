@@ -6,7 +6,7 @@ import { Tooltip } from '@nextui-org/tooltip';
 import clsx from 'clsx';
 import React, { useRef, useState } from 'react';
 import { MdDeleteOutline } from "react-icons/md";
-import { loadFile } from './utils';
+import { loadFile } from '../utils';
 import { Upload04Icon } from 'hugeicons-react';
 
 interface UploadFileInputProps extends InputProps {

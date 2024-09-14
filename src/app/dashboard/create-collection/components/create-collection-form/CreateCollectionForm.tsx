@@ -15,7 +15,7 @@ import { AccountAddress, createResourceAddress, MoveVector } from "@aptos-labs/t
 import { toast } from "react-toastify";
 import dynamic from "next/dynamic";
 
-const UploadFileInput = dynamic(() => import('../UploadFileInput'));
+const UploadFileInput = dynamic(() => import('./UploadFileInput'));
 
 interface CreateCollectionFormProps extends React.HTMLAttributes<HTMLFormElement> {}
 export default function CreateCollectionForm({ ...props }: CreateCollectionFormProps) {
@@ -117,7 +117,6 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
             <div className="flex flex-row justify-between gap-4 items-center w-full h-fit">
                 <Input
                     label="Coin Address"
-                    className="w-[30vw]"
                     description="You can type your coin address or create auto"
                     fullWidth
                     radius="full"

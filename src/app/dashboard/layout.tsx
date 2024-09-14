@@ -25,10 +25,10 @@ export default function DashboardLayout({
 }) {
   return (
     <Providers>
-      <div className="flex flex-row h-screen relative mx-auto overflow-hidden">
+      <div className="flex flex-row h-screen relative mx-auto overflow-y-scroll overflow-hidden">
         <SideBar />
         <BottomNavbar />
-        <main className="flex-grow w-full md:ml-4 h-full overflow-y-scroll p-4">
+        <main className="flex-grow w-full mb-32 md:mb-0 md:ml-4 h-full overflow-y-scroll p-4">
           {children}
         </main>
       </div>

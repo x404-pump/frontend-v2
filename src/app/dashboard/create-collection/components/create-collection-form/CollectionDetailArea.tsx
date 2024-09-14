@@ -46,7 +46,7 @@ export default function CollectionDetailArea({ collectionName, description, imag
                 props.className
             )}
         >
-            <h4 className="text-2xl font-semibold text-foreground-900">Collection Detail</h4>
+            <h4 className="text-lg md:text-2xl font-semibold text-foreground-900">Collection Detail</h4>
             {items.map((item, index) => (
                 <FieldArea key={index} label={item.label} value={item.value || 'N/A'} />
             ))}
