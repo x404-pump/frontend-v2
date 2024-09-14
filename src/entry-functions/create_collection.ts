@@ -1,5 +1,4 @@
-import { MoveString, MoveVector, U64 } from "@aptos-labs/ts-sdk";
-import { InputTransactionData } from "@aptos-labs/wallet-adapter-react";
+import { InputGenerateTransactionPayloadData, MoveString, MoveVector } from "@aptos-labs/ts-sdk";
 
 import { appConfig } from "@/config";
 
@@ -13,10 +12,11 @@ export type CreateCollectionArguments = {
   tokenDescription: Array<string>
   tokenNames: Array<string>;
   tokenUris: Array<string>;
-  amountAptIn: bigint; 
+  amountAptIn: number; 
+  initPrice: number;
 };
 
-export const createCollection = (args: CreateCollectionArguments): InputTransactionData => {
+export const createCollection = (args: CreateCollectionArguments): InputGenerateTransactionPayloadData => {
   const {
     collectionDescription,
     collectionName,
@@ -28,23 +28,23 @@ export const createCollection = (args: CreateCollectionArguments): InputTransact
     tokenNames,
     tokenUris,
     amountAptIn,
+    initPrice,
   } = args;
 
   return {
-    data: {
-      function: `${appConfig.constants.X404_ADDRESS}::bonding_curve_launchpad::create_fa_pair`,
-      functionArguments: [
-        new U64(amountAptIn),
-        new MoveString(collectionDescription),
-        new U64(supply),
-        new MoveString(collectionName),
-        new MoveString(collectionUri),
-        new MoveString(fa_symbol),
-        new MoveString(fa_icon),
-        new MoveVector(tokenDescription.map((tokenDescription) => new MoveString(tokenDescription))),
-        new MoveVector(tokenNames.map((tokenName) => new MoveString(tokenName))),
-        new MoveVector(tokenUris.map((tokenUri) => new MoveString(tokenUri)))
-      ] as any,
-    },
+    function: `${appConfig.constants.X404_ADDRESS}::bonding_curve_launchpad::create_fa_pair`,
+    functionArguments: [
+      amountAptIn * 10 ** 8,
+      new MoveString(collectionDescription),
+      supply,
+      new MoveString(collectionName),
+      new MoveString(collectionUri),
+      new MoveString(fa_symbol),
+      new MoveString(fa_icon),
+      new MoveVector(tokenDescription.map((tokenDescription) => new MoveString(tokenDescription))),
+      new MoveVector(tokenNames.map((tokenName) => new MoveString(tokenName))),
+      new MoveVector(tokenUris.map((tokenUri) => new MoveString(tokenUri))),
+      initPrice * 10 ** 8,
+    ] as any,
   };
 };

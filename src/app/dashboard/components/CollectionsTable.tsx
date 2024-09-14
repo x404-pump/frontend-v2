@@ -18,10 +18,6 @@ const columns = [
 
 const INITIAL_VISIBLE_COLUMNS = ["collection_name", "collection_address", "collection_creator", "supply"];
 
-function toIpfsImage(uri: string) {
-    return `https://ipfs.io/ipfs/${uri}`;
-}
-
 export default function CollectionsTable() {
     const [filterValue, setFilterValue] = React.useState("");
     const [visibleColumns, setVisibleColumns] = React.useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS));
@@ -96,7 +92,7 @@ export default function CollectionsTable() {
                 return (
                     <div className="flex items-center flex-row gap-2">
                         <Image
-                            src={toIpfsImage(collection.collection_uri)}
+                            src={collection.collection_image}
                             alt={collection.collection_name}
                             radius="full"
                             fallbackSrc="https://via.placeholder.com/500x500"

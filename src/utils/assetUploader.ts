@@ -2,7 +2,7 @@ import { checkIfFund, uploadFolder } from "./irys";
 
 const VALID_MEDIA_EXTENSIONS = ["png", "jpg", "jpeg", "gltf"];
 
-type CollectionMetadata = {
+export type CollectionMetadata = {
   name: string;
   description: string;
   uri: string;
@@ -143,7 +143,6 @@ export const uploadCollectionData = async (
         });
 
         tokenDescription.push(metadata.description);
-        tokenUris.push(metadata.uri);
 
         return fileMetadata;
       }),
@@ -155,6 +154,11 @@ export const uploadCollectionData = async (
         ...updatedImageMetadatas,
         updatedCollectionMetadata,
       ]);
+
+
+      for (const name of tokenNames) {
+        tokenUris.push(`${metadataFolderReceipt}/${name}.json`);
+      }
 
       return {
         collectionUri: `${metadataFolderReceipt}/`,

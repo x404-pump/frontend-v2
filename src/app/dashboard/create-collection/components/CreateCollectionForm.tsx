@@ -21,7 +21,8 @@ export default function CreateCollectionForm() {
     const { account, wallet, signAndSubmitTransaction } = useWallet();
     const [isUploading, setIsUploading] = React.useState(false);
     const [files, setFiles] = React.useState<FileList | null>(null);
-    const [amountAptIn, setAmountAptIn] = React.useState<bigint>(BigInt(0));
+    const [amountAptIn, setAmountAptIn] = React.useState<number>(0);
+    const [initPrice, setInitPrice] = React.useState<number>(1);
 
     const [collectionName, setCollectionName] = React.useState<string | null>(null);
     const [collectionDescription, setCollectionDescription] = React.useState<string | null>(null);
@@ -52,9 +53,12 @@ export default function CreateCollectionForm() {
                 tokenNames,
                 tokenUris,
                 amountAptIn,
+                initPrice,
             });
             const response = await signAndSubmitTransaction(
-                createCollectionInputTransaction
+                {
+                    data: createCollectionInputTransaction
+                }
             );
 
             await aptosClient().waitForTransaction({
@@ -93,7 +97,22 @@ export default function CreateCollectionForm() {
                         labelPlacement="outside"    
                         onChange={(e) => {
                             e.preventDefault();
-                            setAmountAptIn(BigInt(e.target.value));
+                            setAmountAptIn(Number(e.target.value));
+                        }}
+                    />
+                </div>
+                    <div className="flex flex-row gap-8 items-center w-full">
+                    <Input
+                        label="Initial price for each Token"
+                        className="w-[30vw]"
+                        description="Initial price for each Token, 1 APT for default"
+                        fullWidth
+                        radius="full"
+                        placeholder="1"
+                        labelPlacement="outside"    
+                        onChange={(e) => {
+                            e.preventDefault();
+                            setInitPrice(Number(e.target.value));
                         }}
                     />
                 </div>

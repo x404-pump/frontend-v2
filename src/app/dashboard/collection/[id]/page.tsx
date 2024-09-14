@@ -8,15 +8,15 @@ import dynamic from "next/dynamic";
 
 const DynamicTrader = dynamic(() => import("./components/Trader"));
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
-    const { id } = params;
-    const collection = await getCollectionData(id);
+// export async function generateMetadata({ params }: { params: { id: string } }) {
+//     const { id } = params;
+//     const collection = await getCollectionData(id);
 
-    return {
-        title: collection.collection_name,
-        description: collection.description,
-    };
-}
+//     return {
+//         title: collection.collection_name,
+//         description: collection.description,
+//     };
+// }
 
 export default async function Page({
     params,

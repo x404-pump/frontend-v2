@@ -1,6 +1,5 @@
 import { API_URL } from "@/config/contants";
 import { aptosClient } from "@/utils/aptosClient";
-import { AccountAddress } from "@aptos-labs/ts-sdk";
 import axios from "axios";
 
 // ============================================================
@@ -37,11 +36,12 @@ export interface ICurrentCollectionsV2 {
 }
 
 export type Collection = {
-  collection_address: AccountAddress;
+  collection_address: string;
   collection_name: string;
   collection_description: string;
   collection_uri: string;
-  collection_creator: AccountAddress;
+  collection_image?: string;
+  collection_creator: string;
   supply: number;
 };
 
@@ -143,60 +143,68 @@ export interface ICurrentTokenDatasV2 {
 // }
 
 export async function getCurrentCollectionsV2(offset?: number, limit?: number): Promise<Collection[]> {
-    const url = `${API_URL}/api/v1/collections?limit=${limit || 100}&offset=${offset || 0}`;
+    const url = `${API_URL}/api/v1/collection/get_all?limit=${limit || 100}&offset=${offset || 0}`;
     const res = await axios.get<Collection[]>(url);
     const collections: Collection[] = res.data;
 
     return collections;      
 }
 
-export async function getCollectionData(collection_id: string) {
-    const query = `
-        query MyQuery($collection_id: String = "") {
-        current_collections_v2_by_pk(collection_id: $collection_id) {
-            collection_id
-            collection_name
-            collection_properties
-            creator_address
-            last_transaction_version
-            last_transaction_timestamp
-            description
-            current_supply
-            max_supply
-            mutable_description
-            mutable_uri
-            table_handle_v1
-            token_standard
-            total_minted_v2
-            uri
-            cdn_asset_uris {
-            cdn_image_uri
-            cdn_json_uri
-            }
-        }
-        }
-    `;
+export async function getCollectionData(collection_id: string): Promise<Collection> {
+    const url = `${API_URL}/api/v1/collection?collectionId=${collection_id}`;
+    const res = await axios.get<Collection>(url);
+    const collection: Collection = res.data;
 
-    const variables = {
-        collection_id,
-    };
-
-    try {
-        const res = await aptosClient().queryIndexer<{
-            current_collections_v2_by_pk: ICurrentCollectionsV2;
-        }>({
-            query: {
-                query,
-                variables
-            },
-        });
-
-        return res.current_collections_v2_by_pk;
-    } catch (error) {
-        console.error("Error fetching collection data:", error);
-        throw new Error("Failed to fetch collection data");
-    }
+    return collection;      
 }
+
+// export async function getCollectionData(collection_id: string) {
+//     const query = `
+//         query MyQuery($collection_id: String = "") {
+//         current_collections_v2_by_pk(collection_id: $collection_id) {
+//             collection_id
+//             collection_name
+//             collection_properties
+//             creator_address
+//             last_transaction_version
+//             last_transaction_timestamp
+//             description
+//             current_supply
+//             max_supply
+//             mutable_description
+//             mutable_uri
+//             table_handle_v1
+//             token_standard
+//             total_minted_v2
+//             uri
+//             cdn_asset_uris {
+//             cdn_image_uri
+//             cdn_json_uri
+//             }
+//         }
+//         }
+//     `;
+
+//     const variables = {
+//         collection_id,
+//     };
+
+//     try {
+//         const res = await aptosClient().queryIndexer<{
+//             current_collections_v2_by_pk: ICurrentCollectionsV2;
+//         }>({
+//             query: {
+//                 query,
+//                 variables
+//             },
+//         });
+
+//         return res.current_collections_v2_by_pk;
+//     } catch (error) {
+//         console.error("Error fetching collection data:", error);
+//         throw new Error("Failed to fetch collection data");
+//     }
+// }
 
 export async function getCollectionNfts(collection_id: string) {
     const query = `

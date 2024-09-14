@@ -8,9 +8,9 @@ import React from "react";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { toast } from "react-toastify";
 
-import { getTokenType } from "@/view-functions/x404liquidnft-module/core";
 import { useCollection } from "../context/collection";
-import { X404LIQUIDNFT_MODULE_ADDRESS } from "@/config/contants";
+import { X404_ADDRESS } from "@/config/contants";
+import { aptosClient } from "@/utils/aptosClient";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
@@ -36,16 +36,19 @@ export default function Trader() {
         try {
             if(!connected) throw new Error('Wallet not connected');
 
-            const coin = await getTokenType(collection.collection_id!);
             const tx = await signAndSubmitTransaction({
                 data: {
-                    function: `${X404LIQUIDNFT_MODULE_ADDRESS}::core::swap_exact_apt_to_token_and_claim`,
-                    typeArguments: [coin],
+                    function: `${X404_ADDRESS}::bonding_curve_launchpad::swap`,
                     functionArguments: [
-                        amount * 10 * 8,
-                        account?.address,
+                        collection.collection_address,
+                        false,
+                        amount * 10 ** 8,
                     ]
                 }
+            });
+
+            await aptosClient().waitForTransaction({
+                transactionHash: tx.hash,
             });
 
             toast.success('Buy successful');
@@ -64,16 +67,19 @@ export default function Trader() {
         try {
             if(!connected) throw new Error('Wallet not connected');
             
-            const coin = await getTokenType(collection.collection_id!);
             const tx = await signAndSubmitTransaction({
                 data: {
-                    function: `${X404LIQUIDNFT_MODULE_ADDRESS}::core::liquify_and_swap_exact_token_to_apt`,
-                    typeArguments: [coin],
+                    function: `${X404_ADDRESS}::bonding_curve_launchpad::swap`,
                     functionArguments: [
-                        amount * 10 * 8,
-                        account?.address,
+                        collection.collection_address,
+                        true,
+                        amount * 10 ** 8,
                     ]
                 }
+            });
+
+            await aptosClient().waitForTransaction({
+                transactionHash: tx.hash,
             });
 
             toast.success('Sell successful');
