@@ -1,18 +1,12 @@
 import { toast } from "react-toastify";
 import React from "react";
-import { Image } from "@nextui-org/image";
 import { truncateAddress, APTOS_CONNECT_ACCOUNT_URL, useWallet } from "@aptos-labs/wallet-adapter-react";
-import { Accordion, AccordionItem } from "@nextui-org/accordion";
-import { Listbox, ListboxItem } from "@nextui-org/listbox";
 import { Skeleton } from "@nextui-org/skeleton";
 import copy from "copy-to-clipboard";
-import { AiOutlineDisconnect } from "react-icons/ai";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem } from "@nextui-org/dropdown";
 import { Avatar } from "@nextui-org/avatar";
 
 import { useAccount } from "@/hooks/useAccount";
-import { GradientBorder } from "@/components/GradientBorder";
-import { APTCoinIcon } from "@/components/icons";
 import { ConnectWalletDialog } from "@/components/WalletSelector";
 import { getAccountAPTBalance } from "@/view-functions/accountBalance";
 import { Copy02Icon, Logout04Icon, Wallet01Icon } from "hugeicons-react";

@@ -5,6 +5,7 @@ import { CollectionProfileArea } from "./components/CollectionProfileArea";
 import { getCollectionData } from "@/fetch-functions/collection";
 import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
+import { mockCollection } from "./mock";
 
 const Trader = dynamic(() => import("./components/Trader"));
 
@@ -29,7 +30,7 @@ export default async function Page({
     let collection;
 
     try {
-        collection = await getCollectionData(id) as any;
+        collection = await getCollectionData(id) || mockCollection;
     } catch (error) {
     }
 

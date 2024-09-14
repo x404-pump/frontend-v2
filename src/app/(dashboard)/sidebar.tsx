@@ -10,7 +10,7 @@ import { Tooltip } from "@nextui-org/tooltip";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 
-const WalletCard = dynamic(() => import("./WalletCard"));
+const WalletCard = dynamic(() => import("./components/wallet/WalletCard"));
 
 export const items: {
     label: string;
@@ -29,7 +29,7 @@ export const items: {
         },
         {
             label: "Profile",
-            href: '/dashboard/profile',
+            href: '/profile',
             icon: <UserIcon className="w-6 h-6" />,
         }
     ];

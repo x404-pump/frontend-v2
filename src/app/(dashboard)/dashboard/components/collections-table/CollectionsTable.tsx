@@ -6,17 +6,22 @@ import React from "react";
 import { truncateAddress } from "@aptos-labs/wallet-adapter-react";
 import { Link } from "@nextui-org/link";
 import { useQuery } from "@tanstack/react-query";
-import { Collection, getCurrentCollectionsV2 } from "@/fetch-functions/collection";
-import { Image } from "@nextui-org/image";
+import { Avatar } from "@nextui-org/avatar";
+import numeral from "numeral";
+
+import { IX404Collection, getCurrentCollectionsV2 } from "@/fetch-functions/collection";
+import { USING_MOCK } from "@/config/contants";
+import { mockCollections } from "./mock";
 
 const columns = [
-    { name: "Collection Name", uid: "collection_name", sortable: true },
-    { name: "Collection Address", uid: "collection_address", sortable: true },
-    { name: "Collection Creator", uid: "collection_creator", sortable: true },
-    { name: "Current Supply", uid: "supply", sortable: true },
+    { name: "Collection", uid: "collection", sortable: false },
+    { name: "Owner", uid: "owner", sortable: true },
+    { name: "Initial Price", uid: "initial-price", sortable: true },
+    { name: "Current Price", uid: "current-price", sortable: true },
+    { name: "Supply Remaining", uid: "supply-remaining", sortable: true },
 ];
 
-const INITIAL_VISIBLE_COLUMNS = ["collection_name", "collection_address", "collection_creator", "supply"];
+const INITIAL_VISIBLE_COLUMNS = ["collection", "owner", "initial-price", "current-price", "supply-remaining"];
 
 export default function CollectionsTable() {
     const [filterValue, setFilterValue] = React.useState("");
@@ -25,11 +30,14 @@ export default function CollectionsTable() {
     const [page, setPage] = React.useState(1);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-    const { data: collections = [], isLoading } = useQuery({
+    let { data: collections = [], isLoading } = useQuery({
         queryKey: ["collections"],
         queryFn: () => getCurrentCollectionsV2(),
     });
 
+    if (USING_MOCK) {
+        collections = mockCollections;
+    }
 
     const hasSearchFilter = Boolean(filterValue);
     const headerColumns = React.useMemo(() => {
@@ -68,8 +76,8 @@ export default function CollectionsTable() {
 
     const sortedItems = React.useMemo(() => {
         return items.sort((a, b) => {
-            const aVal = a[sortDescriptor.column as keyof Collection];
-            const bVal = b[sortDescriptor.column as keyof Collection];
+            const aVal = a[sortDescriptor.column as keyof IX404Collection];
+            const bVal = b[sortDescriptor.column as keyof IX404Collection];
 
             if (!aVal || !bVal) return 0;
 
@@ -84,32 +92,44 @@ export default function CollectionsTable() {
             return 0;
         });
     }, [sortDescriptor, items]);
-    const renderCell = React.useCallback((collection: Collection, columnKey: React.Key) => {
-        const cellValue = collection[columnKey as keyof Collection];
+    const renderCell = React.useCallback((collection: IX404Collection, columnKey: React.Key) => {
+        const cellValue = collection[columnKey as keyof IX404Collection];
 
         switch (columnKey) {
-            case "collection_name":
+            case "collection":
                 return (
-                        <div className="flex items-center flex-row gap-2">
-                            <Image
-                                src={collection.uri || collection.cdn_asset_uris?.cdn_image_uri}
+                    <div className="flex items-center flex-row gap-2 min-w-fit min-h-fit">
+                        <div className="w-8 h-8">
+                            <Avatar
+                                src={collection.collection_image}
                                 alt={collection.collection_name}
                                 radius="full"
-                                fallbackSrc="https://via.placeholder.com/500x500"
-                                width={32}
-                                height={32} />
-                            <div className="flex flex-col gap-1">
-                                <p className="max-w-full break-words text-sm font-semibold">{cellValue?.toString()}</p>
-                                <p className="text-xs">{truncateAddress(collection.collection_id?.toString())}</p>
-                            </div>
+                                size="sm"
+                                color="primary"
+                                showFallback
+                            />
                         </div>
+
+                        <div className="flex flex-col gap-1">
+                            <p className="max-w-full break-words text-sm font-semibold capitalize">{collection.collection_name}</p>
+                            <p className="text-xs">{truncateAddress(collection.collection_address?.toString())}</p>
+                        </div>
+                    </div>
                 )
-            case "collection_address":
-                return <span>{truncateAddress(cellValue?.toString())}</span>;
-            case "collection_creator":
-                return <span>{truncateAddress(cellValue?.toString())}</span>;
-            case "supply":
-                return <span>{cellValue?.toString()}</span>;
+            case "owner":
+                return <span>{truncateAddress(collection.collection_creator)}</span>;
+            case "initial-price":
+                return <span>
+                    {collection.initial_price ? numeral(collection.initial_price).format("0.0a") : '-'}
+                </span>;
+            case "current-price":
+                return <span>
+                    {collection.current_price ? numeral(collection.current_price).format("0.0a") : '-'}
+                </span>;
+            case "supply-remaining":
+                return <span>
+                    {collection.supply ? numeral(collection.supply).format("0.0a") : '-'}
+                </span>;
             default:
                 return null;
         }
@@ -205,7 +225,7 @@ export default function CollectionsTable() {
                 loadingContent={'Loading...'}
             >
                 {(item) => (
-                    <TableRow as={Link} key={item.collection_address.toString()} href={`../dashboard/collection/${item.collection_address.toString()}`} className="hover:bg-foreground-200 cursor-pointer">
+                    <TableRow as={Link} key={item.collection_address.toString()} href={`../collection/${item.collection_address.toString()}`} className="hover:bg-foreground-200 cursor-pointer">
                         {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
                     </TableRow>
                 )}

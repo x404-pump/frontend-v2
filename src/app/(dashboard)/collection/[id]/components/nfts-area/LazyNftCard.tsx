@@ -32,8 +32,8 @@ export function NftCard(props: NftCardProps) {
         <div
             className="relative flex w-full flex-none flex-col gap-3 cursor-pointer transition duration-500 hover:scale-105 transform"
             role="button"
-            onClick={() => router.push(`/dashboard/nft/${token.token_data_id}`)}
-            onKeyDown={() => router.push(`/dashboard/nft/${token.token_data_id}`)}
+            onClick={() => router.push(`/nft/${token.token_data_id}`)}
+            onKeyDown={() => router.push(`/nft/${token.token_data_id}`)}
         >
             <Image
                 src={imageSrc || ""}

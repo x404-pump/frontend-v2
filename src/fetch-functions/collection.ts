@@ -35,6 +35,9 @@ export interface ICurrentCollectionsV2 {
     }; // Assuming this is an object relationship
 }
 
+/**
+ * @author Oliver
+ */
 export type Collection = {
   collection_address: string;
   collection_name: string;
@@ -45,6 +48,20 @@ export type Collection = {
   supply: number;
 };
 
+/**
+ * @author Best Back
+ */
+export interface IX404Collection extends Partial<ICurrentCollectionsV2>{
+    collection_address: string;
+    collection_name: string;
+    collection_description: string;
+    collection_uri: string;
+    collection_image?: string;
+    collection_creator: string;
+    supply: number;
+    initial_price?: number | string;
+    current_price?: number | string;
+}
 interface ICurrentTokenOwnershipsV2 {
     amount: number;
     composed_nfts: ICurrentTokenOwnershipsV2[];
@@ -142,18 +159,18 @@ export interface ICurrentTokenDatasV2 {
 //     }
 // }
 
-export async function getCurrentCollectionsV2(offset?: number, limit?: number): Promise<Collection[]> {
+export async function getCurrentCollectionsV2(offset?: number, limit?: number): Promise<IX404Collection[]> {
     const url = `${API_URL}/api/v1/collection/get_all?limit=${limit || 100}&offset=${offset || 0}`;
-    const res = await axios.get<Collection[]>(url);
-    const collections: Collection[] = res.data;
+    const res = await axios.get<IX404Collection[]>(url);
+    const collections: IX404Collection[] = res.data;
 
     return collections;      
 }
 
-export async function getCollectionData(collection_id: string): Promise<Collection> {
+export async function getCollectionData(collection_id: string): Promise<IX404Collection> {
     const url = `${API_URL}/api/v1/collection?collectionId=${collection_id}`;
-    const res = await axios.get<Collection>(url);
-    const collection: Collection = res.data;
+    const res = await axios.get<IX404Collection>(url);
+    const collection: IX404Collection = res.data;
 
     return collection;      
 }

@@ -1,9 +1,10 @@
-import {Network} from "@aptos-labs/ts-sdk";
+import { Network } from "@aptos-labs/ts-sdk";
 
 // ==============================
 // PROJECT CONSTANTS
 // ==============================
 export const PROJECT_NAME = process.env.NEXT_PUBLIC_PROJECT_NAME;
+export const USING_MOCK = process.env.NEXT_PUBLIC_USING_MOCK === 'true';
 
 // ==============================
 // APTOS CONSTANTS
