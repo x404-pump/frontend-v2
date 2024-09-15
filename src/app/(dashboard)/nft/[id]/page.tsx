@@ -9,6 +9,8 @@ import ActivitiesArea from "./components/ActivitiesArea";
 import clsx from "clsx";
 import { Divider } from "@nextui-org/divider";
 import { notFound } from "next/navigation";
+import { USING_MOCK } from "@/config/contants";
+import { mockNft } from "@/mock";
 
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
@@ -16,7 +18,11 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     let nft;
 
     try {
-        nft = await getTokenData(id);
+        if (USING_MOCK) {
+            nft = mockNft
+        } else {
+            nft = await getTokenData(id);
+        }
     } catch (error) {
         console.error(error);
     }
@@ -43,8 +49,12 @@ export default async function Page({
     let nftMarketplaceListings: any = [];
 
     try {
-        nft = await getTokenData(id);
-        nftMarketplaceListings = await getNftMarketplaceListingByTokenDataId(id);
+        if (USING_MOCK) {
+            nft = mockNft
+        } else {
+            nft = await getTokenData(id);
+            // nftMarketplaceListings = await getNftMarketplaceListingByTokenDataId(id);
+        }
     } catch (error) {
         console.error(error);
     }
@@ -56,10 +66,6 @@ export default async function Page({
     return (
         <Providers nft={nft} nftMarketplaceListings={nftMarketplaceListings}>
             <div className="space-y-4 md:space-y-8 relative overflow-visible w-full">
-                <div className={clsx(
-                    "w-[100vw] h-72 md:h-64 blur-[128px] bg-gradient-to-b from-secondary/50 to-secondary/25",
-                    "absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none",
-                )} />
                 <div className="mb-4 w-full">
                     <ImageArea />
                 </div>

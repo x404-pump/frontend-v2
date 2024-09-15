@@ -11,6 +11,8 @@ import { Skeleton } from "@nextui-org/skeleton";
 import copy from "copy-to-clipboard";
 import { useQuery } from "@tanstack/react-query";
 import { getTokenActivities } from "@/fetch-functions";
+import { USING_MOCK } from "@/config/contants";
+import { mockTokenActivities } from "@/mock";
 
 function getFormattedFunctionName(entryFunctionIdStr: string): string {
     const parts = entryFunctionIdStr.split("::");
@@ -101,7 +103,7 @@ function ActivityCard({ activity }: { activity: GetTokenActivityResponse[0] }) {
 
 export default function ActivitiesArea() {
     const nft = useNft();
-    const { data: activities, isLoading, isError } = useQuery({
+    let { data: activities, isLoading, isError } = useQuery({
         queryKey: ["getTokenActivities", nft.token_data_id],
         queryFn: async () => {
             if (!nft.token_data_id) {
@@ -110,6 +112,10 @@ export default function ActivitiesArea() {
             return await getTokenActivities(nft.token_data_id);
         }
     });
+
+    if(USING_MOCK) {
+        activities = mockTokenActivities;
+    } 
 
     React.useEffect(() => {
         if (isError) {

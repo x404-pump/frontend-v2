@@ -1,7 +1,7 @@
-import { Collection } from '@/fetch-functions';
+import { IX404Collection } from '@/fetch-functions';
 import React from 'react';
 
-export type CollectionContextType = Partial<Collection>;
+export type CollectionContextType = Partial<IX404Collection>;
 export const CollectionContext = React.createContext<CollectionContextType>({});
 export function CollectionProvider({ children, collection }: { children: React.ReactNode; collection: CollectionContextType }) {
     return <CollectionContext.Provider value={collection}>{children}</CollectionContext.Provider>;

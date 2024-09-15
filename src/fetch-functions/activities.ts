@@ -1,6 +1,8 @@
 import { GetTokenActivityResponse } from "@aptos-labs/ts-sdk";
 import { aptosClient } from "@/utils/aptosClient";
 
+export interface IX404TokenActivity extends Partial<GetTokenActivityResponse> {
+}
 export async function getTokenActivities(tokenId: string) {
     try {
         const query = `
@@ -20,7 +22,7 @@ export async function getTokenActivities(tokenId: string) {
         const variables = { token_id: tokenId };
 
         const res = await aptosClient().queryIndexer<{
-            token_activities_v2: GetTokenActivityResponse;
+            token_activities_v2: IX404TokenActivity;
         }>({
             query: {
                 query,

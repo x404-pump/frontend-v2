@@ -1,6 +1,5 @@
 'use client';
 
-import { GetTokenDataResponse } from "@aptos-labs/ts-sdk";
 import { NftContextType, NftProvider } from "./contexts/nft";
 import { NftMarketplaceListingProvider, NftMarketplaceListingsContextType } from "./contexts/nftMarketplaceListing";
 

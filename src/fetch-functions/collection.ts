@@ -39,19 +39,19 @@ export interface ICurrentCollectionsV2 {
  * @author Oliver
  */
 export type Collection = {
-  collection_address: string;
-  collection_name: string;
-  collection_description: string;
-  collection_uri: string;
-  collection_image?: string;
-  collection_creator: string;
-  supply: number;
+    collection_address: string;
+    collection_name: string;
+    collection_description: string;
+    collection_uri: string;
+    collection_image?: string;
+    collection_creator: string;
+    supply: number;
 };
 
 /**
  * @author Best Back
  */
-export interface IX404Collection extends Partial<ICurrentCollectionsV2>{
+export interface IX404Collection extends Partial<ICurrentCollectionsV2> {
     collection_address: string;
     collection_name: string;
     collection_description: string;
@@ -107,6 +107,14 @@ export interface ICurrentTokenDatasV2 {
     token_standard: string;
     token_uri: string;
 }
+export interface IX404TokenData extends Partial<ICurrentTokenDatasV2> {
+    price?: number | string;
+}
+
+export interface IX404CollectionTransaction  {
+    [key: string]: any;
+}
+
 // ============================================================
 // ========================= COLLECTION =======================
 // ============================================================
@@ -164,7 +172,7 @@ export async function getCurrentCollectionsV2(offset?: number, limit?: number): 
     const res = await axios.get<IX404Collection[]>(url);
     const collections: IX404Collection[] = res.data;
 
-    return collections;      
+    return collections;
 }
 
 export async function getCollectionData(collection_id: string): Promise<IX404Collection> {
@@ -172,7 +180,7 @@ export async function getCollectionData(collection_id: string): Promise<IX404Col
     const res = await axios.get<IX404Collection>(url);
     const collection: IX404Collection = res.data;
 
-    return collection;      
+    return collection;
 }
 
 // export async function getCollectionData(collection_id: string) {
@@ -248,7 +256,7 @@ export async function getCollectionNfts(collection_id: string) {
 
     try {
         const res = await aptosClient().queryIndexer<{
-            current_token_datas_v2: ICurrentTokenDatasV2[];
+            current_token_datas_v2: IX404TokenData[];
         }>({
             query: {
                 query,
@@ -348,7 +356,7 @@ export async function getTokenData(token_data_id: string) {
         const variables = { token_data_id };
 
         const res = await aptosClient().queryIndexer<{
-            current_token_datas_v2: ICurrentTokenDatasV2[];
+            current_token_datas_v2: IX404TokenData[];
         }>({
             query: {
                 query,

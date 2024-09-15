@@ -13,6 +13,7 @@ import { useCollection } from "../context/collection";
 import MintToken from "./MintToken";
 import { Divider } from "@nextui-org/divider";
 import React from "react";
+import { Avatar } from "@nextui-org/avatar";
 
 function Field({ label, value, icon }: { label?: string; value?: string, icon?: any }) {
     return (
@@ -41,19 +42,19 @@ function Profile() {
 
     return (
         <div className="w-fit h-fit flex flex-col gap-4 items-start">
-            <Image
+            <Avatar
                 src={collection.collection_image}
                 alt={collection.collection_name}
-                radius="full"
+                size="lg"
                 classNames={{
-                    wrapper: "object-cover aspect-square w-16 md:w-32",
+                    base: "w-24 h-24",
+                     
                 }}
-                isLoading={!collection.collection_image}
-                fallbackSrc="https://via.placeholder.com/500x500"
-                loading="lazy"
+                radius="full"
+                showFallback
             />
             <h1 className="flex flex-row gap-2 items-center justify-start">
-                <span className="text-2xl font-bold text-foreground-900 text-center md:text-start">{collection.collection_name}</span>
+                <span className="text-2xl font-bold text-foreground-900 text-start capitalize">{collection.collection_name}</span>
                 <span><CheckmarkBadge01Icon className="text-success" size={24} /></span>
             </h1>
             <Tooltip
@@ -93,25 +94,28 @@ function Details() {
 
     const details = [
         {
-            label: "Floor Price",
-            value: "-",
+            label: "Initial Price",
+            value: collection.initial_price || "-",
             icon: <StartUp02Icon className="text-foreground-700" size={24} />,
         },
         {
-            label: "Listings",
-            value: "-",
+            label: "Supply",
+            value: collection.supply || "-",
             icon: <Tag01Icon className="text-foreground-700" size={24} />,
         },
-        {
-            label: "Top Bid",
-            value: "-",
-            icon: <Award02Icon className="text-foreground-700" size={24} />
-        },
-        {
-            label: "Owners",
-            value: "-",
-            icon: <UserShield02Icon className="text-foreground-700" size={24} />
-        }
+        /**
+         * @todo Implement these fields
+         */
+        // {
+        //     label: "Top Bid",
+        //     value: "-",
+        //     icon: <Award02Icon className="text-foreground-700" size={24} />
+        // },
+        // {
+        //     label: "Owners",
+        //     value: "-",
+        //     icon: <UserShield02Icon className="text-foreground-700" size={24} />
+        // }
     ]
 
     return (

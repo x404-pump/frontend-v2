@@ -23,7 +23,7 @@ export default function ToolsArea() {
 
     React.useEffect(() => {
         
-        if (nft.current_token_ownerships.length) {
+        if (nft.current_token_ownerships && nft.current_token_ownerships.length) {
             setOwnerAddress(nft.current_token_ownerships.pop()?.owner_address);
         }
     }, [nft]);
@@ -37,7 +37,7 @@ export default function ToolsArea() {
             )}
         >
             <div className="w-full">
-                <h3 className="text-2xl text-default-foreground font-semibold">{nft.token_name}</h3>
+                <h3 className="text-2xl text-default-foreground font-semibold capitalize">{nft.token_name}</h3>
                 <div className="flex flex-row items-center justify-start gap-4 w-full md:justify-between">
                     <span className="text-default-500 font-medium w-fit text-base">Owned by</span>
                     <span className="text-yellow-500 font-medium cursor-pointer">

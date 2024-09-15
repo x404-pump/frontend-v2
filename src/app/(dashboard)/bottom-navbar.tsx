@@ -11,7 +11,7 @@ export default function BottomNavBar() {
     const pathname = usePathname();
     
     return (
-        <div className="flex items-center justify-center py-4 md:hidden backdrop-blur-md fixed bottom-0 left-0 right-0 z-50">
+        <div className="flex items-center justify-center py-4 lg:hidden backdrop-blur-md fixed bottom-0 left-0 right-0 z-50">
             <Listbox
                 classNames={{
                     list: "flex flex-row items-center justify-center px-3 py-2 gap-2 rounded-full bg-foreground-100 w-fit mx-auto",

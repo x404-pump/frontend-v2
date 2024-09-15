@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Skeleton } from "@nextui-org/skeleton";
 import { Image } from "@nextui-org/image";
-import { GetTokenDataResponse } from '@aptos-labs/ts-sdk';
 import { useRouter } from 'next/navigation';
 import { Tooltip } from '@nextui-org/tooltip';
 import clsx from 'clsx';
 
 import { getImage, truncate } from '@/lib';
-import { ICurrentTokenDatasV2 } from '@/fetch-functions';
+import { ICurrentTokenDatasV2, IX404TokenData } from '@/fetch-functions';
+import numeral from 'numeral';
 
 
 interface NftCardProps extends React.HTMLAttributes<HTMLDivElement> {
-    token: Partial<ICurrentTokenDatasV2>;
+    token: Partial<IX404TokenData>;
 }
 
 export function NftCard(props: NftCardProps) {
@@ -30,7 +30,7 @@ export function NftCard(props: NftCardProps) {
 
     return (
         <div
-            className="relative flex w-full flex-none flex-col gap-3 cursor-pointer transition duration-500 hover:scale-105 transform"
+            className="relative flex w-full flex-none flex-col gap-4 cursor-pointer transition duration-500 hover:scale-105 transform"
             role="button"
             onClick={() => router.push(`/nft/${token.token_data_id}`)}
             onKeyDown={() => router.push(`/nft/${token.token_data_id}`)}
@@ -39,22 +39,26 @@ export function NftCard(props: NftCardProps) {
                 src={imageSrc || ""}
                 alt={token.token_name}
                 className={clsx(
-                    "w-full aspect-square object-cover"
+                    "w-full aspect-[4/3] object-cover rounded-3xl",
                 )}
                 width={'100%'}
                 height={'100%'}
-                radius="lg"
                 isLoading={!imageSrc}
-                fallbackSrc="https://via.placeholder.com/500x500"
+                fallbackSrc="https://via.placeholder.com/1000x1000"
                 loading="lazy"
             />
             <div className="w-full">
                 <Tooltip content={token.token_name}>
-                    <h3 className="text-lg font-semibold cursor-pointer w-full break-words">
+                    <h3 className="text-lg font-semibold cursor-pointer w-full break-words capitalize">
                         {truncate(token.token_name!, 24)}
                     </h3>
                 </Tooltip>
-                {/* <p className="text-sm text-gray-500">{token.description}</p> */}
+                <div className='flex flex-row justify-between w-full gap-2'>
+                    <h6 className='text-sm text-foreground-500'>Price</h6>
+                    <p className="text-sm font-semibold">
+                        {numeral(token.price).format('0,0.00')}
+                    </p>
+                </div>
             </div>
         </div>
     )
@@ -92,7 +96,7 @@ const LazyNftCard: React.FC<LazyNftCardProps> = ({ token }) => {
     }, []);
 
     return (
-        <div ref={ref} className="w-full aspect-square rounded-2xl">
+        <div ref={ref} className="rounded-2xl">
             {isVisible ? <NftCard token={token} /> : <Skeleton className="w-full aspect-square rounded-2xl" />}
         </div>
     );

@@ -32,7 +32,7 @@ export default function ImageArea() {
                 height={'auto'}
                 isLoading={!imageSrc}
                 shadow="md"
-                className="aspect-square md:aspect-video object-cover"
+                className="aspect-square md:aspect-[2/1] object-cover"
                 classNames={{
                     wrapper: "rounded-[32px] overflow-hidden",
                 }}

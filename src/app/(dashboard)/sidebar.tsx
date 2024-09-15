@@ -51,7 +51,7 @@ export default function SideBar() {
         <aside
             className={clsx(
                 "py-4 h-full flex-col gap-4 items-center justify-center",
-                "md:flex hidden"
+                "lg:flex hidden"
             )}
         >
             <Logo className="w-8 h-8" />

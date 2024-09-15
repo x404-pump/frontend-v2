@@ -11,7 +11,8 @@ import { uploadCollectionData } from "@/utils/assetUploader";
 import { createCollection } from "@/entry-functions/create_collection";
 import { aptosClient } from "@/utils/aptosClient";
 
-const DynamicUploadFileInput = dynamic(() => import('./UploadFileInput'));
+const UploadFileInput = dynamic(() => import('./UploadFileInput'));
+const CollectionDetailArea = dynamic(() => import('./CollectionDetailArea'));
 
 interface CreateCollectionFormProps extends React.HTMLAttributes<HTMLFormElement> { }
 export default function CreateCollectionForm({ ...props }: CreateCollectionFormProps) {
@@ -47,7 +48,7 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
                 aptosWallet,
                 files,
             );
-            
+
             const createCollectionInputTransaction = createCollection({
                 collectionDescription,
                 collectionName,
@@ -85,27 +86,23 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
     return (
         <section className="mt-8 w-full overflow-visible relative flex flex-row justify-between items-start" id="create-collection-form">
             <form className="relative w-full flex flex-col gap-8 items-start justify-start">
-                <DynamicUploadFileInput
+                <UploadFileInput
                     files={files}
                     setFiles={setFiles}
                     isUploading={isUploading}
                     account={'account'}
                 />
-                <div className="flex flex-row gap-8 items-center w-full">
+                <div className="flex flex-col gap-4 items-center w-full">
                     <Input
                         label="Amount Apt Int"
-                        className="w-[30vw]"
                         fullWidth
                         radius="full"
                         placeholder="0"
                         labelPlacement="outside"
                         onChange={handleChangeAmountAptIn}
                     />
-                </div>
-                <div className="flex flex-row gap-8 items-center w-full">
                     <Input
                         label="Initial price for each Token"
-                        className="w-[30vw]"
                         description="Initial price for each Token, 1 APT for default"
                         fullWidth
                         type="number"
@@ -117,11 +114,13 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
                         onChange={handleChangeInitPrice}
                     />
                 </div>
+                <CollectionDetailArea className="flex lg:hidden"/>
                 <Button
                     type="submit"
                     color="success"
                     radius="full"
-                    size="md"
+                    size="lg"
+                    fullWidth
                     onClick={onCreateCollection}
                 >
                     Create

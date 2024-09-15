@@ -14,15 +14,15 @@ function FormSection() {
     return (
         <CollectionMetadataProvider>
             <section className={clsx(
-                'flex flex-col md:flex-row gap-8 items-start md:justify-center w-full h-full px-16',
+                'flex flex-col lg:flex-row gap-8 items-start lg:justify-center min-w-fit w-full h-full lg:px-16',
                 'my-auto'
             )}>
-                <div className='my-auto h-full w-full  md:w-fit md:h-fit justify-center flex flex-col gap-4 md:max-w-fit box-border'>
+                <div className='my-auto h-full w-full lg:min-w-fit lg:h-fit lg:justify-center flex flex-col gap-4 lg:max-w-fit box-border'>
                     <FormHeader />
                     <CreateCollectionForm />
                 </div>
                 <div className="h-full w-full" >
-                    <CollectionDetailArea />
+                    <CollectionDetailArea className='hidden lg:flex'/>
                 </div>
             </section>
         </CollectionMetadataProvider>

@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { useCollection } from "../context/collection";
 import { X404_ADDRESS } from "@/config/contants";
 import { aptosClient } from "@/utils/aptosClient";
+import { Avatar } from "@nextui-org/avatar";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
@@ -27,21 +28,24 @@ function ButtonOperator({
         </div>
     )
 }
+
 export default function Trader() {
     const [amount, setAmount] = React.useState<number>(0);
+    const [output, setOutput] = React.useState<number>(0);
+    const [swapDirection, setSwapDirection] = React.useState<'APT_TO_FA' | 'FA_TO_APT'>('APT_TO_FA');
     const { account, signAndSubmitTransaction, connected } = useWallet();
     const collection = useCollection();
 
-    const handleBuy = async () => {
+    const handleSwap = async () => {
         try {
-            if(!connected) throw new Error('Wallet not connected');
+            if (!connected) throw new Error('Wallet not connected');
 
             const tx = await signAndSubmitTransaction({
                 data: {
                     function: `${X404_ADDRESS}::bonding_curve_launchpad::swap`,
                     functionArguments: [
                         collection.collection_address,
-                        false,
+                        swapDirection === 'FA_TO_APT',
                         amount * 10 ** 8,
                     ]
                 }
@@ -51,10 +55,12 @@ export default function Trader() {
                 transactionHash: tx.hash,
             });
 
-            toast.success('Buy successful');
+            const outputAmount = calculateOutput(amount);
+            setOutput(outputAmount);
 
+            toast.success('Swap successful');
         } catch (error: any) {
-            if(error.message === 'Wallet not connected') {
+            if (error.message === 'Wallet not connected') {
                 toast.info('Please connect your wallet');
 
                 return;
@@ -63,74 +69,103 @@ export default function Trader() {
         }
     }
 
-    const handleSell = async () => {
-        try {
-            if(!connected) throw new Error('Wallet not connected');
-            
-            const tx = await signAndSubmitTransaction({
-                data: {
-                    function: `${X404_ADDRESS}::bonding_curve_launchpad::swap`,
-                    functionArguments: [
-                        collection.collection_address,
-                        true,
-                        amount * 10 ** 8,
-                    ]
-                }
-            });
+    const calculateOutput = (inputAmount: number): number => {
+        return inputAmount * 0.95; // Example: 5% fee
+    }
 
-            await aptosClient().waitForTransaction({
-                transactionHash: tx.hash,
-            });
+    const handleSwapDirection = () => {
+        setSwapDirection(prevDirection => {
+            const newDirection = prevDirection === 'APT_TO_FA' ? 'FA_TO_APT' : 'APT_TO_FA';
+            setAmount(output);
+            setOutput(amount);
+            return newDirection;
+        });
+    }
 
-            toast.success('Sell successful');
-        } catch (error: any) {
-            if(error.message === 'Wallet not connected') {
-                toast.info('Please connect your wallet');
-
-                return;
-            }
-            toast.error(error.message);
-        }
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const inputAmount = Number(e.target.value);
+        setAmount(inputAmount);
+        const outputAmount = calculateOutput(inputAmount);
+        setOutput(outputAmount);
     }
 
     return (
         <div
-            className="flex flex-col p-4 gap-4 items-center justify-center rounded-[48px] bg-foreground-100 min-w-64 w-full h-fit"
+            className="flex flex-col p-4 gap-4 items-center justify-center rounded-[48px] bg-foreground-100 min-w-fit lg:max-w-64 w-full h-fit"
         >
-            <div className="w-full h-fit p-4 rounded-[32px] bg-foreground-50">
+            <div className="flex items-center flex-col w-full h-fit p-4 rounded-[32px] bg-foreground-50 shadow">
                 <Input
+                    id="from"
                     placeholder="0.00"
                     type="number"
-                    label="Amount"
+                    label="From"
                     labelPlacement="outside"
                     className="w-full"
                     classNames={{
                         input: "text-2xl font-semibold w-full",
-                        inputWrapper: "bg-transparent data-[hover=true]:bg-transparent w-fit"
+                        inputWrapper: "bg-transparent data-[hover=true]:bg-transparent w-full"
                     }}
-                    onChange={(e) => setAmount(Number(e.target.value))}
-                    endContent={<APTCoinIcon className="w-4 h-4" />}
-                />
-            </div>
-            <div className="flex flex-row items-center justify-center gap-4">
-                <ButtonOperator
-                    title="Buy"
-                    children={
-                        <Button isIconOnly radius="full" onClick={handleBuy}>
-                            <Dollar01Icon className="w-6 h-6" />
-                        </Button>
+                    onChange={handleInputChange}
+                    value={amount.toString()}
+                    endContent={
+                        swapDirection === 'APT_TO_FA' ?
+                            <APTCoinIcon className="w-6 h-6" />
+                            :
+                            <Avatar src={collection.collection_image} className="w-6 h-6" />
                     }
                 />
-
-                <ButtonOperator
-                    title="Sell"
-                    children={
-                        <Button isIconOnly radius="full" onClick={handleSell}>
-                            <Exchange01Icon className="w-6 h-6" />
-                        </Button>
+                <Button isIconOnly radius="full" onClick={handleSwapDirection}>
+                    <Exchange01Icon className="w-6 h-6" />
+                </Button>
+                <Input
+                    id="to"
+                    disabled
+                    isReadOnly
+                    placeholder="0.00"
+                    type="number"
+                    label="To"
+                    labelPlacement="outside"
+                    className="w-full"
+                    classNames={{
+                        input: "text-2xl font-semibold w-full",
+                        inputWrapper: "bg-transparent data-[hover=true]:bg-transparent w-full"
+                    }}
+                    value={output.toString()}
+                    endContent={
+                        swapDirection === 'APT_TO_FA' ?
+                            <Avatar src={collection.collection_image} className="w-6 h-6" />
+                            :
+                            <APTCoinIcon className="w-6 h-6" />
                     }
                 />
             </div>
+            {/* {swapDirection === 'APT_TO_FA' ? (
+                    <ButtonOperator
+                        title="Buy"
+                        children={
+                            <Button isIconOnly radius="full" onClick={handleSwap}>
+                                <Dollar01Icon className="w-6 h-6" />
+                            </Button>
+                        }
+                    />
+                ) : (
+                    <ButtonOperator
+                        title="Sell"
+                        children={
+                            <Button isIconOnly radius="full" onClick={handleSwap}>
+                                <Exchange01Icon className="w-6 h-6" />
+                            </Button>
+                        }
+                    />
+                )} */}
+            <Button
+                onClick={handleSwap}
+                fullWidth
+                radius="full"
+                disabled={!connected}
+            >
+                {swapDirection === 'APT_TO_FA' ? 'Buy' : 'Sell'}
+            </Button>
         </div>
     )
 }
