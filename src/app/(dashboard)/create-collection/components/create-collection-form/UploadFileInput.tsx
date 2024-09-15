@@ -103,6 +103,8 @@ const UploadFileInput: React.FC<UploadFileInputProps> = ({ isUploading, account,
         >   <h6 className='text-lg font-semibold text-foreground-900'>Upload metadata</h6>
             <div
                 className='w-full h-fit flex flex-col items-center justify-center gap-4 rounded-3xl border border-default/25 p-8 cursor-pointer'
+                role="button"
+                tabIndex={0}
                 onClick={handleClick}
             >
                 <Upload04Icon size={32} />
