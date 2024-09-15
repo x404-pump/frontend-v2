@@ -1,12 +1,9 @@
 'use client';
 
-import { useCollection } from "@/app/(dashboard)/collection/[id]/context/collection";
 import { truncateAddress, useWallet } from "@aptos-labs/wallet-adapter-react";
-import { Avatar } from "@nextui-org/avatar";
 import { Chip } from "@nextui-org/chip";
 import { Tooltip } from "@nextui-org/tooltip";
 import copy from "copy-to-clipboard";
-import { CheckmarkBadge01Icon } from "hugeicons-react";
 import { IoCopy } from "react-icons/io5";
 import { toast } from "react-toastify";
 
@@ -37,7 +34,7 @@ function Profile() {
 
     return (
         <div className="w-fit h-fit flex flex-col gap-4 items-start">
-            <h1 className="text-2xl font-semibold text-primary-foreground">Profile</h1>
+            <h1 className="text-2xl font-semibold text-foreground">Profile</h1>
             <Tooltip
                 content={"Collection Address"}
             >
@@ -72,7 +69,7 @@ export default function Index() {
     const { account } = useWallet();
 
     return (
-        <div className="bg-primary rounded-3xl p-8 w-full flex flex-col md:flex-row items-center md:items-end gap-8">
+        <div className="w-full flex flex-col md:flex-row md:items-end gap-8">
             <Profile />
             <div className="w-full flex flex-col gap-4 items-end">
             </div>

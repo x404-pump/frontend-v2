@@ -28,6 +28,11 @@ export function NftCard(props: NftCardProps) {
         fetchImage();
     }, [fetchImage]);
 
+    if(!imageSrc) {
+        return(
+            <Skeleton className="w-full aspect-[4/3] rounded-2xl" />
+        )
+    }
     return (
         <div
             className="relative flex w-full flex-none flex-col gap-4 cursor-pointer transition duration-500 hover:scale-105 transform"
@@ -39,13 +44,13 @@ export function NftCard(props: NftCardProps) {
                 src={imageSrc || ""}
                 alt={token.token_name}
                 className={clsx(
-                    "w-full aspect-[4/3] object-cover rounded-3xl",
+                    "w-full min-w-full aspect-[4/3] object-cover rounded-3xl",
                 )}
                 width={'100%'}
                 height={'100%'}
                 isLoading={!imageSrc}
                 fallbackSrc="https://via.placeholder.com/1000x1000"
-                loading="lazy"
+                loading="eager"
             />
             <div className="w-full">
                 <Tooltip content={token.token_name}>
@@ -102,4 +107,4 @@ const LazyNftCard: React.FC<LazyNftCardProps> = ({ token }) => {
     );
 };
 
-export default LazyNftCard;
+export default Promise.resolve(LazyNftCard);

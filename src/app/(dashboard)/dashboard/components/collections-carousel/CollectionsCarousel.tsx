@@ -17,12 +17,12 @@ function ParamField({ label, value, icon }: { label: string, value?: string, ico
         </div>
     )
 }
-function CollectionCard({ collection }: { collection: IX404Collection }) {
+export function CollectionCard({ collection }: { collection: IX404Collection }) {
     if (!collection || !collection.collection_image) {
         return (
             <Skeleton
                 content="Loading"
-                className="min-w-[360px] aspect-w-16 aspect-h-10"
+                className="min-w-[360px] w-full aspect-w-16 aspect-h-10"
             />
         );
     };
@@ -30,7 +30,7 @@ function CollectionCard({ collection }: { collection: IX404Collection }) {
         <div
             className={clsx(
                 "flex flex-col items-start justify-end gap-2",
-                "min-w-[360px]"
+                "min-w-[360px] w-full"
             )}
             style={{
                 backgroundImage: `url(${collection.collection_image})`,
