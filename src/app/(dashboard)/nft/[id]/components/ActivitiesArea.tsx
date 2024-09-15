@@ -134,7 +134,7 @@ export default function ActivitiesArea() {
                         <Skeleton key={i} className="w-full h-24 rounded-[20px]" />
                     ))
                     : activities && activities.map((activity) => (
-                        <ActivityCard key={activity.transaction_timestamp} activity={activity} />
+                        <ActivityCard key={activity?.transaction_timestamp} activity={activity!} />
                     ))
             }
         </div>

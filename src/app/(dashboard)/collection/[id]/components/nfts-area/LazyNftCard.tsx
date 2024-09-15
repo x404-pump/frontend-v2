@@ -107,4 +107,4 @@ const LazyNftCard: React.FC<LazyNftCardProps> = ({ token }) => {
     );
 };
 
-export default Promise.resolve(LazyNftCard);
+export default LazyNftCard;

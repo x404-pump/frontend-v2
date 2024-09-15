@@ -1,4 +1,4 @@
-import { accountAPTBalance } from "@/view-functions/accountBalance";
+import { getAccountAPTBalance } from "@/view-functions/accountBalance";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useQuery } from "@tanstack/react-query";
 
@@ -10,7 +10,7 @@ export function useAccount() {
         queryKey: ["accountAPTBalance", account?.address],
         queryFn: async () => {
             try {
-                return await accountAPTBalance({
+                return await getAccountAPTBalance({
                     accountAddress: account?.address!
                 });
             } catch (error) {

@@ -1,4 +1,4 @@
-import { X404LIQUIDNFT_MODULE_ADDRESS } from "@/config/contants";
+import { X404_ADDRESS } from "@/config/contants";
 import { aptosClient } from "@/utils/aptosClient";
 import { MoveAddressType } from "@aptos-labs/ts-sdk";
 
@@ -7,7 +7,7 @@ export async function getTokenType(collection_id: string) {
         if(!collection_id) throw new Error('Collection ID is required');
         const [address, module, struct] = await aptosClient().view<[MoveAddressType, string, string]>({
             payload: {
-                function: `${X404LIQUIDNFT_MODULE_ADDRESS}::core::get_token_type`,
+                function: `${X404_ADDRESS}::core::get_token_type`,
                 functionArguments: [collection_id]
             }
         });

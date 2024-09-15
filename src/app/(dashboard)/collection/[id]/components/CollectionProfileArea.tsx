@@ -124,7 +124,7 @@ function Details() {
                 <React.Fragment key={index}>
                     <Field
                         label={detail.label}
-                        value={detail.value}
+                        value={detail.value.toString()}
                         icon={detail.icon}
                     />
                     {index < details.length - 1 && <Divider orientation="vertical" className="w-1 rounded-full h-4" />}
