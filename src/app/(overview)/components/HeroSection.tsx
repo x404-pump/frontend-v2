@@ -6,13 +6,12 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { ArrowDown01Icon } from 'hugeicons-react';
 import { Image } from "@nextui-org/image";
-import dynamic from "next/dynamic";
 
 import { GradientBorder } from '@/components/GradientBorder';
+import Spline from "@splinetool/react-spline";
 
 
 
-const Spline = dynamic(() => import('@splinetool/react-spline'));
 
 export default function HeroSection() {
     const router = useRouter();
