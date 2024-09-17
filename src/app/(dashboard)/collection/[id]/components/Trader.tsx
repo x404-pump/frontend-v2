@@ -91,7 +91,7 @@ export default function Trader() {
 
     return (
         <div
-            className="flex flex-col p-4 gap-4 items-center justify-center rounded-[48px] bg-foreground-100 min-w-fit lg:max-w-64 w-full h-fit"
+            className="flex flex-col p-4 gap-4 items-center justify-center rounded-[48px] bg-foreground-50 min-w-fit w-full h-fit"
         >
             <div className="flex items-center flex-col w-full h-fit p-4 rounded-[32px] bg-foreground-50 shadow">
                 <Input

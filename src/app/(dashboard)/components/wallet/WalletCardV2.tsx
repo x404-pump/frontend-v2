@@ -9,7 +9,7 @@ import { Avatar } from "@nextui-org/avatar";
 import { useAccount } from "@/hooks/useAccount";
 import { ConnectWalletDialog } from "@/components/WalletSelector";
 import { getAccountAPTBalance } from "@/view-functions/accountBalance";
-import { Copy02Icon, Logout04Icon, Wallet01Icon } from "hugeicons-react";
+import { Copy02Icon } from "hugeicons-react";
 import { Button } from "@nextui-org/button";
 
 export default function WalletCard() {
@@ -37,7 +37,7 @@ export default function WalletCard() {
     if (!account && !isLoading) return <ConnectWalletDialog />;
 
     return (
-        <div className="flex flex-row items-center justify-between gap-4">
+        <div className="flex flex-row items-center justify-between gap-4 px-2">
             <div className="flex flex-row gap-2 items-center">
                 <Avatar
                     src={wallet?.icon}

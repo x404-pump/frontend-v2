@@ -1,17 +1,19 @@
 'use client';
 
+import { Providers } from "./providers";
 import dynamic from "next/dynamic";
-import { MainHeader } from "../components/MainHeader";
 
-const CollectionsSection = dynamic(() => import('./components/collections-table'));
-const CollectionsCarouselSection = dynamic(() => import('./components/collections-carousel'));
+const CollectionsSection = dynamic(() => import('./components/collections-section'));
+const MainHeader = dynamic(() => import('../components/MainHeader'));
 
-export default function DashboardPage() {
+function DashboardPage() {
   return (
-    <>
-      <MainHeader />
-      <CollectionsCarouselSection />
-      <CollectionsSection />
-    </>
+    <Providers>
+      <div className="space-y-8 h-full">
+        <CollectionsSection />
+      </div>
+    </Providers>
   );
 }
+
+export default dynamic(() => Promise.resolve(DashboardPage));

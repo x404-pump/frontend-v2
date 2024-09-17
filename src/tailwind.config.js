@@ -27,7 +27,7 @@ module.exports = {
       dark: {
         extend: 'dark',
         colors: {
-          background: '#151515',
+          background: '#121212',
           foreground: {
             "50": "#1B1B1B",
             "100": "#27272A",

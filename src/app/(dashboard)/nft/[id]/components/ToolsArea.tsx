@@ -4,17 +4,13 @@ import clsx from "clsx";
 import { useNft } from "../contexts/nft";
 import { truncateAddress } from "@aptos-labs/wallet-adapter-react";
 import { Button } from "@nextui-org/button";
-import { BitcoinMoney02Icon } from "hugeicons-react";
-import React  from "react";
+import { BitcoinMoney02Icon, SaleTag01Icon } from "hugeicons-react";
+import React from "react";
 import { Tooltip } from "@nextui-org/tooltip";
 
 import { useNftMarketplaceListings } from "../contexts/nftMarketplaceListing";
 import { GradientBorder } from "@/components/GradientBorder";
-
-// Utility function to format the price
-const formatPrice = (price: number, decimals: number = 8) => {
-    return (price / Math.pow(10, decimals)).toFixed(2);
-};
+import numeral from "numeral";
 
 export default function ToolsArea() {
     const nft = useNft();
@@ -22,7 +18,7 @@ export default function ToolsArea() {
     const [ownerAddress, setOwnerAddress] = React.useState<string | undefined>();
 
     React.useEffect(() => {
-        
+
         if (nft.current_token_ownerships && nft.current_token_ownerships.length) {
             setOwnerAddress(nft.current_token_ownerships.pop()?.owner_address);
         }
@@ -32,8 +28,7 @@ export default function ToolsArea() {
         <div
             className={clsx(
                 "w-full flex flex-col md:flex-row gap-4 justify-between items-center",
-                "px-4 md:px-8 py-5 rounded-3xl w-full",
-                "bg-foreground-50 border border-default/25",
+                "py-5 rounded-3xl w-full",
             )}
         >
             <div className="w-full">
@@ -56,12 +51,13 @@ export default function ToolsArea() {
             {nftMarketplaceListing ? (
                 <>
                     <div className="w-full">
-                        <span className="flex flex-row items-end">Current Price</span>
-                        <div className="text-2xl text-default-foreground font-semibold w-fit">
-                            <span className="text-secondary text-2xl font-bold">
-                                {formatPrice(Number(nftMarketplaceListing.price))}
-                            </span>
-                            <span className="text-xs text-foreground-500">_</span>
+                        <div className="p-2 rounded-xl bg-primary flex flex-row items-center gap-2 rotate-3 shadow-2xl shadow-primary">
+                            <div className="bg-primary-600 p-1 rounded-lg">
+                                <SaleTag01Icon size={16} className="text-primary-foreground" />
+                            </div>
+                            <p className="text-primary-foreground text-base font-bold">
+                                {numeral(nftMarketplaceListing.price).format("$0,0.00")}
+                            </p>
                         </div>
                     </div>
                     <div className="flex flex-row items-center gap-4 md:justify-end w-full">
@@ -84,7 +80,7 @@ export default function ToolsArea() {
                     </div>
                 </>
             ) : (
-                <div>Not for sale</div>
+                <p className="text-foreground-500 text-base font-bold w-fit">Not for sale</p>
             )}
         </div>
     );

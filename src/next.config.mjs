@@ -11,7 +11,8 @@ const nextConfig = {
                 "csv-parse": "csv-parse/lib/sync",
                 
             }
-        }
+        },
+        ppr: false,
     }
 };
 

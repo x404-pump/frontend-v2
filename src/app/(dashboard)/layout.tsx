@@ -2,10 +2,9 @@ import { Metadata } from "next";
 
 import { siteConfig } from "@/config/site";
 import { Providers } from "./providers";
-import dynamic from "next/dynamic";
-
-const SideBar = dynamic(() => import("./sidebar"));
-const BottomNavbar = dynamic(() => import("./bottom-navbar"));
+import "./styles.css";
+import SideBar from "./sidebar";
+import BottomNavbar from "./bottom-navbar";
 
 export const metadata: Metadata = {
   title: {
@@ -18,20 +17,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default function DashboardLayout({
+
+function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
     <Providers>
-      <div className="flex flex-row h-screen relative mx-auto overflow-y-scroll overflow-hidden">
+      <div className="flex flex-row h-screen relative mx-auto overflow-x-hidden hidden-scrollbar">
         <SideBar />
         <BottomNavbar />
-        <main className="flex-grow w-full mb-32 lg:mb-0 lg:ml-4 h-full overflow-y-scroll p-4">
+        <main className="flex-grow w-full mb-32 lg:mb-0 lg:ml-4 h-full overflow-y-scroll p-4 hidden-scrollbar">
           {children}
         </main>
       </div>
     </Providers>
   );
 }
+
+export default DashboardLayout;

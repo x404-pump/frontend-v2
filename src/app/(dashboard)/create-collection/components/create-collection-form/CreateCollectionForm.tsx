@@ -107,7 +107,7 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
                         fullWidth
                         type="number"
                         radius="full"
-                        placeholder="0"
+                        placeholder="1" 
                         min={1}
                         labelPlacement="outside"
                         isRequired
@@ -117,7 +117,7 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
                 <CollectionDetailArea className="flex lg:hidden"/>
                 <Button
                     type="submit"
-                    color="success"
+                    color="primary"
                     radius="full"
                     size="lg"
                     fullWidth

@@ -10,8 +10,8 @@ function DetailField({ label, value }: { label?: string, value?: string }) {
 
     return (
         <div className="flex flex-row justify-between items-center">
-            <p className="text-base font-normal text-default-500">{label || '_'}</p>
-            <p className="text-base font-medium text-default-foreground">{value || '_'}</p>
+            <p className="text-sm font-normal text-default-500">{label || '_'}</p>
+            <p className="text-xs font-medium text-default-foreground">{value || '_'}</p>
         </div>
     );
 }
@@ -29,7 +29,7 @@ export default function DetailsArea() {
     
     return (
         <div className="space-y-4 w-full relative">
-            <h6 className="text-2xl font-semibold text-default-foreground">Details</h6>
+            <h6 className="text-lg font-semibold text-default-foreground">Details</h6>
             <div className="flex-col w-full items-start justify-center">
                 <DetailField label="Contract Address" value={truncateAddress(nftMarketplaceListing?.contract_address)} />
                 <DetailField label="Token Id" value={truncateAddress(nft.token_data_id)} />

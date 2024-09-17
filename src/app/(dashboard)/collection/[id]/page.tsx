@@ -3,20 +3,15 @@ import { Providers } from "./providers";
 // import { NftsArea } from "./components/nfts-area/NftsArea";
 import { getCollectionData } from "@/fetch-functions/collection";
 import { notFound } from "next/navigation";
-import dynamic from "next/dynamic";
 
 import { mockCollection } from "@/mock";
 import { USING_MOCK } from "@/config/contants";
 import TabContainer from "./components/tabs";
-
-const Trader = dynamic(() => import("./components/Trader"));
-const TransactionsArea = dynamic(() => import("./components/transactions-area"));
-const CollectionProfileArea = dynamic(() =>
-    import("./components/CollectionProfileArea").then((mod) => mod.CollectionProfileArea)
-);
-const NftsArea = dynamic(() =>
-    import("./components/nfts-area/NftsArea").then((mod) => mod.NftsArea)
-);
+import { CollectionProfileArea } from "./components/CollectionProfileArea";
+import { NftsArea } from "./components/nfts-area/NftsArea";
+import Trader from "./components/Trader";
+import TransactionsArea from "./components/transactions-area";
+import dynamic from "next/dynamic";
 
 
 // export async function generateMetadata({ params }: { params: { id: string } }) {
@@ -29,7 +24,7 @@ const NftsArea = dynamic(() =>
 //     };
 // }
 
-export default async function Page({
+async function Page({
     params,
 }: {
     params: {
@@ -56,13 +51,16 @@ export default async function Page({
     return (
         <Providers collection={collection}>
             <div className="space-y-4 md:space-y-8">
-                <CollectionProfileArea />
-                <div className="hidden lg:flex flex-col md:flex-row gap-8 w-full items-start">
-                    <div className="flex flex-col gap-8 w-full lg:w-fit lg:min-w-80">
+                <div className="flex flex-col lg:flex-row gap-8 w-full items-start">
+                    <div className="flex flex-col gap-8 w-full">
+                        <CollectionProfileArea />
+                        <NftsArea />
+                    </div>
+
+                    <div className="hidden lg:flex flex-col gap-8 w-full max-w-sm">
                         <Trader />
                         <TransactionsArea />
                     </div>
-                    <NftsArea />
                 </div>
                 <div className="lg:hidden space-y-8">
                     <Trader />
@@ -72,3 +70,4 @@ export default async function Page({
         </Providers>
     );
 }
+export default dynamic(() => Promise.resolve(Page));

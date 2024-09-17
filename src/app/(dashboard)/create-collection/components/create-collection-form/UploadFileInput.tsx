@@ -10,6 +10,8 @@ import { loadFile } from '../utils';
 import { Upload04Icon } from 'hugeicons-react';
 import { useCollectionMetadata } from './context';
 import { getCollectionFromFiles } from '@/utils/assetUploader';
+import BlurIcon from '@/components/blur-icon';
+import numeral from 'numeral';
 
 interface UploadFileInputProps extends InputProps {
     isUploading: boolean;
@@ -28,13 +30,13 @@ const truncateName = (name: string, length: number) => {
 
 const FileCard: React.FC<{ file: File, onDelete: (file: File) => void }> = ({ file, onDelete }) => {
     return (
-        <div className='bg-foreground-200 rounded-lg flex flex-row items-center justify-between px-4 py w-full h-fit gap-2'>
+        <div className='bg-foreground-100 rounded-lg flex flex-row items-center justify-between px-4 py w-full h-fit gap-2'>
             <Tooltip content={file.name} placement='top'>
                 <h4 className='text-xs font-medium text-foreground-900 cursor-pointer w-full overflow-hidden'>
                     {truncateName(file.name, 20)}
                 </h4>
             </Tooltip>
-            <p className='text-xs text-default-500'>{file.size} bytes</p>
+            <p className='text-xs text-default-500 w-fit'>{numeral(file.size).format('0.0b')}</p>
             <Button
                 radius='full'
                 color='default'
@@ -70,7 +72,7 @@ const UploadFileInput: React.FC<UploadFileInputProps> = ({ isUploading, account,
                     image: fileData.collectionCover,
                     description: fileData.collectionMetadata.description,
                 });
-                
+
             } catch (err: any) {
                 setError(err.message); // Set error message
             }
@@ -98,16 +100,21 @@ const UploadFileInput: React.FC<UploadFileInputProps> = ({ isUploading, account,
         <div
             className={clsx(
                 'flex flex-col gap-4 items-start justify-center w-full h-fit',
-                'p-4 rounded-3xl bg-foreground-100 border border-default/25'
+                'p-4 rounded-3xl bg-foreground-50 border border-default/25'
             )}
         >   <h6 className='text-lg font-semibold text-foreground-900'>Upload metadata</h6>
             <div
-                className='w-full h-fit flex flex-col items-center justify-center gap-4 rounded-3xl border border-default/25 p-8 cursor-pointer'
+                className='w-full h-fit flex flex-col items-center justify-center gap-4 rounded-3xl p-4 cursor-pointer'
                 role="button"
                 tabIndex={0}
                 onClick={handleClick}
             >
-                <Upload04Icon size={32} />
+                <BlurIcon
+                    icon={<Upload04Icon size={16} />}
+                    classNames={{
+                        blur: 'bg-primary',
+                    }}
+                />
                 <input
                     ref={inputRef}
                     id="upload"
@@ -120,13 +127,13 @@ const UploadFileInput: React.FC<UploadFileInputProps> = ({ isUploading, account,
                     onChange={handleFileChange}
                     {...inputProps}
                 />
-                <h3 className='text-sm font-normal text-foreground-500'>
+                <h3 className='text-sm font-normal text-foreground-500 text-center'>
                     Drag & drop or click to choose files
                 </h3>
             </div>
             {error && <p className='text-red-500'>{error}</p>}
             {files && (
-                <div className='w-full flex flex-col gap-2 items-start h-fit overflow-scroll max-h-[200px]'>
+                <div className='w-full flex flex-col gap-2 items-start h-fit overflow-scroll max-h-[64px]'>
                     {Array.from(files).map((file) => (
                         <FileCard key={file.name} file={file} onDelete={handleDeleteFile} />
                     ))}

@@ -10,6 +10,7 @@ import { useAccount } from "@/hooks/useAccount";
 import { ConnectWalletDialog } from "@/components/WalletSelector";
 import { getAccountAPTBalance } from "@/view-functions/accountBalance";
 import { Copy02Icon, Logout04Icon, Wallet01Icon } from "hugeicons-react";
+import numeral from "numeral";
 
 export default function WalletCard() {
     const { account, isLoading } = useAccount();
@@ -68,7 +69,7 @@ export default function WalletCard() {
                 >
                     <div className="w-full flex flex-col justify-start">
                         <p className="text-base text-foreground-900 font-semibold">{truncateAddress(account?.address)}</p>
-                        <p className="text-xs text-secondary font-medium">{account?.balance} APT</p>
+                        <p className="text-xs text-secondary font-medium">{numeral(balance).format("0,0.00")} APT</p>
                     </div>
                 </DropdownItem>
                 <DropdownItem

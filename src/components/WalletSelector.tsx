@@ -42,9 +42,9 @@ function ConnectWalletDialog() {
                 className="bg-foreground-900 text-foreground-100 font-semibold"
                 isLoading={isLoading}
                 onClick={onOpen}
-                isIconOnly
+                startContent={<Wallet01Icon size={16} />}
             >
-                <Wallet01Icon />
+                Connect Wallet
             </Button>
             <Modal className="max-h-screen overflow-auto py-4" isOpen={isOpen} onOpenChange={onOpenChange} radius="lg" size="lg">
                 <ModalContent>

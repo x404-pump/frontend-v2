@@ -1,6 +1,6 @@
 import Toolbar from "./Toolbar";
 
-export function MainHeader() {
+export default function MainHeader() {
     return (
         <header className="flex flex-col w-full md:flex-row justify-between items-center gap-4">
             <div className="w-full flex flex-col">

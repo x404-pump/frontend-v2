@@ -14,11 +14,12 @@ export const metadata: Metadata = {
     },
 };
 
-export default function Page() {
-    
+function Page() {
+
     return (
         <>
             <CreateCollectionForm />
         </>
     )
 }
+export default dynamic(() => Promise.resolve(Page));

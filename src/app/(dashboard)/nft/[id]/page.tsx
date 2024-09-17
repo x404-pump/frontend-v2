@@ -67,18 +67,18 @@ export default async function Page({
         <Providers nft={nft} nftMarketplaceListings={nftMarketplaceListings}>
             <div className="space-y-4 md:space-y-8 relative overflow-visible w-full">
                 <div className="mb-4 w-full">
-                    <ImageArea />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 w-full">
+                <div className="flex flex-row gap-8 items-start w-full">
                     <div className="flex flex-col gap-4 md:gap-8 md:col-span-2 w-full">
+                        <ImageArea />
                         <ToolsArea />
                         <DescriptionArea />
-                        <DetailsArea />
                         <TraitsArea />
-                        <Divider />
+                    </div>
+                    <div className="flex flex-col gap-4 md:gap-8 md:col-span-2 w-full max-w-sm">
+                        <DetailsArea />
                         <ActivitiesArea />
                     </div>
-                    <div className="flex flex-col gap-4 md:gap-8 md:col-span-1" />
                 </div>
             </div>
         </Providers>
