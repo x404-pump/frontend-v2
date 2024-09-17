@@ -30,19 +30,25 @@ function Field({ label, value, icon }: { label?: string; value?: string, icon?: 
 };
 
 function Profile() {
-    const {account, wallet } = useWallet();
+    const { account, wallet } = useWallet();
 
     return (
         <div className="w-fit h-fit flex flex-col gap-4 items-start">
-            <h1 className="text-2xl font-semibold text-foreground">Profile</h1>
+            <h6 className="text-2xl font-semibold text-foreground">Profile</h6>
             <Tooltip
                 content={"Collection Address"}
             >
                 <Chip
-                    color="secondary"
+                    color="default"
                     radius="full"
                     className="cursor-pointer"
-                    endContent={<IoCopy />}
+                    classNames={{
+                        base: "py-2 h-fit px-2",
+                    }}
+                    endContent={
+                        <div className="rounded-full p-2 bg-foreground-100">
+                            <IoCopy size={16} />
+                        </div>}
                     onClick={() => {
                         try {
                             if (!account?.address) return;
