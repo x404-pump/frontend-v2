@@ -4,6 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  font-size: 14px;
+}
 * {
   font-family: 'Inter', sans-serif;
 }

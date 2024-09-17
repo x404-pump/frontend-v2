@@ -5,12 +5,10 @@ import clsx from "clsx";
 import { DashboardCircleAddIcon, Store01Icon, UserIcon } from "hugeicons-react";
 import { Link } from "@nextui-org/link";
 import { Listbox, ListboxItem } from "@nextui-org/listbox";
-import { Logo } from "@/components/icons";
-import { Tooltip } from "@nextui-org/tooltip";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 
-const WalletCard = dynamic(() => import("./components/wallet/WalletCard"));
+const WalletCard = dynamic(() => import("./components/wallet/WalletCardV2"));
 
 export const items: {
     label: string;
@@ -20,24 +18,30 @@ export const items: {
         {
             label: 'Dashboard',
             href: '/dashboard',
-            icon: <DashboardCircleAddIcon className="w-6 h-6" />,
+            icon: <DashboardCircleAddIcon size={16} filter="drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.10)) drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.10))" />,
         },
         {
             label: 'Marketplace',
             href: '/marketplace',
-            icon: <Store01Icon className="w-6 h-6" />,
+            icon: <Store01Icon size={16} filter="drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.10)) drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.10))" />,
         },
         {
             label: "Profile",
             href: '/profile',
-            icon: <UserIcon className="w-6 h-6" />,
+            icon: <UserIcon size={16} filter="drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.10)) drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.10))" />,
         }
     ];
 
-
+function Copyright() {
+    return (
+        <p className="text-xs text-foreground-500">
+            © 2024 X404. All rights reserved.
+        </p>
+    );
+}
 export default function SideBar() {
     const [isClient, setIsClient] = useState(false);
-    const pathname= usePathname();
+    const pathname = usePathname();
 
     useEffect(() => {
         setIsClient(true);
@@ -50,17 +54,15 @@ export default function SideBar() {
     return (
         <aside
             className={clsx(
-                "py-4 h-full flex-col gap-4 items-center justify-center",
+                "py-4 h-full flex-col gap-8 items-center justify-between",
                 "lg:flex hidden"
             )}
         >
-            <Logo className="w-8 h-8" />
-            <div>
-            </div>
-            <Listbox 
+            <WalletCard />
+            <Listbox
                 classNames={{
-                    list: "flex flex-col items-center justify-center gap-2 py-2 px-2 rounded-full bg-foreground-100",
-                    base: "my-auto"
+                    list: "flex flex-col items-center justify-center gap-2 p-4 rounded-[24px] border border-default/40 bg-foreground-100",
+                    base: "h-full"
                 }}
             >
                 {
@@ -69,20 +71,21 @@ export default function SideBar() {
                             as={Link}
                             key={item.href}
                             href={item.href}
-                            color="primary"
+                            color="default"
                             className={clsx(
-                                "rounded-full w-fit h-fit p-2 flex items-center justify-center text-foreground-500",
-                                pathname.startsWith(item.href) && "bg-primary text-primary-foreground"
+                                "rounded-full text-foreground-500 px-4 py-2",
+                                pathname.startsWith(item.href) && "bg-foreground-200 text-foreground-900 border border-default/40"
                             )}
+                            startContent={
+                                item.icon 
+                            }
                         >
-                            <Tooltip content={item.label} color="primary" placement="right" offset={16}>
-                                {item.icon}
-                            </Tooltip>
+                            {item.label}
                         </ListboxItem>
                     ))
                 }
             </Listbox>
-            <WalletCard />
+            <Copyright />
         </aside>
     );
 }
