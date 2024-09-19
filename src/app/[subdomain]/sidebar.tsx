@@ -9,8 +9,8 @@ import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { Button } from "@nextui-org/button";
+import WalletCardV2 from "./components/wallet/WalletCardV2";
 
-const WalletCard = dynamic(() => import("./components/wallet/WalletCardV2"));
 
 export const items: {
     label: string;
@@ -80,7 +80,7 @@ function SideBar() {
             )}
         >
             <div className="px-2 w-full">
-                <WalletCard />
+                <WalletCardV2 />
             </div>
             <Listbox
                 classNames={{

@@ -7,13 +7,14 @@ import { useAccount } from "@/hooks/useAccount";
 import { getAccountAPTBalance } from "@/view-functions/accountBalance";
 import { Copy02Icon } from "hugeicons-react";
 import { Button } from "@nextui-org/button";
-import { ConnectWalletDialog } from "@/components/wallet/WalletSelector";
 import numeral from "numeral";
+import ConnectWalletDialog from "@/components/wallet/ConnectWalletDialog";
 
 export default function WalletCardV2() {
     const { account, isLoading } = useAccount();
     const { wallet, disconnect } = useWallet();
     const [balance, setBalance] = React.useState<number | null>(null);
+    const decimal = 8;
     const [isOpen, setIsOpen] = React.useState(false);
 
     const fetchBalance = React.useCallback(async () => {
@@ -22,7 +23,7 @@ export default function WalletCardV2() {
             accountAddress: account.address,
         });
 
-        setBalance(balance);
+        setBalance(balance / Math.pow(10, decimal));
     }, [account]);
 
     React.useEffect(() => {

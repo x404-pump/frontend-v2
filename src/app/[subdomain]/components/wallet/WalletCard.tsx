@@ -10,7 +10,7 @@ import { useAccount } from "@/hooks/useAccount";
 import { getAccountAPTBalance } from "@/view-functions/accountBalance";
 import { Copy02Icon, Logout04Icon, Wallet01Icon } from "hugeicons-react";
 import numeral from "numeral";
-import { ConnectWalletDialog } from "@/components/wallet/WalletSelector";
+import ConnectWalletDialog from "@/components/wallet/ConnectWalletDialog";
 
 export default function WalletCard() {
     const { account, isLoading } = useAccount();

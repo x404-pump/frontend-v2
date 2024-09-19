@@ -62,13 +62,16 @@ export function CollectionCard({ collection }: { collection: IX404Collection }) 
         </div>
     )
 }
-export function SkeletonCollectionCard({ key }: React.HTMLProps<HTMLDivElement>) {
+
+export function SkeletonCollectionCard({ className, ...props }: React.HTMLProps<HTMLDivElement>) {
     return (
         <div className="flex flex-col gap-2">
             <Skeleton
-                key={key}
                 content="Loading"
-                className="w-full aspect-video rounded-[24px] bg-foreground-50"
+                className={clsx(
+                    "w-full aspect-video rounded-[24px] bg-foreground-50",
+                    className
+                )}
             />
         </div>
     );
