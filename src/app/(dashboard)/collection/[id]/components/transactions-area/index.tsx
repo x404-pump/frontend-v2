@@ -8,11 +8,12 @@ import { Skeleton } from "@nextui-org/skeleton";
 import copy from "copy-to-clipboard";
 import { useQuery } from "@tanstack/react-query";
 
-import { IX404CollectionTransaction } from "@/fetch-functions";
+import { getSwapTransactions, IX404CollectionTransaction } from "@/fetch-functions";
 import { USING_MOCK } from "@/config/contants";
 import { mockTokenActivities } from "@/mock";
 import { timeAgo } from "@/lib";
 import { Container } from "@/components/ui";
+import { useCollection } from "../../context/collection";
 
 function getFormattedFunctionName(entryFunctionIdStr: string): string {
     const parts = entryFunctionIdStr.split("::");
@@ -98,11 +99,11 @@ function TransactionCard({ activity }: { activity: IX404CollectionTransaction })
 }
 
 export default function ActivitiesArea() {
+    const collection = useCollection();
+
     let { data: activities, isLoading, isError } = useQuery<any>({
         queryKey: ["tokenActivities"],
-        queryFn: async () => {
-            return [];
-        }
+        queryFn: () => getSwapTransactions(collection.collection_address || ""),
     })
 
     if (USING_MOCK) {

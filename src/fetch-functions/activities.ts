@@ -37,3 +37,7 @@ export async function getTokenActivities(tokenId: string) {
         throw new Error("Failed to fetch token data");
     }
 }
+
+export async function getSwapTransactions(collectionAddress: string) {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/api/v1/transaction/x404swap?collection_address=${collectionAddress}`;
+}

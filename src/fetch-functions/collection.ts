@@ -176,7 +176,7 @@ export async function getCurrentCollectionsV2(offset?: number, limit?: number): 
 }
 
 export async function getCollectionData(collection_id: string): Promise<IX404Collection> {
-    const url = `${API_URL}/api/v1/collection?collectionId=${collection_id}`;
+    const url = `${API_URL}/api/v1/collection?collectionAddress=${collection_id}`;
     const res = await axios.get<IX404Collection>(url);
     const collection: IX404Collection = res.data;
 
