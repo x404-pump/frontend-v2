@@ -73,7 +73,7 @@ export function TransactionCard(props: TransactionCardProps) {
                     </Tooltip>
                 </span>
             </p>
-            {tag ?
+            {(tag && typeof tag !== "string") ?
                 tag
                 :
                 <Chip
@@ -82,11 +82,11 @@ export function TransactionCard(props: TransactionCardProps) {
                     size="sm"
                     className="text-xs"
                 >
-                    -
+                    {props.tag || "-"}
                 </Chip>
             }
             <p className="text-xs text-foreground-500">
-                • {timeAgo(new Date(time))}
+                • {timeAgo(new Date(time!))}
             </p>
         </div>
     );

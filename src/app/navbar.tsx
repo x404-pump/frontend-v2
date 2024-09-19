@@ -17,7 +17,6 @@ import { ThemeSwitch } from "@/components/theme-switch";
 import {
   SearchIcon,
 } from "@/components/icons";
-import { ConnectWalletDialog } from '@/components/WalletSelector';
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -58,7 +57,6 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        {isDashboard && <ConnectWalletDialog />}
         <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>

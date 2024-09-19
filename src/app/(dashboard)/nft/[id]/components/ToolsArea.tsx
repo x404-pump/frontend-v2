@@ -1,16 +1,16 @@
 'use client';
 
 import clsx from "clsx";
-import { useNft } from "../contexts/nft";
 import { truncateAddress } from "@aptos-labs/wallet-adapter-react";
 import { Button } from "@nextui-org/button";
 import { BitcoinMoney02Icon, SaleTag01Icon } from "hugeicons-react";
 import React from "react";
 import { Tooltip } from "@nextui-org/tooltip";
+import numeral from "numeral";
 
+import { useNft } from "../contexts/nft";
 import { useNftMarketplaceListings } from "../contexts/nftMarketplaceListing";
 import { GradientBorder } from "@/components/GradientBorder";
-import numeral from "numeral";
 
 export default function ToolsArea() {
     const nft = useNft();

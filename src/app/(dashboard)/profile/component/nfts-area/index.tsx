@@ -1,10 +1,11 @@
 'use client';
 
-import { NftCard } from "@/app/(dashboard)/collection/[id]/components/nfts-area/LazyNftCard";
-import ScaleContainer from "@/components/ScaleContainer";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+
+import { ResponsiveContainer } from "@/components/ui";
 import { USING_MOCK } from "@/config/contants";
 import { mockNfts } from "@/mock";
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { NftCard } from "@/components/nft";
 
 export default function Index() {
     const { account } = useWallet();
@@ -15,12 +16,12 @@ export default function Index() {
     }
 
     return (
-        <ScaleContainer>
+        <ResponsiveContainer>
             {
                 nfts?.map((token) => (
                     <NftCard key={token.token_data_id} token={token} />
                 ))
             }
-        </ScaleContainer>
+        </ResponsiveContainer>
     )
 }

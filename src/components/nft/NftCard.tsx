@@ -74,7 +74,7 @@ interface LazyNftCardProps {
     token: Partial<ICurrentTokenDatasV2>;
 }
 
-const LazyNftCard: React.FC<LazyNftCardProps> = ({ token }) => {
+export const LazyNftCard: React.FC<LazyNftCardProps> = ({ token }) => {
     const [isVisible, setIsVisible] = useState(false);
     const ref = useRef<HTMLDivElement | null>(null);
 
@@ -106,5 +106,3 @@ const LazyNftCard: React.FC<LazyNftCardProps> = ({ token }) => {
         </div>
     );
 };
-
-export default LazyNftCard;

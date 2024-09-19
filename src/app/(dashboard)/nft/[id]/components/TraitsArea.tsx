@@ -1,6 +1,7 @@
 'use client';
 import { GradientBorder } from "@/components/GradientBorder";
 import { useNft } from "../contexts/nft";
+import { Container } from "@/components/ui";
 
 function TraitCard({ label, value }: { label: string, value: string }) {
     return (
@@ -21,8 +22,7 @@ export default function TraitsArea() {
     const properties = nft.token_properties;
 
     return (
-        <div className="space-y-4 w-full relative">
-            <h6 className="text-2xl font-semibold text-default-foreground">Traits</h6>
+        <Container className="space-y-4 w-full relative" title="Traits">
             <div className="flex flex-row gap-2 flex-wrap">
                 {
                     properties && Object.entries(properties).map(([key, value]: [string, any]) => (
@@ -33,6 +33,6 @@ export default function TraitsArea() {
                     !properties && <p className="text-base font-normal text-default-500">No traits available</p>
                 }
             </div>
-        </div>
+        </Container>
     );
 }

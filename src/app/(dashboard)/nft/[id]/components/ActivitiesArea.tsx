@@ -3,17 +3,15 @@
 import { useNft } from "../contexts/nft";
 import React from "react";
 import { toast } from "react-toastify";
-import { GetTokenActivityResponse } from "@aptos-labs/ts-sdk";
-import { truncateAddress } from "@aptos-labs/wallet-adapter-react";
 import { Chip } from "@nextui-org/chip";
-import { Tooltip } from "@nextui-org/tooltip";
 import { Skeleton } from "@nextui-org/skeleton";
-import copy from "copy-to-clipboard";
 import { useQuery } from "@tanstack/react-query";
+
 import { getTokenActivities } from "@/fetch-functions";
 import { USING_MOCK } from "@/config/contants";
 import { mockTokenActivities } from "@/mock";
 import { TransactionCard } from "@/components/transaction-card";
+import { Container } from "@/components/ui";
 
 function getFormattedFunctionName(entryFunctionIdStr: string): string {
     const parts = entryFunctionIdStr.split("::");
@@ -51,8 +49,7 @@ export default function ActivitiesArea() {
     }, [isError]);
 
     return (
-        <div className="space-y-4 w-full relative">
-            <h6 className="text-lg font-semibold text-default-foreground">Activities</h6>
+        <Container className="space-y-4 w-full relative" title="Activities">
             {
                 isLoading
                     ? Array.from({ length: 5 }).map((_, i) => (
@@ -76,6 +73,6 @@ export default function ActivitiesArea() {
                         />
                     ))
             }
-        </div>
+        </Container>
     )
 }

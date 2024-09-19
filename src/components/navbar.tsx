@@ -26,8 +26,8 @@ import {
   SearchIcon,
   Logo,
 } from "@/components/icons";
-import { ConnectWalletDialog } from "./WalletSelector";
 import React from 'react';
+import { ConnectWalletDialog } from './wallet/WalletSelector';
 
 const Navbar = () => {
   const pathname = usePathname();

@@ -70,4 +70,5 @@ async function Page({
         </Providers>
     );
 }
-export default dynamic(() => Promise.resolve(Page));
+
+export default Page;

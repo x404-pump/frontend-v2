@@ -1,4 +1,4 @@
-import { NftCard } from "@/app/(dashboard)/collection/[id]/components/nfts-area/LazyNftCard";
+import { NftCard } from "@/components/nft";
 import clsx from "clsx";
 
 export default function NFTContainer() {

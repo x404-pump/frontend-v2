@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic"
 import Toolbar from "./Toolbar"
+import { Container } from "@/components/ui"
 
 const CollectionsContainer = dynamic(() => import("./CollectionsContainer"))
 
@@ -7,8 +8,9 @@ function CollectionsSection() {
     return (
         <div className="space-y-4 h-full">
             <Toolbar />
-            <h1 className="text-2xl font-semibold text-foreground-900">Collections</h1>
-            <CollectionsContainer />
+            <Container title="Collections">
+                <CollectionsContainer />
+            </Container>
         </div>
     )
 }

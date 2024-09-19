@@ -1,18 +1,16 @@
-import { toast } from "react-toastify";
 import React from "react";
 import { truncateAddress, APTOS_CONNECT_ACCOUNT_URL, useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Skeleton } from "@nextui-org/skeleton";
-import copy from "copy-to-clipboard";
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem } from "@nextui-org/dropdown";
 import { Avatar } from "@nextui-org/avatar";
 
 import { useAccount } from "@/hooks/useAccount";
-import { ConnectWalletDialog } from "@/components/WalletSelector";
 import { getAccountAPTBalance } from "@/view-functions/accountBalance";
 import { Copy02Icon } from "hugeicons-react";
 import { Button } from "@nextui-org/button";
+import { ConnectWalletDialog } from "@/components/wallet/WalletSelector";
+import numeral from "numeral";
 
-export default function WalletCard() {
+export default function WalletCardV2() {
     const { account, isLoading } = useAccount();
     const { wallet, disconnect } = useWallet();
     const [balance, setBalance] = React.useState<number | null>(null);
@@ -47,7 +45,7 @@ export default function WalletCard() {
                 />
                 <div className="flex flex-col items-start gap-1">
                     <p className="text-base font-semibold text-foreground-900">{truncateAddress(account?.address)}</p>
-                    <p className="text-xs text-foreground-500">{balance} APT</p>
+                    <p className="text-xs text-foreground-500">{numeral(balance).format("0,0.00")} APT</p>
                 </div>
             </div>
 

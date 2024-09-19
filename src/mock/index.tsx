@@ -62,3 +62,14 @@ export const generateTokenActivity = (): IX404TokenActivity[0] => {
 }
 
 export const mockTokenActivities: IX404TokenActivity = Array.from({ length: 10 }, () => generateTokenActivity());
+
+export const generateTransaction = () => {
+    return {
+        from: faker.finance.ethereumAddress(),
+        to: faker.finance.ethereumAddress(),
+        time: faker.date.recent().toISOString(),
+        tag: faker.lorem.word(),
+    };
+}
+
+export const mockTransactions = Array.from({ length: 10 }, () => generateTransaction());

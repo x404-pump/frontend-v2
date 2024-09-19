@@ -7,10 +7,10 @@ import { Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem 
 import { Avatar } from "@nextui-org/avatar";
 
 import { useAccount } from "@/hooks/useAccount";
-import { ConnectWalletDialog } from "@/components/WalletSelector";
 import { getAccountAPTBalance } from "@/view-functions/accountBalance";
 import { Copy02Icon, Logout04Icon, Wallet01Icon } from "hugeicons-react";
 import numeral from "numeral";
+import { ConnectWalletDialog } from "@/components/wallet/WalletSelector";
 
 export default function WalletCard() {
     const { account, isLoading } = useAccount();

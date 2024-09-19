@@ -12,6 +12,7 @@ import { IX404CollectionTransaction } from "@/fetch-functions";
 import { USING_MOCK } from "@/config/contants";
 import { mockTokenActivities } from "@/mock";
 import { timeAgo } from "@/lib";
+import { Container } from "@/components/ui";
 
 function getFormattedFunctionName(entryFunctionIdStr: string): string {
     const parts = entryFunctionIdStr.split("::");
@@ -117,8 +118,7 @@ export default function ActivitiesArea() {
     }, [isError]);
 
     return (
-        <div className="space-y-4 w-full relative max-h-screen overflow-y-scroll">
-            <h6 className="text-lg font-semibold text-default-foreground">Activities</h6>
+        <Container className="space-y-4 w-full relative max-h-screen overflow-y-scroll" title="Activities">
             {
                 isLoading
                     ? Array.from({ length: 5 }).map((_, i) => (
@@ -128,6 +128,6 @@ export default function ActivitiesArea() {
                         <TransactionCard key={activity.transaction_timestamp} activity={activity} />
                     ))
             }
-        </div>
+        </Container>
     )
 }

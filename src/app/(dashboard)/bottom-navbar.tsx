@@ -4,15 +4,20 @@ import { Listbox, ListboxItem } from "@nextui-org/listbox";
 import { Tooltip } from "@nextui-org/tooltip";
 import clsx from "clsx";
 import Link from "next/link";
-import { items } from "./sidebar";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
+
+import { items } from "./sidebar";
 
 function BottomNavBar() {
     const pathname = usePathname();
     
     return (
-        <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 flex items-center h-fit w-full py-4">
+        <div className={clsx(
+            "lg:hidden fixed bottom-0 left-0 right-0 z-50 flex items-center h-fit w-full py-4",
+            "overflow-visible"
+        )}>
+            <div className="bg-foreground-900/10 w-screen h-1/2 absolute bottom-0 blur-lg"/>
             <Listbox
                 classNames={{
                     list: clsx(

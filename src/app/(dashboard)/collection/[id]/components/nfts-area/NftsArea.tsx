@@ -4,11 +4,12 @@ import clsx from "clsx";
 import React from "react";
 import { useCollection } from "../../context/collection";
 import { Skeleton } from "@nextui-org/skeleton";
-import LazyNftCard from "./LazyNftCard";
 import { useQuery } from "@tanstack/react-query";
+
 import { getCollectionNfts } from "@/fetch-functions/collection";
 import { USING_MOCK } from "@/config/contants";
 import { mockNfts } from "@/mock";
+import { LazyNftCard } from "@/components/nft";
 
 
 

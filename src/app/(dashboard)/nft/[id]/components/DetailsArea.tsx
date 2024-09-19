@@ -5,6 +5,7 @@ import { useNft } from "../contexts/nft";
 import { useNftMarketplaceListings } from "../contexts/nftMarketplaceListing";
 import React from "react";
 import { NftMarketplaceListing } from "@/fetch-functions";
+import { Container } from "@/components/ui";
 
 function DetailField({ label, value }: { label?: string, value?: string }) {
 
@@ -28,8 +29,7 @@ export default function DetailsArea() {
     }, [nftMarketplaceListings]);
     
     return (
-        <div className="space-y-4 w-full relative">
-            <h6 className="text-lg font-semibold text-default-foreground">Details</h6>
+        <Container className="space-y-4 w-full relative" title="Details">
             <div className="flex-col w-full items-start justify-center">
                 <DetailField label="Contract Address" value={truncateAddress(nftMarketplaceListing?.contract_address)} />
                 <DetailField label="Token Id" value={truncateAddress(nft.token_data_id)} />
@@ -40,6 +40,6 @@ export default function DetailsArea() {
                 <DetailField label="Created" value="2021-10-01" />
                 <DetailField label="Creator" value={truncateAddress(nft.current_collection?.creator_address)} />
             </div>
-        </div>
+        </Container>
     )
 }
