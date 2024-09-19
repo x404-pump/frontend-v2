@@ -2,8 +2,8 @@
 
 import dynamic from "next/dynamic";
 
-import CollectionsSection from "./components/collections-table";
 import { Providers } from "./providers";
+import CollectionsSection from "./components/collections-section";
 
 function DashboardPage() {
   return (
