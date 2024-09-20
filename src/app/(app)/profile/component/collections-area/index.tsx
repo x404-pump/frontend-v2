@@ -1,4 +1,4 @@
-import { CollectionCard } from "@/app/[subdomain]/dashboard/components/collections-section/CollectionsContainer";
+import { CollectionCard } from "@/app/(app)/dashboard/components/collections-section/CollectionsContainer";
 import { ResponsiveContainer } from "@/components/ui";
 import { USING_MOCK } from "@/config/contants";
 import { mockCollections } from "@/mock";
