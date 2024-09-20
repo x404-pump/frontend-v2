@@ -12,6 +12,7 @@ export const USING_MOCK = process.env.NEXT_PUBLIC_USING_MOCK === 'true';
 export const NETWORK: Network = process.env.NEXT_PUBLIC_APP_NETWORK as Network || Network.TESTNET;
 export const X404_ADDRESS = process.env.NEXT_PUBLIC_X404_ADDRESS;
 export const RESOURCE = process.env.NEXT_PUBLIC_RESOURCE;
+export const IrysGateway = process.env.NEXT_PUBLIC_IRYS_GATEWAY;
 
 // ==============================
 // API CONSTANTS

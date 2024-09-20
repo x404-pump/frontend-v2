@@ -112,7 +112,11 @@ export interface IX404TokenData extends Partial<ICurrentTokenDatasV2> {
 }
 
 export interface IX404CollectionTransaction  {
-    [key: string]: any;
+    type: string;
+    user_address: string;
+    nft_address?: string;
+    amount?: string;
+    block_height: number;
 }
 
 // ============================================================

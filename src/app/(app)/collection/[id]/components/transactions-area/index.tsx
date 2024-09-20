@@ -8,28 +8,37 @@ import { Skeleton } from "@nextui-org/skeleton";
 import copy from "copy-to-clipboard";
 import { useQuery } from "@tanstack/react-query";
 
-import { IX404CollectionTransaction } from "@/fetch-functions";
+import { getX404SwapTransactions, IX404CollectionTransaction } from "@/fetch-functions";
 import { USING_MOCK } from "@/config/contants";
 import { mockTokenActivities } from "@/mock";
-import { timeAgo } from "@/lib";
 import { Container } from "@/components/ui";
+import { useCollection } from "../../context/collection";
 
-function getFormattedFunctionName(entryFunctionIdStr: string): string {
-    const parts = entryFunctionIdStr.split("::");
-    const functionName = parts[parts.length - 1];
+type TransactionType = "TokenWithdraw" | "TokenDeposit" | "NftWithdraw" | "NftDeposit";
 
-    return functionName
-        .split("_")
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");
+function getFormattedFunctionName(type: string): string {
+    const mappingName: Record<TransactionType, string> = {
+        "TokenWithdraw": "Sell",
+        "TokenDeposit": "Buy",
+        "NftWithdraw": "Burn NFT",
+        "NftDeposit": "Mint NFT",
+    };
+
+    return mappingName[type as TransactionType] || type;
+}
+
+function formatAddress(address: string): string {
+    if (!address) return "";
+
+    return `${address.slice(0, 5)}...${address.slice(-4)}`;
 }
 
 function TransactionCard({ activity }: { activity: IX404CollectionTransaction }) {
-    const formattedFunctionName = getFormattedFunctionName(activity.entry_function_id_str || '');
+    const formattedFunctionName = getFormattedFunctionName(activity.type || '');
 
     return (
         <div className="min-w-fit flex flex-row gap-2 p-4 bg-foreground-50 rounded-[20px] border border-default/25 items-center justify-between">
-            <p className="flex flex-col gap-0">
+            {/* <p className="flex flex-col gap-0">
                 <span className="text-tiny text-foreground-500">From</span>
                 <span
                     className="text-base text-foreground-900 cursor-pointer"
@@ -37,7 +46,7 @@ function TransactionCard({ activity }: { activity: IX404CollectionTransaction })
                     tabIndex={0}
                     onClick={() => {
                         try {
-                            copy(activity.from_address!);
+                            copy(activity.user_address!);
                             toast.success("Copied to clipboard", {
                                 type: "success",
                             });
@@ -49,21 +58,21 @@ function TransactionCard({ activity }: { activity: IX404CollectionTransaction })
                     }}
                 >
                     <Tooltip
-                        content={activity.from_address}
+                        content={activity.user_address}
                         placement="top"
                     >
-                        {activity.from_address.slice(0, 5) || "_"}
+                        {activity.user_address.slice(0, 5) || "_"}
                     </Tooltip>
                 </span>
-            </p>
+            </p> */}
             <p className="flex flex-col gap-0">
-                <span className="text-tiny text-foreground-500">To</span>
+                <span className="text-tiny text-foreground-500">User Address</span>
                 <span
                     className="text-base text-foreground-900 cursor-pointer"
                     role="button"
                     onClick={() => {
                         try {
-                            copy(activity.from_address!);
+                            copy(activity.user_address!);
                             toast.success("Copied to clipboard", {
                                 type: "success",
                             });
@@ -75,10 +84,10 @@ function TransactionCard({ activity }: { activity: IX404CollectionTransaction })
                     }}
                 >
                     <Tooltip
-                        content={activity.to_address}
+                        content={activity.user_address}
                         placement="top"
                     >
-                        {activity.to_address.slice(0, 5) || '_'}
+                        {formatAddress(activity.user_address) || '_'}
                     </Tooltip>
                 </span>
             </p>
@@ -91,18 +100,21 @@ function TransactionCard({ activity }: { activity: IX404CollectionTransaction })
                 {formattedFunctionName}
             </Chip>
             <p className="text-xs text-foreground-500">
-                • {timeAgo(new Date(activity.transaction_timestamp))}
+                {activity.amount} {formattedFunctionName === "Buy" ? "FA" : ""} {formattedFunctionName === "Sell" ? "APT" : ""}
+            </p>
+            <p className="text-xs text-foreground-500">
+                {activity.block_height}
             </p>
         </div>
     );
 }
 
 export default function ActivitiesArea() {
+    const collection = useCollection();
+
     let { data: activities, isLoading, isError } = useQuery<any>({
         queryKey: ["tokenActivities"],
-        queryFn: async () => {
-            return [];
-        }
+        queryFn: async () => getX404SwapTransactions(collection.collection_address),
     })
 
     if (USING_MOCK) {
@@ -125,7 +137,7 @@ export default function ActivitiesArea() {
                         <Skeleton key={i} className="w-full h-24 rounded-[20px] bg-foreground-100" />
                     ))
                     : activities && activities.map((activity: IX404CollectionTransaction) => (
-                        <TransactionCard key={activity.transaction_timestamp} activity={activity} />
+                        <TransactionCard key={activity.block_height} activity={activity} />
                     ))
             }
         </Container>

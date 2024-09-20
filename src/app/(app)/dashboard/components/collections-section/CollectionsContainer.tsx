@@ -49,7 +49,7 @@ export function CollectionCard({ collection }: { collection: IX404Collection }) 
                 <div className="flex flex-row gap-4">
                     <ParamField
                         label="Initial Price"
-                        value={collection.initial_price ? numeral(collection.initial_price).format("0.0a") : undefined}
+                        value={collection.initial_price && typeof collection.initial_price == 'string' ? numeral(parseInt(collection.initial_price) / 10 ** 8).format("0.0a") : undefined}
                         icon={<RocketIcon className="text-foreground-400" />}
                     />
                     <ParamField
@@ -95,6 +95,7 @@ export default function CollectionsAreas() {
 
     const flattenObject = (obj: any): string => {
         let result = '';
+
         for (const key in obj) {
             if (typeof obj[key] === 'object' && obj[key] !== null) {
                 result += flattenObject(obj[key]);
@@ -102,6 +103,7 @@ export default function CollectionsAreas() {
                 result += ` ${obj[key]}`;
             }
         }
+
         return result.toLowerCase();
     };
 
@@ -118,6 +120,7 @@ export default function CollectionsAreas() {
             </ResponsiveContainer>
         )
     }
+
     return (
         filteredCollections.length > 0 ? (
             <ResponsiveContainer>

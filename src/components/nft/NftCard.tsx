@@ -21,6 +21,7 @@ export function NftCard(props: NftCardProps) {
     
     const fetchImage = React.useCallback(async () => {
         const image = await getImage(token);
+
         setImageSrc(image);
     }, [token]);
 
@@ -33,6 +34,7 @@ export function NftCard(props: NftCardProps) {
             <Skeleton className="w-full aspect-[4/3] rounded-2xl" />
         )
     }
+
     return (
         <div
             className="relative flex w-full flex-none flex-col gap-4 cursor-pointer transition duration-500 hover:scale-105 transform"
