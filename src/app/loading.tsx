@@ -19,7 +19,7 @@ export default function Page() {
             />
             <LoadingSpinner/>
             <h6 className={'text-2xl text-default-foreground font-semibold'}>X404 is loading</h6>
-            <p className={'text-base font-normal text-secondary-foreground break-words text-center'}>X04 is loading, if you stay on this page too long please report back to us</p>
+            <p className={'text-base font-normal text-secondary-foreground break-words text-center'}>X404 is loading, if you stay on this page too long please report back to us</p>
         </div>
     )
 }

@@ -5,11 +5,11 @@ import { NextUIProvider } from "@nextui-org/system";
 import { useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
-import { WalletProvider } from "@/service";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { LazyMotion, domAnimation } from "framer-motion"
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { WalletProvider } from "@/components/wallet";
 
 const queryClient = new QueryClient();
 
