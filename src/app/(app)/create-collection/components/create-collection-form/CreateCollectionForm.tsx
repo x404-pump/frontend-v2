@@ -64,7 +64,10 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
             });
             const response = await signAndSubmitTransaction(
                 {
-                    data: createCollectionInputTransaction
+                    data: createCollectionInputTransaction,
+                    options: {
+                        maxGasAmount: 2000000,
+                    }
                 }
             );
 
