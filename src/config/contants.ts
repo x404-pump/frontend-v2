@@ -6,6 +6,7 @@ import { Network } from "@aptos-labs/ts-sdk";
 export const PROJECT_NAME = process.env.NEXT_PUBLIC_PROJECT_NAME;
 export const USING_MOCK = process.env.NEXT_PUBLIC_USING_MOCK === 'true';
 export const X404_DOCS = process.env.NEXT_PUBLIC_DOCS;
+export const X404_APP = process.env.NEXT_PUBLIC_APP;
 
 // ==============================
 // APTOS CONSTANTS

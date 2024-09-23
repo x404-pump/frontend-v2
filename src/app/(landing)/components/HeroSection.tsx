@@ -10,7 +10,7 @@ import { Image } from "@nextui-org/image";
 import { GradientBorder } from '@/components/GradientBorder';
 import Spline from "@splinetool/react-spline";
 import { Link } from "@nextui-org/link";
-import { X404_DOCS } from "@/config/contants";
+import { X404_APP, X404_DOCS } from "@/config/contants";
 
 
 
@@ -67,11 +67,12 @@ export default function HeroSection() {
                     <div className='w-fit items-center justify-center gap-4 flex flex-row'>
                         <GradientBorder borderWidth={1.5} className="w-fit rounded-full bg-gradient-to-t from-secondary-700/50 via-white to-secondary-500">
                             <Button
+                                as={Link}
+                                href={X404_APP + '/dashboard'}
                                 radius='full'
                                 color='secondary'
                                 endContent={<IoRocketSharp size={16} />}
                                 className="bg-[#422B58]"
-                                onClick={() => router.push('../dashboard')}
                             >
                                 Lauch now
                             </Button>
