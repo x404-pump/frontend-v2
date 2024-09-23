@@ -2,7 +2,7 @@
 
 import { truncateAddress } from "@aptos-labs/wallet-adapter-react";
 import { Tooltip } from "@nextui-org/tooltip";
-import { CheckmarkBadge01Icon, StartUp02Icon, Tag01Icon, UserShield02Icon } from "hugeicons-react";
+import { StartUp02Icon, Tag01Icon } from "hugeicons-react";
 import { Chip } from "@nextui-org/chip";
 import { IoCopy } from "react-icons/io5";
 import copy from "copy-to-clipboard";
@@ -93,7 +93,7 @@ function Details() {
     const details = [
         {
             label: "Initial Price",
-            value: collection.initial_price || "-",
+            value: (collection.initial_price !== undefined && typeof collection.initial_price === 'string' ? parseInt(collection.initial_price) / 10 ** 8 : "-"),
             icon: <StartUp02Icon className="text-foreground-700" size={24} />,
         },
         {

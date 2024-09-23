@@ -1,13 +1,8 @@
 'use client';
 
-import numeral from "numeral";
 import { useQuery } from "@tanstack/react-query";
-import clsx from "clsx";
 import { USING_MOCK } from "@/config/contants";
 import React from "react";
-import { Skeleton } from "@nextui-org/skeleton";
-import { Image } from "@nextui-org/image";
-import { RocketIcon, Tag01Icon } from "hugeicons-react";
 
 import { getCurrentCollectionsV2, IX404Collection } from "@/fetch-functions";
 import { useSearch } from "@/components/search";
@@ -16,14 +11,6 @@ import { ResponsiveContainer } from "@/components/ui";
 import { mockCollections } from "@/mock";
 import { CollectionCard, SkeletonCollectionCard } from "@/components/collection";
 
-function ParamField({ label, value, icon }: { label: string, value?: string, icon?: React.ReactNode }) {
-    return (
-        <div className="flex flex-row items-center gap-2">
-            {icon}
-            <span className="text-xs">{value || '-'}</span>
-        </div>
-    )
-}
 export default function CollectionsAreas() {
     const [collections, setCollections] = React.useState<IX404Collection[]>([]);
     const { searchQuery } = useSearch();
@@ -43,6 +30,7 @@ export default function CollectionsAreas() {
 
     const flattenObject = (obj: any): string => {
         let result = '';
+
         for (const key in obj) {
             if (typeof obj[key] === 'object' && obj[key] !== null) {
                 result += flattenObject(obj[key]);
@@ -50,6 +38,7 @@ export default function CollectionsAreas() {
                 result += ` ${obj[key]}`;
             }
         }
+
         return result.toLowerCase();
     };
 
@@ -66,6 +55,7 @@ export default function CollectionsAreas() {
             </ResponsiveContainer>
         )
     }
+
     return (
         filteredCollections.length > 0 ? (
             <ResponsiveContainer>

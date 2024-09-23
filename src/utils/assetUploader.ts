@@ -1,4 +1,6 @@
+import axios from "axios";
 import { checkIfFund, uploadFolder } from "./irys";
+import { IrysGateway } from "@/config/contants";
 
 const VALID_MEDIA_EXTENSIONS = ["png", "jpg", "jpeg", "gltf"];
 
@@ -151,6 +153,30 @@ export const getCollectionFromFiles = async (
   };
 };
 
+async function retrieveCollectionImage(collectionUri: string): Promise<string> {
+  try {
+    const json = (await axios.get(collectionUri)).data;
+    const collection_metadata_manifest = json.paths['collection.json'].id;
+
+    try {
+      const collection_metadata = (
+        await axios.get(IrysGateway + collection_metadata_manifest)
+      ).data;
+      const collection_image_uri = collection_metadata.image;
+
+      return collection_image_uri;
+    } catch (e) {
+      console.error('Failed to retrieve collection metadata', e);
+
+      return '';
+    }
+  } catch (e) {
+    console.error('Failed to retrieve collection image', e);
+
+    return '';
+  }
+}
+
 export const uploadCollectionData = async (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   aptosWallet: any,
@@ -298,7 +324,7 @@ export const uploadCollectionData = async (
         collectionUri: `${metadataFolderReceipt}/`,
         collectionName: parsedCollectionMetadata.name,
         collectionDescription: parsedCollectionMetadata.description,
-        fa_icon: imageFolderReceipt + "/collection." + mediaExt,
+        fa_icon: await retrieveCollectionImage(`${metadataFolderReceipt}/`),
         fa_symbol: parsedCollectionMetadata.fa_symbol,
         supply: parsedCollectionMetadata.supply,
         tokenDescription,

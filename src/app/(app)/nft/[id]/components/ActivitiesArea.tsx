@@ -32,6 +32,7 @@ export default function ActivitiesArea() {
             if (!nft.token_data_id) {
                 return [];
             }
+
             return await getTokenActivities(nft.token_data_id);
         }
     });

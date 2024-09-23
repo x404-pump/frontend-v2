@@ -2,7 +2,7 @@
 
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
-import { Dollar01Icon, Exchange01Icon } from "hugeicons-react";
+import { Exchange01Icon } from "hugeicons-react";
 import { APTCoinIcon } from "@/components/icons";
 import React from "react";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
@@ -12,6 +12,7 @@ import { useCollection } from "../context/collection";
 import { X404_ADDRESS } from "@/config/contants";
 import { aptosClient } from "@/utils/aptosClient";
 import { Avatar } from "@nextui-org/avatar";
+import { getAmountInOut } from "@/view-functions/amountInOut";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
@@ -54,10 +55,7 @@ export default function Trader() {
             await aptosClient().waitForTransaction({
                 transactionHash: tx.hash,
             });
-
-            const outputAmount = calculateOutput(amount);
-            setOutput(outputAmount);
-
+            
             toast.success('Swap successful');
         } catch (error: any) {
             if (error.message === 'Wallet not connected') {
@@ -69,24 +67,30 @@ export default function Trader() {
         }
     }
 
-    const calculateOutput = (inputAmount: number): number => {
-        return inputAmount * 0.95; // Example: 5% fee
-    }
-
     const handleSwapDirection = () => {
         setSwapDirection(prevDirection => {
             const newDirection = prevDirection === 'APT_TO_FA' ? 'FA_TO_APT' : 'APT_TO_FA';
+
             setAmount(output);
             setOutput(amount);
+
             return newDirection;
         });
     }
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!collection.collection_address) return 0;
         const inputAmount = Number(e.target.value);
+
         setAmount(inputAmount);
-        const outputAmount = calculateOutput(inputAmount);
-        setOutput(outputAmount);
+        const res = await getAmountInOut({
+            collectionAddress: collection.collection_address,
+            swapToApt: swapDirection === 'FA_TO_APT',
+            amountIn: inputAmount * 10 ** 8,
+        });
+
+        setOutput(res.amountOut / 10 ** 8);
+        setAmount(res.amountIn / 10 ** 8);
     }
 
     return (

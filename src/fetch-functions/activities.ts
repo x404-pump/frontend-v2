@@ -1,3 +1,6 @@
+import { API_URL } from "@/config/contants";
+import axios from "axios";
+import { IX404CollectionTransaction } from "./collection";
 import { GetTokenActivityResponse } from "@aptos-labs/ts-sdk";
 import { aptosClient } from "@/utils/aptosClient";
 
@@ -19,6 +22,8 @@ export async function getTokenActivities(tokenId: string) {
                     }
                     `;
 
+
+
         const variables = { token_id: tokenId };
 
         const res = await aptosClient().queryIndexer<{
@@ -36,4 +41,12 @@ export async function getTokenActivities(tokenId: string) {
     } catch (error) {
         throw new Error("Failed to fetch token data");
     }
+}
+
+export const getX404SwapTransactions = async (collectionId: string | undefined) => {
+    if (!collectionId) return [];
+    const url = `${API_URL}/api/v1/transaction/x404swap?collectionId=${collectionId}`;
+    const res = await axios.get<IX404CollectionTransaction[]>(url);
+
+    return res.data;
 }
