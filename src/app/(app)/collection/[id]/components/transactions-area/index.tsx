@@ -130,7 +130,7 @@ export default function ActivitiesArea() {
     }, [isError]);
 
     return (
-        <Container className="space-y-4 w-full relative max-h-screen overflow-y-scroll" title="Activities">
+        <Container className="space-y-4 w-full relative max-h-full overflow-y-scroll" title="Activities">
             {
                 isLoading
                     ? Array.from({ length: 5 }).map((_, i) => (

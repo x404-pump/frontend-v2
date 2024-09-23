@@ -97,7 +97,8 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
                 />
                 <div className="flex flex-col gap-4 items-center w-full">
                     <Input
-                        label="Amount Apt Int"
+                        label="Amount Apt"
+                        description="Quantity of APT that you will purchase within the same transaction when creating a collection"
                         fullWidth
                         radius="full"
                         placeholder="0"
@@ -110,14 +111,14 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
                         fullWidth
                         type="number"
                         radius="full"
-                        placeholder="1" 
+                        placeholder="1"
                         min={1}
                         labelPlacement="outside"
                         isRequired
                         onChange={handleChangeInitPrice}
                     />
                 </div>
-                <CollectionDetailArea className="flex lg:hidden"/>
+                <CollectionDetailArea className="flex lg:hidden" />
                 <Button
                     type="submit"
                     color="primary"

@@ -15,7 +15,7 @@ function FormSection() {
     return (
         <CollectionMetadataProvider>
             <section className={clsx(
-                'flex flex-col lg:flex-row gap-8 items-start lg:justify-center min-w-fit w-full h-full lg:px-16',
+                'flex flex-col lg:flex-row gap-8 items-start lg:justify-start min-w-fit w-full h-full lg:px-16',
                 'my-auto'
             )}>
                 <div className='my-auto h-full w-full lg:min-w-fit lg:h-fit lg:justify-center flex flex-col gap-4 lg:max-w-fit box-border'>

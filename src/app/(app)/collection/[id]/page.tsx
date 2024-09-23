@@ -49,14 +49,14 @@ async function Page({
 
     return (
         <Providers collection={collection}>
-            <div className="space-y-4 md:space-y-8">
-                <div className="flex flex-col lg:flex-row gap-8 w-full items-start">
-                    <div className="flex flex-col gap-8 w-full">
+            <div className="space-y-4 md:space-y-8 h-screen hidden-scrollbar">
+                <div className="flex flex-col-reverse lg:flex-row gap-8 w-full items-start">
+                    <div className="flex flex-col gap-8 w-full h-screen overflow-clip">
                         <CollectionProfileArea />
                         <NftsArea />
                     </div>
 
-                    <div className="hidden lg:flex flex-col gap-8 w-full max-w-sm">
+                    <div className="hidden lg:flex flex-col gap-8 w-full max-w-sm h-screen overflow-clip">
                         <Trader />
                         <TransactionsArea />
                     </div>

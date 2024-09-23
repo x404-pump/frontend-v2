@@ -24,7 +24,7 @@ export default function ImageArea() {
     }, [fetchImage]);
 
     return (
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-fit lg:h-full">
             <Image
                 src={imageSrc || ""}
                 alt={nft.token_name}

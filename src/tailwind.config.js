@@ -12,8 +12,7 @@ module.exports = {
       colors: {
         primary: {
           DEFAULT: commonColors.purple[400],
-          ...commonColors.purple
-
+          ...commonColors.purpl
         }
       },
     },
@@ -28,6 +27,7 @@ module.exports = {
         extend: 'dark',
         colors: {
           background: '#121212',
+          focus: commonColors.purple[400],
           foreground: {
             "50": "#1B1B1B",
             "100": "#27272A",
@@ -45,6 +45,7 @@ module.exports = {
       light: {
         extend: 'light',
         colors: {
+          focus: commonColors.purple[400],
           background: '#F7F8F8',
         }
       }

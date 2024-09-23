@@ -29,7 +29,7 @@ export function NftsArea() {
     return (
         <div
             className={clsx(
-                'grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 max-w-5xl w-full',
+                'grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 max-w-5xl w-full max-h-full overflow-y-scroll',
             )}
         >
             {

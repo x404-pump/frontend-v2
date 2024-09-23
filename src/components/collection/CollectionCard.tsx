@@ -3,7 +3,7 @@
 import numeral from "numeral";
 import clsx from "clsx";
 import React from "react";
-import { Skeleton } from "@nextui-org/skeleton";
+import { Skeleton, SkeletonProps } from "@nextui-org/skeleton";
 import { Image } from "@nextui-org/image";
 
 import { RocketIcon, Tag01Icon } from "hugeicons-react";
@@ -57,13 +57,13 @@ export function CollectionCard({ collection }: { collection: IX404Collection }) 
         </div>
     )
 }
-export function SkeletonCollectionCard({ key }: React.HTMLProps<HTMLDivElement>) {
+export function SkeletonCollectionCard({ ...props }: SkeletonProps) {
     return (
         <div className="flex flex-col gap-2">
             <Skeleton
-                key={key}
                 content="Loading"
                 className="w-full aspect-video rounded-[24px] bg-foreground-50"
+                {...props}
             />
         </div>
     );

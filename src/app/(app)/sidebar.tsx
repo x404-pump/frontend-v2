@@ -4,12 +4,13 @@ import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import { Add01Icon, DashboardCircleAddIcon, Store01Icon, UserIcon } from "hugeicons-react";
 import { Link } from "@nextui-org/link";
-import { Listbox, ListboxItem } from "@nextui-org/listbox";
+import { Listbox, ListboxItem, ListboxItemProps } from "@nextui-org/listbox";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { Button } from "@nextui-org/button";
 import WalletCardV2 from "./components/wallet/WalletCardV2";
+import { ColumnContainer } from "@/components/ui";
 import { Logo } from "@/components/icons";
 
 
@@ -54,16 +55,48 @@ export const items: {
         }
     ];
 
+export const desktopItems = [
+    items[0],
+    items[1],
+    items[3],
+    items[4]
+];
+
+interface ItemGroupProps extends React.HTMLAttributes<HTMLDivElement> {
+    title: string;
+}
+function ItemGroup({ title, children, ...props }: ItemGroupProps) {
+    return (
+        <ColumnContainer className="w-full" {...props}>
+            <h6 className="text-foreground-900 text-base font-semibold">{title}</h6>
+            {children}
+        </ColumnContainer>
+    )
+}
+
+interface ItemProps extends React.HTMLAttributes<HTMLDivElement> {
+}
+function Item({ children, ...props }: ItemProps) {
+    return (
+        <div className="px-2 w-full" {...props}>
+            {children}
+        </div>
+    )
+}
 function Copyright() {
     return (
-        <div className="flex flex-row items-center gap-4">
-            <Logo className="w-4 h-4" />
+        <div>
+            <Logo size={24} />
             <p className="text-xs text-foreground-500">
-                All rights reserved | X404
+                © All rights reserved | X404
+            </p>
+            <p className="text-sm font-bold text-foreground-500">
+                Version {process.env.NEXT_PUBLIC_VERSION}
             </p>
         </div>
     );
 }
+
 function SideBar() {
     const [isClient, setIsClient] = useState(false);
     const pathname = usePathname();
@@ -83,10 +116,13 @@ function SideBar() {
                 "lg:flex hidden"
             )}
         >
-            <div className="px-2 w-full">
+            <Item>
                 <WalletCardV2 />
-            </div>
+            </Item>
+
+            {/* Mobile */}
             <Listbox
+                className="lg:hidden flex"
                 classNames={{
                     list: "flex flex-col items-center justify-center gap-2 p-4 rounded-[24px] border border-default/40 bg-foreground-50",
                     base: "h-full"
@@ -112,6 +148,51 @@ function SideBar() {
                     ))
                 }
             </Listbox>
+            {/* Desktop */}
+            <Listbox
+                className="lg:flex hidden"
+                classNames={{
+                    list: "flex flex-col items-center justify-center gap-2 p-4 rounded-[24px] border border-default/40 bg-foreground-50",
+                    base: "h-fit"
+                }}
+            >
+                {
+                    desktopItems.map((item) => (
+                        <ListboxItem
+                            as={Link}
+                            key={item.href}
+                            href={item.href}
+                            color="default"
+                            className={clsx(
+                                "rounded-full text-foreground-500 px-4 py-2",
+                                pathname.startsWith(item.href) && "bg-foreground-200 text-foreground-900 border border-default/40"
+                            )}
+                            startContent={
+                                item.icon
+                            }
+                        >
+                            {item.label}
+                        </ListboxItem>
+                    ))
+                }
+            </Listbox>
+            <ItemGroup title="Tool">
+                <Item>
+                    <Button
+                        as={Link}
+                        href="/create-collection"
+                        variant="solid"
+                        radius="full"
+                        fullWidth
+                        className="border border-foreground-200 h-fit py-2 bg-foreground-100"
+                    >
+                        Create Collection
+                    </Button>
+                </Item>
+            </ItemGroup>
+
+            {/* Empty box */}
+            <div className="h-full" />
             <Copyright />
         </aside>
     );
