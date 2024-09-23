@@ -264,6 +264,10 @@ export const uploadCollectionData = async (
         const metadata: ImageMetadata = JSON.parse(await file.text());
         const imageUrl = `${imageFolderReceipt}/${file.name.replace("json", `${mediaExt}`)}`;
 
+        if (!metadata.description) {
+          metadata.description = metadata.name;
+        }
+
         tokenNames.push(file.name.replace(".json", ""));
         metadata.image = imageUrl;
         const fileMetadata = new File([JSON.stringify(metadata)], file.name, {
@@ -271,6 +275,8 @@ export const uploadCollectionData = async (
         });
 
         tokenDescription.push(metadata.description);
+
+        console.log("metadata", metadata);
 
         return fileMetadata;
       }),
@@ -292,7 +298,7 @@ export const uploadCollectionData = async (
         collectionUri: `${metadataFolderReceipt}/`,
         collectionName: parsedCollectionMetadata.name,
         collectionDescription: parsedCollectionMetadata.description,
-        fa_icon: parsedCollectionMetadata.fa_icon,
+        fa_icon: imageFolderReceipt + "/collection." + mediaExt,
         fa_symbol: parsedCollectionMetadata.fa_symbol,
         supply: parsedCollectionMetadata.supply,
         tokenDescription,

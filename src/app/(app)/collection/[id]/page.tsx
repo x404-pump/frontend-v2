@@ -11,7 +11,6 @@ import { CollectionProfileArea } from "./components/CollectionProfileArea";
 import { NftsArea } from "./components/nfts-area/NftsArea";
 import Trader from "./components/Trader";
 import TransactionsArea from "./components/transactions-area";
-import dynamic from "next/dynamic";
 
 
 // export async function generateMetadata({ params }: { params: { id: string } }) {
@@ -32,7 +31,7 @@ async function Page({
     };
 }) {
     const { id } = params;
-    let collection;
+    let collection = mockCollection;
 
     try {
         if (USING_MOCK) {
