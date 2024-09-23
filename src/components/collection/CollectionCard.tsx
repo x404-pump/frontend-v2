@@ -39,7 +39,7 @@ export function CollectionCard({ collection }: { collection: IX404Collection }) 
                     img: "rounded-[24px] w-full aspect-video object-cover"
                 }}
             />
-            <div className="flex flex-col gap-2 p-4 items-center justify-center w-full">
+            <div className="flex flex-col gap-2 p-4 items-start justify-center w-full">
                 <h3 className="capitalize text-base font-semibold">{collection.collection_name}</h3>
                 <div className="flex flex-row gap-4">
                     <ParamField

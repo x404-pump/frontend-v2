@@ -29,20 +29,20 @@ app:
         - Liquidity
   features:
     - name: Wrap NFT into ERC404
-      description: 
+      description: ERC404
       tags:
-    - name: ERC404 in DeFi
-      description: 
-      tags: Liquidity mining (liquidity provision), collateral for lending protocols, deriatives, …
-    - name: Platform for users to interact, comment, social media
-      description: 
+    - name: AIP404 in DeFi
+      description: Liquidity mining (liquidity provision), collateral for lending protocols, deriatives
+      tags: 
+    - name: Social Platform
+      description: Community can Interact, comment
       tags:
-    - name: Cross-chain NFT collection, bridge
-      description: 
+    - name: Cross-chain NFT
+      description: NFT Collections, Bridge
       tags:
     - name: Governance token
       description: Voting, whitelist chance
       tags:
-    - name: Technical perspective
+    - name: Technical-wise
       description: Randomness for NFT conversion,  Gasless creation
       tags: 

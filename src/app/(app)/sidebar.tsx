@@ -10,6 +10,7 @@ import dynamic from "next/dynamic";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { Button } from "@nextui-org/button";
 import WalletCardV2 from "./components/wallet/WalletCardV2";
+import { Logo } from "@/components/icons";
 
 
 export const items: {
@@ -55,9 +56,12 @@ export const items: {
 
 function Copyright() {
     return (
-        <p className="text-xs text-foreground-500">
-            © 2024 X404. All rights reserved.
-        </p>
+        <div className="flex flex-row items-center gap-4">
+            <Logo className="w-4 h-4" />
+            <p className="text-xs text-foreground-500">
+                All rights reserved | X404
+            </p>
+        </div>
     );
 }
 function SideBar() {

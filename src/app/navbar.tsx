@@ -45,7 +45,7 @@ export const Navbar = () => {
   );
 
   return (
-    <NextUINavbar maxWidth="full" position="sticky">
+    <NextUINavbar maxWidth="full" position="sticky" className='z-50'>
 
       <NavbarContent
         className="hidden sm:flex basis-1/5 sm:basis-full"

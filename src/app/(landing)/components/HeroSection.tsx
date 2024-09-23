@@ -4,11 +4,13 @@ import { IoRocketSharp } from "react-icons/io5";
 import { Button } from '@nextui-org/button';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { ArrowDown01Icon } from 'hugeicons-react';
+import { DocumentAttachmentIcon } from 'hugeicons-react';
 import { Image } from "@nextui-org/image";
 
 import { GradientBorder } from '@/components/GradientBorder';
 import Spline from "@splinetool/react-spline";
+import { Link } from "@nextui-org/link";
+import { X404_DOCS } from "@/config/contants";
 
 
 
@@ -26,7 +28,7 @@ export default function HeroSection() {
     return (
         <section
             id="hero"
-            className="w-full flex flex-col gap-8 justify-center items-start mb-64"
+            className="w-full flex flex-col gap-8 justify-center items-start mb-16"
         >
             <motion.div
                 className='flex flex-col gap-8 z-10 w-full'
@@ -56,11 +58,11 @@ export default function HeroSection() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1 }}
                 >
-                    <h1 className="text-4xl font-bold md:text-5xl text-default-foreground w-full break-words text-center">
-                        Fractionalized-NFTs-Focused <br/> Launchpad
+                    <h1 className="text-2xl lg:text-4xl font-bold md:text-5xl text-default-foreground w-full break-words text-center">
+                        Fractionalized-NFTs-Focused <br /> Launchpad
                     </h1>
-                    <p className="text-base md:text-2xl text-default-500 text-center">
-                        Fractional Ownership and Enhanced Liquidity for NFT Collections
+                    <p className="text-base text-default-500 text-center max-w-screen-sm w-full">
+                        X404 PUMP is a groundbreaking ecosystem built on the Aptos blockchain, centered around the new ERC404 standard for tokenized NFTs.
                     </p>
                     <div className='w-fit items-center justify-center gap-4 flex flex-row'>
                         <GradientBorder borderWidth={1.5} className="w-fit rounded-full bg-gradient-to-t from-secondary-700/50 via-white to-secondary-500">
@@ -68,29 +70,26 @@ export default function HeroSection() {
                                 radius='full'
                                 color='secondary'
                                 endContent={<IoRocketSharp size={16} />}
-                                className="bg-secondary"
+                                className="bg-[#422B58]"
                                 onClick={() => router.push('../dashboard')}
                             >
                                 Lauch now
                             </Button>
                         </GradientBorder>
                         <Button
+                            as={Link}
+                            href={X404_DOCS}
                             radius='full'
                             variant='bordered'
                             size="md"
-                            endContent={<ArrowDown01Icon size={24} />}
-                            onClick={handleScroll}
+                            startContent={<DocumentAttachmentIcon size={16} className="text-foreground-500" />}
+                            className="border-foreground border-1"
                         >
-                            Explore now
+                            <b>Docs</b> | X404 docs
                         </Button>
                     </div>
                 </motion.div>
             </motion.div>
-            <Image
-                src="/assets/image-demo-ui-collection.png"
-                alt="Hero Image"
-                className="w-full object-cover"
-            />
         </section>
     )
 }

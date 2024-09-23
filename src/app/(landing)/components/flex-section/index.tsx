@@ -6,9 +6,9 @@ import { Chip } from "@nextui-org/chip";
 import dynamic from "next/dynamic";
 import { motion } from 'framer-motion';
 
-const RectangleForFlexSvg = dynamic(() => import('../assets/RectangleForFlexSvg'), { ssr: false });
+const RectangleForFlexSvg = dynamic(() => import('../../assets/RectangleForFlexSvg'), { ssr: false });
 
-export default function FlexSection() {
+function FlexSection() {
     const variants = {
         hidden: { opacity: 0, y: 50 },
         visible: { opacity: 1, y: 0 }
@@ -19,12 +19,12 @@ export default function FlexSection() {
             id="flex"
             className={clsx(
                 "relative flex flex-col items-center justify-center w-full",
-                "py-32 md:py-64 overflow-visible z-10 2xl:mb-64"
+                "py-32 md:py-64 overflow-visible z-10"
             )}
         >
             <div className="flex flex-col items-center gap-2 justify-center">
                 <motion.h1
-                    className="text-4xl md:text-5xl font-bold text-center text-secondary z-10"
+                    className="text-2xl md:text-4xl font-bold text-center text-secondary z-10"
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
@@ -34,7 +34,7 @@ export default function FlexSection() {
                     X404.PUMP
                 </motion.h1>
                 <motion.h1
-                    className="text-4xl md:text-5xl font-semibold text-center text-default-foreground z-10"
+                    className="text-2xl md:text-4xl font-semibold text-center text-default-foreground z-10"
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
@@ -44,7 +44,7 @@ export default function FlexSection() {
                     Hackathon Winner
                 </motion.h1>
                 <motion.p
-                    className="text-center text-default-foreground z-10"
+                    className="text-center text-base text-default-foreground z-10"
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
@@ -88,3 +88,5 @@ export default function FlexSection() {
         </section>
     );
 }
+
+export default dynamic(() => Promise.resolve(FlexSection));

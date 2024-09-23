@@ -4,14 +4,14 @@ import yaml from "js-yaml";
 
 import { TX404YamlFile } from "@/types";
 import dynamic from "next/dynamic";
-
-const ServiceSection = dynamic(() => import("./components/SolutionSection"));
-const HeroSection = dynamic(() => import("./components/HeroSection"));
-const IntroductionSection = dynamic(() => import("./components/IntroductionSection"));
-const HeroIntroductionSection = dynamic(() => import("./components/HeroIntroductionSection"));
-const HeroSolutionSection = dynamic(() => import("./components/HeroSolutionSection"));
-const FlexSection = dynamic(() => import("./components/FlexSection"));
-const DemoCreateCollectionSection = dynamic(() => import("./components/DemoCreateCollectionSection"));
+import DemoCreateCollectionSection from "./components/demo-create-collection-form-section";
+import FlexSection from "./components/flex-section";
+import HeroSection from "./components/HeroSection";
+import IntroductionSection from "./components/introduction-section";
+import HeroIntroductionSection from "./components/introduction-section/HeroIntroductionSection";
+import ServiceSection from "./components/solution-section";
+import HeroSolutionSection from "./components/solution-section/HeroSolutionSection";
+import DemoDashboard from "./components/demo-dashboard";
 
 function fetchX404AppYaml() {
   const x404AppFile = fs.readFileSync(path.join(process.cwd(), "config/x404.yaml"), "utf8");
@@ -24,6 +24,7 @@ export default function Home() {
   return (
       <section className="flex flex-col items-center justify-center gap-4 py-4 md:py-10">
         <HeroSection />
+        <DemoDashboard />
         <FlexSection />
         <HeroSolutionSection />
         <ServiceSection app={x404.app} />

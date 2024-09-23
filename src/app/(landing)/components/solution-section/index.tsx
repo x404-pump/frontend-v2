@@ -74,7 +74,7 @@ export default function ServiceSection(props: ServiceSectionProps) {
     };
 
     return (
-        <section className="w-full flex flex-col md:flex-row gap-16 items-start py-4">
+        <section className="w-full flex flex-col md:flex-row gap-8 items-start py-4">
             {
                 app.features && app.solutions.map((solution, index) => (
                     <motion.div
@@ -84,7 +84,7 @@ export default function ServiceSection(props: ServiceSectionProps) {
                         viewport={{ once: true }}
                         variants={variants}
                         transition={{ duration: 1, delay: 0.2 * index }}
-                        className="relative overflow-visible h-full"
+                        className="relative overflow-visible h-full w-full"
                     >
                         <SolutionCard
                             tags={solution.tags}
