@@ -324,7 +324,7 @@ export const uploadCollectionData = async (
         collectionUri: `${metadataFolderReceipt}/`,
         collectionName: parsedCollectionMetadata.name,
         collectionDescription: parsedCollectionMetadata.description,
-        fa_icon: await retrieveCollectionImage(`${metadataFolderReceipt}/`),
+        fa_icon: imageFolderReceipt + "/collection." + mediaExt,
         fa_symbol: parsedCollectionMetadata.fa_symbol,
         supply: parsedCollectionMetadata.supply,
         tokenDescription,
