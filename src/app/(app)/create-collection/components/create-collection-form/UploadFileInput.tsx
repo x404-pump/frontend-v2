@@ -40,7 +40,7 @@ const FileCard: React.FC<{ file: File, onDelete: (file: File) => void }> = ({ fi
             <Button
                 radius='full'
                 color='default'
-                variant='light'
+                variant='light'z
                 isIconOnly
                 onClick={() => onDelete(file)}
                 startContent={

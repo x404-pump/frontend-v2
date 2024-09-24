@@ -5,6 +5,7 @@ import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
+import { useForm } from 'react-hook-form';
 import { toast } from "react-toastify";
 import dynamic from "next/dynamic";
 import { uploadCollectionData } from "@/utils/assetUploader";
@@ -15,29 +16,27 @@ const UploadFileInput = dynamic(() => import('./UploadFileInput'));
 const CollectionDetailArea = dynamic(() => import('./CollectionDetailArea'));
 
 interface CreateCollectionFormProps extends React.HTMLAttributes<HTMLFormElement> { }
+
+type FormData = {
+    amountAptIn: number;
+    initPrice: number;
+};
+
 export default function CreateCollectionForm({ ...props }: CreateCollectionFormProps) {
     const aptosWallet = useWallet();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting, isLoading },
+    } = useForm<FormData>();
 
-    const { account, wallet, signAndSubmitTransaction } = useWallet();
+    const { account, wallet, signAndSubmitTransaction, connected } = useWallet();
     const [isUploading, setIsUploading] = React.useState(false);
     const [files, setFiles] = React.useState<FileList | null>(null);
-    const [amountAptIn, setAmountAptIn] = React.useState<number>(0);
-    const [initPrice, setInitPrice] = React.useState<number>(1);
 
-    const handleChangeAmountAptIn = (e: any) => {
-        e.preventDefault();
-        setAmountAptIn(Number(e.target.value));
-    }
-    const handleChangeInitPrice = (e: any) => {
-        e.preventDefault();
-        setInitPrice(Number(e.target.value
-        ));
-    }
-
-    const onCreateCollection = async (e: any) => {
-        e.preventDefault();
+    const onSubmit = async (data: FormData) => {
         try {
-            if (!account) throw new Error("Please connect your wallet");
+            if (!connected) throw new Error("Please connect your wallet");
             if (!files) throw new Error("Please upload files");
             if (isUploading) throw new Error("Uploading in progress");
 
@@ -59,8 +58,8 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
                 tokenDescription,
                 tokenNames,
                 tokenUris,
-                amountAptIn,
-                initPrice,
+                amountAptIn: data.amountAptIn,
+                initPrice: data.initPrice,
             });
             const response = await signAndSubmitTransaction(
                 {
@@ -73,6 +72,10 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
 
             await aptosClient().waitForTransaction({
                 transactionHash: response.hash,
+            });
+
+            toast.success('Collection created successfully', {
+                type: 'success',
             });
 
         } catch (error) {
@@ -88,7 +91,7 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
 
     return (
         <section className="w-full overflow-visible relative flex flex-row justify-between items-start" id="create-collection-form">
-            <form className="relative w-full flex flex-col gap-8 items-start justify-start">
+            <form className="relative w-full flex flex-col gap-8 items-start justify-start" onSubmit={handleSubmit(onSubmit)}>
                 <UploadFileInput
                     files={files}
                     setFiles={setFiles}
@@ -103,7 +106,8 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
                         radius="full"
                         placeholder="0"
                         labelPlacement="outside"
-                        onChange={handleChangeAmountAptIn}
+                        // onChange={handleChangeAmountAptIn}
+                        {...register('amountAptIn', { required: false })}
                     />
                     <Input
                         label="Initial price for each Token"
@@ -115,7 +119,7 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
                         min={1}
                         labelPlacement="outside"
                         isRequired
-                        onChange={handleChangeInitPrice}
+                        {...register('initPrice', { required: false })}
                     />
                 </div>
                 <CollectionDetailArea className="flex lg:hidden" />
@@ -125,7 +129,8 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
                     radius="full"
                     size="lg"
                     fullWidth
-                    onClick={onCreateCollection}
+                    isLoading={isSubmitting || isUploading}
+                    disabled={isSubmitting || isUploading}
                 >
                     Create
                 </Button>
