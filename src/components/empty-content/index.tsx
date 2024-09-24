@@ -13,6 +13,7 @@ export default function EmptyContent({ content = 'No content found', ...props }:
             <p className="text-foreground-300 text-center text-base">
                 {content}
             </p>
+            {props.children}
         </div>
     );
 }

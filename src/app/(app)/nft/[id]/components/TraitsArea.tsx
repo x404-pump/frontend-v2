@@ -2,6 +2,7 @@
 import { GradientBorder } from "@/components/GradientBorder";
 import { useNft } from "../contexts/nft";
 import { Container } from "@/components/ui";
+import EmptyContent from "@/components/empty-content";
 
 function TraitCard({ label, value }: { label: string, value: string }) {
     return (
@@ -30,7 +31,7 @@ export default function TraitsArea() {
                     ))
                 }
                 {
-                    !properties && <p className="text-base font-normal text-default-500">No traits available</p>
+                    !properties && <EmptyContent content="No traits found" />
                 }
             </div>
         </Container>

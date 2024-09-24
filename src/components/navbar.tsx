@@ -13,21 +13,15 @@ import {
 import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
 import { Input } from "@nextui-org/input";
-import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
-import { ThemeSwitch } from "@/components/theme-switch";
 import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
   SearchIcon,
   Logo,
 } from "@/components/icons";
 import React from 'react';
-import ConnectWalletDialog from './wallet/ConnectWalletDialog';
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -58,7 +52,7 @@ const Navbar = () => {
 
   React.useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 256) {
+      if (window.scrollY > 0) {
         setIsBlurred(true);
       } else {
         setIsBlurred(false);

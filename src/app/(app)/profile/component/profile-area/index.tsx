@@ -1,5 +1,6 @@
 'use client';
 
+import EmptyContent from "@/components/empty-content";
 import { truncateAddress, useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Chip } from "@nextui-org/chip";
 import { Tooltip } from "@nextui-org/tooltip";
@@ -30,7 +31,7 @@ function Field({ label, value, icon }: { label?: string; value?: string, icon?: 
 };
 
 function Profile() {
-    const { account, wallet } = useWallet();
+    const { account, connected } = useWallet();
 
     return (
         <div className="w-fit h-fit flex flex-col gap-4 items-start">
@@ -72,13 +73,11 @@ function Profile() {
     );
 }
 export default function Index() {
-    const { account } = useWallet();
-
+    const { account, connected } = useWallet();
+    
     return (
         <div className="w-full flex flex-col md:flex-row md:items-end gap-8">
             <Profile />
-            <div className="w-full flex flex-col gap-4 items-end">
-            </div>
         </div>
     )
 }

@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 
 export default function HeroSolutionSection() {
     return (
-        <section className="w-full my-4">
-            <div className="flex flex-col items-center justify-center gap-8s">
+        <section className="w-full">
+            <div className="flex flex-col items-center justify-center gap-8">
                 <motion.h1
                     className="text-4xl font-bold text-default-foreground z-10 text-center"
                     initial={{ opacity: 0, y: -50 }}

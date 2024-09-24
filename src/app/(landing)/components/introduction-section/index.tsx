@@ -51,7 +51,7 @@ function FeatureCard({ title, description, classNames, tags, index }: ServiceCar
         >
             <div className="relative w-8 h-8 p-2 bg-foreground-200 rounded-full flex items-center justify-center">
                 {getFeatureIcon(title)}
-                <div className="bg-primary w-6 h-6 -z-10 rounded-full absolute blur-2xl"/>
+                <div className="bg-primary w-6 h-6 -z-10 rounded-full absolute blur-2xl" />
             </div>
             <div className="flex flex-col gap-0 justify-center">
 
@@ -75,13 +75,18 @@ function FeatureCard({ title, description, classNames, tags, index }: ServiceCar
 interface IntroductionSectionProps {
     app: TX404AppYaml;
 }
-function IntroductionSection({ app }: IntroductionSectionProps) {
+export default function IntroductionSection({ app }: IntroductionSectionProps) {
     return (
         <section
             id="introduction"
             className="w-full flex flex-col gap-8 justify-between items-center relative"
         >
-            <h4 className="text-2xl lg:text-4xl font-bold text-foreground">Introduction</h4>
+            <div className="flex items-center flex-col">
+                <h4 className="text-2xl lg:text-4xl font-bold text-foreground">Introduction</h4>
+                <p className="text-sm lg:text-base text-foreground-500 max-w-screen-sm break-words">
+                    Explore all the features of X404
+                </p>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
                 {
                     app.features && app.features.map((feature, index) => (
@@ -97,5 +102,3 @@ function IntroductionSection({ app }: IntroductionSectionProps) {
         </section>
     )
 }
-
-export default dynamic(() => Promise.resolve(IntroductionSection), {});

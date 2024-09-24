@@ -3,12 +3,10 @@ import path from "path";
 import yaml from "js-yaml";
 
 import { TX404YamlFile } from "@/types";
-import dynamic from "next/dynamic";
 import DemoCreateCollectionSection from "./components/demo-create-collection-form-section";
 import FlexSection from "./components/flex-section";
-import HeroSection from "./components/HeroSection";
+import HeroSection from "./components/hero-section";
 import IntroductionSection from "./components/introduction-section";
-import HeroIntroductionSection from "./components/introduction-section/HeroIntroductionSection";
 import ServiceSection from "./components/solution-section";
 import HeroSolutionSection from "./components/solution-section/HeroSolutionSection";
 import DemoDashboard from "./components/demo-dashboard";
@@ -29,7 +27,6 @@ export default function Home() {
         <HeroSolutionSection />
         <ServiceSection app={x404.app} />
         <DemoCreateCollectionSection />
-        <HeroIntroductionSection />
         <IntroductionSection app={x404.app} />
       </section>
   );

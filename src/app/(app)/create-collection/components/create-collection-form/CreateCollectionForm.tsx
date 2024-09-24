@@ -87,7 +87,7 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
     };
 
     return (
-        <section className="mt-8 w-full overflow-visible relative flex flex-row justify-between items-start" id="create-collection-form">
+        <section className="w-full overflow-visible relative flex flex-row justify-between items-start" id="create-collection-form">
             <form className="relative w-full flex flex-col gap-8 items-start justify-start">
                 <UploadFileInput
                     files={files}

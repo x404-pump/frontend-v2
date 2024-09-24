@@ -25,10 +25,10 @@ function DashboardLayout({
 }) {
   return (
     <Providers>
-      <div className="flex flex-row h-screen relative mx-auto overflow-x-hidden hidden-scrollbar">
+      <div className="flex flex-row h-screen relative mx-auto hidden-scrollbar">
         <SideBar />
         <BottomNavbar />
-        <main className="flex-grow w-full mb-64 lg:mb-0 lg:ml-4 h-full p-4 hidden-scrollbar overflow-x-hidden">
+        <main className="flex-grow w-full mb-32 lg:mb-0 lg:ml-4 h-full py-4 hidden-scrollbar">
           {children}
         </main>
       </div>

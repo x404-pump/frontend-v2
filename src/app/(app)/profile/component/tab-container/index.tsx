@@ -4,6 +4,7 @@ import { Tabs, Tab } from "@nextui-org/tabs"
 import dynamic from "next/dynamic";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
+import TransactionsArea from "../transactions-area";
 
 const NftsArea = dynamic(() => import("../nfts-area"));
 const CollectionsArea = dynamic(() => import("../collections-area"));
@@ -38,6 +39,9 @@ export default function TabContainer() {
             </Tab>
             <Tab title="NFTs" className="w-full">
                 <NftsArea />
+            </Tab>
+            <Tab title="Transactions" className="w-full">
+                <TransactionsArea />
             </Tab>
         </Tabs>
     )

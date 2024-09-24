@@ -26,7 +26,6 @@ const nextConfig = {
 
             }
         },
-        ppr: false,
     }
 };
 

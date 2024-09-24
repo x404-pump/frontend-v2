@@ -69,13 +69,13 @@ export default async function Page({
                 <div className="mb-4 w-full">
                 </div>
                 <div className="flex flex-col lg:flex-row gap-8 items-start w-full">
-                    <div className="flex flex-col gap-4 md:gap-8 md:col-span-2 w-full h-screen max-h-full overflow-y-scroll">
+                    <div className="flex flex-col gap-4 md:gap-8 md:col-span-2 w-full h-fit">
                         <ImageArea />
                         <ToolsArea />
                         <DescriptionArea />
                         <TraitsArea />
                     </div>
-                    <div className="flex flex-col gap-4 md:gap-8 md:col-span-2 w-full h-screen lg:max-w-sm overflow-clip">
+                    <div className="flex flex-col gap-4 md:gap-8 md:col-span-2 w-full lg:max-w-sm overflow-auto">
                         <DetailsArea />
                         <ActivitiesArea />
                     </div>

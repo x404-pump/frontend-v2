@@ -3,10 +3,9 @@ import { Metadata } from "next";
 
 
 import { siteConfig } from "@/config/site";
-import dynamic from "next/dynamic";
+import Footer from "./footer";
+import Navbar from "@/components/navbar";
 
-const Navbar = dynamic(() => import('@/components/navbar'), { ssr: false })
-const Footer = dynamic(() => import('./footer'), { ssr: false })
 
 export const metadata: Metadata = {
   title: {
@@ -26,12 +25,12 @@ export default function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col h-fit overflow-x-clip w-full relative">
+    <div className="flex flex-col h-fit w-full relative">
       <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[75vw] aspect-[3/1] bg-gradient-to-b from-secondary-500 to-secondary-700/0 blur-[128px] rounded-full"
+        className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[75vw] aspect-[3/1] bg-gradient-to-b from-secondary-500 to-secondary-700/0 blur-[64px] lg:blur-[128px] rounded-full"
       />
       <Navbar />
-      <main className="container mx-auto max-w-7xl pt-4 px-6 flex-grow">
+      <main className="container mx-auto max-w-7xl pt-4 flex-grow">
         {children}
       </main>
       <Footer />

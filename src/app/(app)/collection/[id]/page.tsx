@@ -13,15 +13,29 @@ import Trader from "./components/Trader";
 import TransactionsArea from "./components/transactions-area";
 
 
-// export async function generateMetadata({ params }: { params: { id: string } }) {
-//     const { id } = params;
-//     const collection = await getCollectionData(id);
+export async function generateMetadata({ params }: { params: { id: string } }) {
+    const { id } = params;
+    let collection = mockCollection;
 
-//     return {
-//         title: collection.collection_name,
-//         description: collection.description,
-//     };
-// }
+    try {
+        if (USING_MOCK) {
+            collection = mockCollection
+        } else {
+            collection = await getCollectionData(id);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+
+    if (!collection) {
+        return notFound();
+    }
+
+    return {
+        title: collection.collection_name,
+        description: collection.description,
+    };
+}
 
 async function Page({
     params,
