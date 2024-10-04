@@ -1,15 +1,14 @@
 
 import { Providers } from "./providers";
-// import { NftsArea } from "./components/nfts-area/NftsArea";
 import { getCollectionData } from "@/fetch-functions/collection";
 import { notFound } from "next/navigation";
 
 import { mockCollection } from "@/mock";
 import { USING_MOCK } from "@/config/contants";
 import TabContainer from "./components/tabs";
-import { CollectionProfileArea } from "./components/CollectionProfileArea";
+import { CollectionProfileArea } from "./components/profile";
 import { NftsArea } from "./components/nfts-area/NftsArea";
-import Trader from "./components/Trader";
+import Trader from "./components/swap";
 import TransactionsArea from "./components/transactions-area";
 
 
@@ -63,9 +62,9 @@ async function Page({
 
     return (
         <Providers collection={collection}>
-            <div className="space-y-4 md:space-y-8 h-screen hidden-scrollbar">
+            <div className="space-y-4 md:space-y-8 h-full hidden-scrollbar">
                 <div className="flex flex-col-reverse lg:flex-row gap-8 w-full items-start">
-                    <div className="flex flex-col gap-8 w-full h-screen overflow-clip">
+                    <div className="flex flex-col gap-8 w-full h-screen overflow-x-visible relative">
                         <CollectionProfileArea />
                         <NftsArea />
                     </div>

@@ -14,6 +14,7 @@ const AppPage = ({ app }: AppProps) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { app } = context.params!;
+
   return {
     props: {
       app,

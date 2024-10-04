@@ -1,21 +1,23 @@
-'use client';
+"use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { USING_MOCK } from "@/config/contants";
+import { useSearchParams } from "next/navigation";
 import React from "react";
 
 import { getCurrentCollectionsV2, IX404Collection } from "@/fetch-functions";
-import { useSearch } from "@/components/search";
 import EmptyContent from "@/components/empty-content";
-import { ResponsiveContainer } from "@/components/ui";
+import { Container, ResponsiveContainer } from "@/components/ui";
 import { mockCollections } from "@/mock";
 import { CollectionCard, SkeletonCollectionCard } from "@/components/collection";
+import { USING_MOCK } from "@/config/contants";
+import { toast } from "react-toastify";
 
 export default function CollectionsAreas() {
+    const searchParams = useSearchParams();
     const [collections, setCollections] = React.useState<IX404Collection[]>([]);
-    const { searchQuery } = useSearch();
+    const [searchQuery, setSearchQuery] = React.useState<string>(searchParams.get("search") || "");
 
-    let { data = [], isLoading } = useQuery({
+    let { data = [], isLoading, error } = useQuery({
         queryKey: ["collections"],
         queryFn: () => getCurrentCollectionsV2(),
     });
@@ -27,6 +29,18 @@ export default function CollectionsAreas() {
             setCollections(data);
         }
     }, [data]);
+
+    React.useEffect(() => {
+        if (searchParams.get("search")) {
+            setSearchQuery(searchParams.get("search") || "");
+        }
+    }, [searchParams]);
+
+    React.useEffect(() => {
+        if (error) {
+            toast.error("Failed to fetch collections");
+        }
+    }, [error]);
 
     const flattenObject = (obj: any): string => {
         let result = '';
@@ -57,18 +71,25 @@ export default function CollectionsAreas() {
     }
 
     return (
-        filteredCollections.length > 0 ? (
-            <ResponsiveContainer>
-                {
-                    filteredCollections.map((collection) => (
-                        <CollectionCard key={collection.collection_address} collection={collection} />
-                    ))
-                }
-            </ResponsiveContainer>
-
-        )
-            : (
-                <EmptyContent content="No collections found" />
+        <Container
+            title={
+                <span>
+                    Collections <span className="text-foreground-500">({filteredCollections.length})</span>
+                </span>
+            }
+        >
+            {filteredCollections.length > 0 ? (
+                <ResponsiveContainer>
+                    {
+                        filteredCollections.map((collection) => (
+                            <CollectionCard key={collection.collection_address} collection={collection} />
+                        ))
+                    }
+                </ResponsiveContainer>
             )
+                : (
+                    <EmptyContent content="No collections found" />
+                )}
+        </Container>
     )
 }

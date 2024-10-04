@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Tab, Tabs } from "@nextui-org/tabs";
 import dynamic from "next/dynamic";

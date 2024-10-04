@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { PropsWithChildren } from "react";
 import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";

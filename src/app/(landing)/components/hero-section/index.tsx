@@ -1,17 +1,16 @@
-'use client';
+"use client";
 
 import { IoRocketSharp } from "react-icons/io5";
 import { Button } from '@nextui-org/button';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { DocumentAttachmentIcon } from 'hugeicons-react';
-import { Image } from "@nextui-org/image";
 
-import { GradientBorder } from '@/components/GradientBorder';
 import Spline from "@splinetool/react-spline";
 import { Link } from "@nextui-org/link";
 import { X404_APP, X404_DOCS } from "@/config/contants";
 import { Chip } from "@nextui-org/chip";
+import { GradientBorder } from "@/components/ui/gradient-border";
 
 
 

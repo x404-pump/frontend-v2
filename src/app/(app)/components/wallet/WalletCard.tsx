@@ -1,9 +1,9 @@
 import { toast } from "react-toastify";
 import React from "react";
-import { truncateAddress, APTOS_CONNECT_ACCOUNT_URL, useWallet } from "@aptos-labs/wallet-adapter-react";
+import { truncateAddress, useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Skeleton } from "@nextui-org/skeleton";
 import copy from "copy-to-clipboard";
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownSection, DropdownItem } from "@nextui-org/dropdown";
+import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/dropdown";
 import { Avatar } from "@nextui-org/avatar";
 
 import { useAccount } from "@/hooks/useAccount";

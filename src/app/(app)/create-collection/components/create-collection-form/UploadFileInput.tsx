@@ -4,14 +4,15 @@ import { Button } from '@nextui-org/button';
 import { InputProps } from '@nextui-org/input';
 import { Tooltip } from '@nextui-org/tooltip';
 import clsx from 'clsx';
+import numeral from 'numeral';
 import React, { useRef, useState } from 'react';
 import { MdDeleteOutline } from "react-icons/md";
+import { Files02Icon } from 'hugeicons-react';
+
 import { loadFile } from '../utils';
-import { Upload04Icon } from 'hugeicons-react';
 import { useCollectionMetadata } from './context';
 import { getCollectionFromFiles } from '@/utils/assetUploader';
-import BlurIcon from '@/components/blur-icon';
-import numeral from 'numeral';
+import CollectionDetailArea from './CollectionDetailArea';
 
 interface UploadFileInputProps extends InputProps {
     isUploading: boolean;
@@ -40,7 +41,7 @@ const FileCard: React.FC<{ file: File, onDelete: (file: File) => void }> = ({ fi
             <Button
                 radius='full'
                 color='default'
-                variant='light'z
+                variant='light'
                 isIconOnly
                 onClick={() => onDelete(file)}
                 startContent={
@@ -66,11 +67,13 @@ const UploadFileInput: React.FC<UploadFileInputProps> = ({ isUploading, account,
                 setError(null); // Clear any previous errors
 
                 const fileData = await getCollectionFromFiles(fileList);
-                console.log('fileData', fileData);
+
                 setCollectionMetadata({
                     name: fileData.collectionMetadata.name,
                     image: fileData.collectionCover,
                     description: fileData.collectionMetadata.description,
+                    symbol: fileData.collectionMetadata.fa_symbol,
+                    supply: fileData.collectionMetadata.supply.toString(),
                 });
 
             } catch (err: any) {
@@ -99,22 +102,18 @@ const UploadFileInput: React.FC<UploadFileInputProps> = ({ isUploading, account,
     return (
         <div
             className={clsx(
-                'flex flex-col gap-4 items-start justify-center w-full h-fit',
-                'p-4 rounded-3xl bg-foreground-50 border border-default/25'
+                'flex flex-col gap-4 items-center justify-center w-full h-fit py-4',
             )}
-        >   <h6 className='text-lg font-semibold text-foreground-900'>Upload metadata</h6>
+        >
+            <div className='flex flex-col items-center justify-center w-full h-fit'>
+                <h6 className='text-lg font-semibold text-foreground-900'>Upload metadata</h6>
+                <p className='text-sm font-normal text-foreground-500 text-center'>
+                    Drag & drop or click to choose files
+                </p>
+            </div>
             <div
-                className='w-full h-fit flex flex-col items-center justify-center gap-4 rounded-3xl p-4 cursor-pointer'
-                role="button"
-                tabIndex={0}
-                onClick={handleClick}
+                className='w-full h-fit flex flex-row items-center justify-center gap-4 rounded-medium p-2'
             >
-                <BlurIcon
-                    icon={<Upload04Icon size={16} />}
-                    classNames={{
-                        blur: 'bg-primary',
-                    }}
-                />
                 <input
                     ref={inputRef}
                     id="upload"
@@ -127,18 +126,30 @@ const UploadFileInput: React.FC<UploadFileInputProps> = ({ isUploading, account,
                     onChange={handleFileChange}
                     {...inputProps}
                 />
-                <h3 className='text-sm font-normal text-foreground-500 text-center'>
-                    Drag & drop or click to choose files
-                </h3>
+                <Button
+                    className='border-foreground-200 justify-between px-2 py-1 h-fit '
+                    variant='bordered'
+                    radius='sm'
+                    size='sm'
+                    fullWidth
+                    endContent={<Files02Icon size={20} />}
+                    disabled
+                >
+                    Upload to see draft
+                </Button>
+                <Button
+                    className='bg-foreground-900 text-foreground-100 w-full'
+                    radius='sm'
+                    size='sm'
+                    isIconOnly
+                    fullWidth
+                    onClick={handleClick}
+                >
+                    Upload
+                </Button>
             </div>
+            <CollectionDetailArea />
             {error && <p className='text-red-500'>{error}</p>}
-            {files && (
-                <div className='w-full flex flex-col gap-2 items-start h-fit overflow-scroll max-h-[64px]'>
-                    {Array.from(files).map((file) => (
-                        <FileCard key={file.name} file={file} onDelete={handleDeleteFile} />
-                    ))}
-                </div>
-            )}
         </div>
     );
 };

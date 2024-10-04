@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
@@ -7,27 +7,15 @@ import { APTCoinIcon } from "@/components/icons";
 import React from "react";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { toast } from "react-toastify";
+import { Avatar } from "@nextui-org/avatar";
 
-import { useCollection } from "../context/collection";
+import { useCollection } from "../../context/collection";
 import { X404_ADDRESS } from "@/config/contants";
 import { aptosClient } from "@/utils/aptosClient";
-import { Avatar } from "@nextui-org/avatar";
 import { getAmountInOut } from "@/view-functions/amountInOut";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
-}
-
-function ButtonOperator({
-    title,
-    children
-}: ButtonProps) {
-    return (
-        <div className="flex flex-col items-center justify-center">
-            {children}
-            <h6 className="text-sm text-foreground-900">{title}</h6>
-        </div>
-    )
 }
 
 export default function Trader() {
@@ -95,9 +83,9 @@ export default function Trader() {
 
     return (
         <div
-            className="flex flex-col p-4 gap-4 items-center justify-center rounded-[48px] bg-foreground-50 min-w-fit w-full h-fit"
+            className="flex flex-col p-4 gap-4 items-center justify-center min-w-fit w-full h-fit rounded-large border-t-2 border-default-200"
         >
-            <div className="flex items-center flex-col w-full h-fit p-4 rounded-[32px] bg-foreground-50 shadow">
+            <div className="flex items-center flex-col w-full h-fit p-4 rounded-large bg-foreground-50 shadow">
                 <Input
                     id="from"
                     placeholder="0.00"
@@ -118,7 +106,7 @@ export default function Trader() {
                             <Avatar src={collection.collection_image} className="w-6 h-6" />
                     }
                 />
-                <Button isIconOnly radius="full" onClick={handleSwapDirection}>
+                <Button isIconOnly radius="full" onClick={handleSwapDirection} className="bg-foreground-900 text-foreground-100">
                     <Exchange01Icon className="w-6 h-6" />
                 </Button>
                 <Input
@@ -165,8 +153,9 @@ export default function Trader() {
             <Button
                 onClick={handleSwap}
                 fullWidth
-                radius="full"
+                radius="sm"
                 disabled={!connected}
+                className="bg-foreground-900 text-foreground-100"
             >
                 {swapDirection === 'APT_TO_FA' ? 'Buy' : 'Sell'}
             </Button>

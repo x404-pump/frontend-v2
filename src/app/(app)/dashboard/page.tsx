@@ -1,11 +1,10 @@
-'use client';
+"use client";
 
-import dynamic from "next/dynamic";
 
 import { Providers } from "./providers";
 import CollectionsSection from "./components/collections-section";
 
-function DashboardPage() {
+export default function DashboardPage() {
   return (
     <Providers>
       <div className="space-y-8 h-full">
@@ -14,5 +13,3 @@ function DashboardPage() {
     </Providers>
   );
 }
-
-export default dynamic(() => Promise.resolve(DashboardPage));

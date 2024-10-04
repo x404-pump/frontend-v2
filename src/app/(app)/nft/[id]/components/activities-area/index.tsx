@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useNft } from "../contexts/nft";
+import { useNft } from "../../contexts/nft";
 import React from "react";
 import { toast } from "react-toastify";
 import { Chip } from "@nextui-org/chip";
@@ -61,19 +61,10 @@ export default function ActivitiesArea() {
                             from={activity?.from_address}
                             to={activity?.to_address}
                             time={activity?.transaction_timestamp}
-                            tag={
-                                <Chip
-                                    color="default"
-                                    radius="full"
-                                    size="sm"
-                                    className="text-xs"
-                                >
-                                    {getFormattedFunctionName(activity?.entry_function_id_str || "")}
-                                </Chip>
-                            }
+                            tag={getFormattedFunctionName(activity?.entry_function_id_str || "")}
                         />
                     ))
             }
         </Container>
     )
-}
+}   

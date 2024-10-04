@@ -1,4 +1,4 @@
-import { ICurrentTokenDatasV2, IX404TokenData } from "@/fetch-functions";
+import { IX404TokenData } from "@/fetch-functions";
 import React from "react";
 
 export type NftContextType = IX404TokenData | null;

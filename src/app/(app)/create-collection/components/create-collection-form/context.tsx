@@ -1,10 +1,13 @@
-import { IX404Collection } from '@/fetch-functions';
+"use client";
+
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 type CollectionMetadata = {
     name?: string;
     image?: File;
     description?: string;
+    symbol?: string;
+    supply?: string;
 };
 interface CollectionMetadataContextProps {
     collectionMetadata: CollectionMetadata | null;
@@ -25,8 +28,10 @@ export const CollectionMetadataProvider = ({ children }: { children: ReactNode }
 
 export const useCollectionMetadata = () => {
     const context = useContext(CollectionMetadataContext);
+
     if (context === undefined) {
         throw new Error('useCollectionMetadata must be used within a CollectionMetadataProvider');
     }
+
     return context;
 };

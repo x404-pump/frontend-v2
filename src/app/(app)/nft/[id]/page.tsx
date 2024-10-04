@@ -1,16 +1,14 @@
-import { getNftMarketplaceListingByTokenDataId, getTokenData } from "@/fetch-functions";
+import { getTokenData } from "@/fetch-functions";
 import Providers from "./providers";
-import ImageArea from "./components/ImageArea";
-import ToolsArea from "./components/ToolsArea";
-import TraitsArea from "./components/TraitsArea";
-import DescriptionArea from "./components/DescriptionArea";
-import DetailsArea from "./components/DetailsArea";
-import ActivitiesArea from "./components/ActivitiesArea";
-import clsx from "clsx";
-import { Divider } from "@nextui-org/divider";
 import { notFound } from "next/navigation";
 import { USING_MOCK } from "@/config/contants";
 import { mockNft } from "@/mock";
+import ActivitiesArea from "./components/activities-area";
+import DescriptionArea from "./components/description-area";
+import DetailsArea from "./components/details-area";
+import ImageArea from "./components/image-area";
+import TraitsArea from "./components/traits-area";
+import Profile from "./components/profile-area";
 
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
@@ -65,18 +63,14 @@ export default async function Page({
 
     return (
         <Providers nft={nft} nftMarketplaceListings={nftMarketplaceListings}>
-            <div className="space-y-4 md:space-y-8 relative overflow-visible w-full">
-                <div className="mb-4 w-full">
-                </div>
-                <div className="flex flex-col lg:flex-row gap-8 items-start w-full">
-                    <div className="flex flex-col gap-4 md:gap-8 md:col-span-2 w-full h-fit">
-                        <ImageArea />
-                        <ToolsArea />
+            <div className="relative overflow-auto w-full h-full">
+                <div className="flex flex-col lg:flex-row gap-8 items-start w-full h-full">
+                    <ImageArea />
+                    <div className="flex flex-col gap-4 md:gap-8 md:col-span-2 w-full h-full overflow-y-auto py-16 my-auto">
+                        <Profile />
+                        <DetailsArea />
                         <DescriptionArea />
                         <TraitsArea />
-                    </div>
-                    <div className="flex flex-col gap-4 md:gap-8 md:col-span-2 w-full lg:max-w-sm overflow-auto">
-                        <DetailsArea />
                         <ActivitiesArea />
                     </div>
                 </div>

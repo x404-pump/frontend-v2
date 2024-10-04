@@ -1,13 +1,11 @@
-'use client';
+"use client";
 
 import { usePathname } from 'next/navigation'
 import {
   Navbar as NextUINavbar,
   NavbarContent,
   NavbarMenu,
-  NavbarMenuToggle,
   NavbarBrand,
-  NavbarItem,
   NavbarMenuItem,
 } from "@nextui-org/navbar";
 import { Kbd } from "@nextui-org/kbd";

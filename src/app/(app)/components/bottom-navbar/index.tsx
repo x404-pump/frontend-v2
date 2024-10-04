@@ -1,24 +1,25 @@
-'use client';
+"use client";
 
 import { Listbox, ListboxItem } from "@nextui-org/listbox";
 import { Tooltip } from "@nextui-org/tooltip";
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import dynamic from "next/dynamic";
 
-import { items } from "./sidebar";
+import { items } from "../sidebar";
 
-function BottomNavBar() {
+
+export default function BottomNavBar() {
     const pathname = usePathname();
-    
+
     return (
         <div className={clsx(
             "lg:hidden fixed bottom-0 left-0 right-0 z-50 flex items-center h-fit w-full py-4",
             "overflow-visible"
         )}>
-            <div className="bg-black/25 w-screen h-1/2 absolute bottom-0 blur-lg"/>
+            <div className="bg-black/25 w-screen h-1/2 absolute bottom-0 blur-lg" />
             <Listbox
+                aria-label="Bottom Navigation Bar"
                 classNames={{
                     list: clsx(
                         "flex flex-row items-center justify-center px-3 py-2 gap-6 rounded-full bg-foreground-50 w-fit mx-auto my-auto",
@@ -53,6 +54,3 @@ function BottomNavBar() {
         </div>
     )
 }
-export default dynamic(() => Promise.resolve(BottomNavBar), {
-    ssr: false
-});

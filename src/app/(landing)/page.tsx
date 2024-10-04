@@ -14,6 +14,7 @@ import DemoDashboard from "./components/demo-dashboard";
 function fetchX404AppYaml() {
   const x404AppFile = fs.readFileSync(path.join(process.cwd(), "config/x404.yaml"), "utf8");
   const x404AppData = yaml.load(x404AppFile) as TX404YamlFile;
+
   return x404AppData;
 }
 export default function Home() {

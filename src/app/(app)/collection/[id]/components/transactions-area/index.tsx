@@ -37,34 +37,7 @@ function TransactionCard({ activity }: { activity: IX404CollectionTransaction })
     const formattedFunctionName = getFormattedFunctionName(activity.type || '');
 
     return (
-        <div className="min-w-fit flex flex-row gap-2 p-4 bg-foreground-50 rounded-[20px] border border-default/25 items-center justify-between">
-            {/* <p className="flex flex-col gap-0">
-                <span className="text-tiny text-foreground-500">From</span>
-                <span
-                    className="text-base text-foreground-900 cursor-pointer"
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => {
-                        try {
-                            copy(activity.user_address!);
-                            toast.success("Copied to clipboard", {
-                                type: "success",
-                            });
-                        } catch (error) {
-                            toast.error("Failed to copy address", {
-                                type: "error",
-                            });
-                        }
-                    }}
-                >
-                    <Tooltip
-                        content={activity.user_address}
-                        placement="top"
-                    >
-                        {activity.user_address.slice(0, 5) || "_"}
-                    </Tooltip>
-                </span>
-            </p> */}
+        <div className="min-w-fit flex flex-row gap-2 p-4 bg-foreground-50 rounded-medium border-2 border-default-200 items-center justify-between">
             <p className="flex flex-col gap-0">
                 <span className="text-tiny text-foreground-500">User Address</span>
                 <span
@@ -93,14 +66,17 @@ function TransactionCard({ activity }: { activity: IX404CollectionTransaction })
             </p>
             <Chip
                 color="default"
+                classNames={{
+                    content: "text-xs text-foreground-900",
+                    base: "bg-foreground-100",
+                }}
                 radius="full"
                 size="sm"
-                className="text-xs"
             >
                 {formattedFunctionName}
             </Chip>
             <p className="text-xs text-foreground-500">
-                {activity.amount} {formattedFunctionName === "Buy" ? "FA" : ""} {formattedFunctionName === "Sell" ? "APT" : ""}
+                {Number(activity.amount)/10e8} {formattedFunctionName === "Buy" ? "FA" : ""} {formattedFunctionName === "Sell" ? "APT" : ""}
             </p>
             <p className="text-xs text-foreground-500">
                 {activity.block_height}

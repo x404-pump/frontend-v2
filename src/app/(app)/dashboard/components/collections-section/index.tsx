@@ -1,17 +1,12 @@
-import dynamic from "next/dynamic"
 import Toolbar from "./Toolbar"
-import { Container } from "@/components/ui"
+import CollectionsContainer from "./CollectionsContainer"
 
-const CollectionsContainer = dynamic(() => import("./CollectionsContainer"))
 
-function CollectionsSection() {
+export default function CollectionsSection() {
     return (
         <div className="space-y-4 h-full">
             <Toolbar />
-            <Container title="Collections">
-                <CollectionsContainer />
-            </Container>
+            <CollectionsContainer />
         </div>
     )
 }
-export default dynamic(() => Promise.resolve(CollectionsSection))

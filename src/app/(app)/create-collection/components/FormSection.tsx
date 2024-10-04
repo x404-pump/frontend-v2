@@ -1,17 +1,8 @@
-'use client'
+"use client"
 import clsx from 'clsx';
-import dynamic from 'next/dynamic';
 
-const CreateCollectionForm = dynamic(() => import('./create-collection-form/CreateCollectionForm'), {
-    ssr: false,
-
-});
-const FormHeader = dynamic(() => import('./create-collection-form/FormHeader'), {
-    ssr: false,
-});
-const CollectionDetailArea = dynamic(() => import('./create-collection-form/CollectionDetailArea'),{
-    ssr: false,
-});
+import CreateCollectionForm from './create-collection-form';
+import FormHeader from './create-collection-form/FormHeader';
 
 export default function FormSection() {
     return (
@@ -23,7 +14,6 @@ export default function FormSection() {
                 <FormHeader />
                 <CreateCollectionForm />
             </div>
-            <CollectionDetailArea className="h-full w-fit" />
         </section>
     )
 }

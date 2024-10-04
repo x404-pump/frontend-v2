@@ -1,5 +1,5 @@
 import React from "react";
 
-export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-    title?: string;
+export interface ContainerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> {
+    title?: string | React.ReactNode;
 }

@@ -12,8 +12,6 @@ export default async function Page({
     const { id } = params;
 
     return(
-        <div>
-            
-        </div>
+        <div />
     )
 }

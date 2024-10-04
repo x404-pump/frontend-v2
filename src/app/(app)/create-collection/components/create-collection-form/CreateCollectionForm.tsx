@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React from "react";
 import { Input } from "@nextui-org/input";
@@ -11,9 +11,9 @@ import dynamic from "next/dynamic";
 import { uploadCollectionData } from "@/utils/assetUploader";
 import { createCollection } from "@/entry-functions/create_collection";
 import { aptosClient } from "@/utils/aptosClient";
+import CollectionDetailArea from "./CollectionDetailArea";
 
 const UploadFileInput = dynamic(() => import('./UploadFileInput'));
-const CollectionDetailArea = dynamic(() => import('./CollectionDetailArea'));
 
 interface CreateCollectionFormProps extends React.HTMLAttributes<HTMLFormElement> { }
 
@@ -91,7 +91,7 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
 
     return (
         <section className="w-full overflow-visible relative flex flex-row justify-between items-start" id="create-collection-form">
-            <form className="relative w-full flex flex-col gap-8 items-start justify-start" onSubmit={handleSubmit(onSubmit)}>
+            <form className="relative w-full flex flex-col gap-8 items-start justify-between lg:justify-start" onSubmit={handleSubmit(onSubmit)}>
                 <UploadFileInput
                     files={files}
                     setFiles={setFiles}
@@ -103,10 +103,11 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
                         label="Amount Apt"
                         description="Quantity of APT that you will purchase within the same transaction when creating a collection"
                         fullWidth
-                        radius="full"
+                        size="lg"
+                        variant="bordered"
+                        radius="sm"
                         placeholder="0"
                         labelPlacement="outside"
-                        // onChange={handleChangeAmountAptIn}
                         {...register('amountAptIn', { required: false })}
                     />
                     <Input
@@ -114,7 +115,9 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
                         description="Initial price for each Token, 1 APT for default"
                         fullWidth
                         type="number"
-                        radius="full"
+                        size="lg"
+                        variant="bordered"
+                        radius="sm"
                         placeholder="1"
                         min={1}
                         labelPlacement="outside"
@@ -122,11 +125,10 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
                         {...register('initPrice', { required: false })}
                     />
                 </div>
-                <CollectionDetailArea className="flex lg:hidden" />
                 <Button
                     type="submit"
-                    color="primary"
-                    radius="full"
+                    className="bg-foreground-900 text-foreground-100"
+                    radius="sm"
                     size="lg"
                     fullWidth
                     isLoading={isSubmitting || isUploading}

@@ -1,12 +1,11 @@
-'use client';
+"use client";
 
 import React from "react";
 import { Input } from "@nextui-org/input";
 import { Kbd } from "@nextui-org/kbd";
-import { Navbar, NavbarContent, NavbarItem } from "@nextui-org/navbar";
+import { Navbar, NavbarContent } from "@nextui-org/navbar";
 
 import { SearchIcon } from "@/components/icons";
-import { ThemeSwitch } from "@/components/theme-switch";
 
 export function NavBar() {
 
@@ -50,11 +49,7 @@ export function NavBar() {
           <NavbarContent
               className="hidden sm:flex basis-1/5 sm:basis-full"
               justify="end"
-          >
-              <NavbarItem className="sm:flex gap-2">
-                  <ThemeSwitch />
-              </NavbarItem>
-          </NavbarContent>
+           />
       </Navbar>
   )
 }

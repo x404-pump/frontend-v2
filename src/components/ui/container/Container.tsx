@@ -3,6 +3,7 @@ import { ContainerProps } from "./type";
 
 export function Container(props: ContainerProps) {
     const { title, children, className } = props;
+    
     return (
         <div className={clsx(
             "flex flex-col gap-4",

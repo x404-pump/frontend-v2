@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React from "react";
 import { Image } from "@nextui-org/image";
@@ -6,7 +6,7 @@ import { Modal, ModalBody, ModalContent, useDisclosure } from "@nextui-org/modal
 import { Button } from "@nextui-org/button";
 import { ArrowExpandIcon } from "hugeicons-react";
 
-import { useNft } from "../contexts/nft";
+import { useNft } from "../../contexts/nft";
 import { getImage } from "@/lib";
 
 export default function ImageArea() {
@@ -16,6 +16,7 @@ export default function ImageArea() {
 
     const fetchImage = React.useCallback(async () => {
         const image = await getImage(nft);
+
         setImageSrc(image);
     }, [nft]);
 
@@ -24,7 +25,7 @@ export default function ImageArea() {
     }, [fetchImage]);
 
     return (
-        <div className="relative w-full h-fit lg:h-full">
+        <div className="relative w-full max-w-screen-sm h-full">
             <Image
                 src={imageSrc || ""}
                 alt={nft.token_name}
@@ -32,9 +33,9 @@ export default function ImageArea() {
                 height={'auto'}
                 isLoading={!imageSrc}
                 shadow="md"
-                className="aspect-square md:aspect-[2/1] object-cover"
+                className="aspect-square !h-full object-cover"
                 classNames={{
-                    wrapper: "rounded-[32px] overflow-hidden",
+                    wrapper: "rounded-large h-full",
                 }}
             />
             <Button
@@ -42,7 +43,7 @@ export default function ImageArea() {
                 radius="full"
                 isIconOnly
                 onClick={onOpen}
-                className="absolute top-4 right-4 z-10 bg-white/25 backdrop-blur-2xl"
+                className="absolute top-4 right-4 z-10 bg-white/25 border-2 border-default/25 backdrop-blur-2xl"
             >
                 <ArrowExpandIcon size={24} />
             </Button>
@@ -52,8 +53,8 @@ export default function ImageArea() {
                         <Image
                             src={imageSrc || ""}
                             alt={nft.token_name}
-                            width={'fit-content'}
-                            height={'fit-content'}
+                            width={'100%'}
+                            height={'100%'}
                             shadow="md"
                         />
                     </ModalContent>

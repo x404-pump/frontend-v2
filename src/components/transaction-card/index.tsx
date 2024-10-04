@@ -18,8 +18,9 @@ export function TransactionCard(props: TransactionCardProps) {
         time,
         ...rest
     } = props;
+
     return (
-        <div className="min-w-fit flex flex-row gap-2 p-4 bg-foreground-50 rounded-[20px] border border-default/25 items-center justify-between">
+        <div className="min-w-fit flex flex-row gap-2 p-4 bg-foreground-50 rounded-small border-2 border-default-200 items-center justify-between">
             <p className="flex flex-col gap-0">
                 <span className="text-tiny text-foreground-500">From</span>
                 <span
@@ -73,14 +74,15 @@ export function TransactionCard(props: TransactionCardProps) {
                     </Tooltip>
                 </span>
             </p>
-            {(tag && typeof tag !== "string") ?
-                tag
-                :
+            {tag &&
                 <Chip
                     color="default"
                     radius="full"
                     size="sm"
-                    className="text-xs"
+                    classNames={{
+                        content: "text-foreground-900",
+                        base: "bg-foreground-100"
+                    }}
                 >
                     {props.tag || "-"}
                 </Chip>

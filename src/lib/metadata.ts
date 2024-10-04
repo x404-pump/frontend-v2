@@ -11,6 +11,7 @@ export async function getImage(token: Partial<ICurrentTokenDatasV2> | ICurrentTo
 
         if (contentType && contentType.includes("application/json")) {
             const data = await response.json();
+
             return data.image || null;
         } else if (contentType && contentType.includes("image")) {
             return token.token_uri;
@@ -19,6 +20,7 @@ export async function getImage(token: Partial<ICurrentTokenDatasV2> | ICurrentTo
         }
     } catch (error) {
         console.error("Failed to fetch image:", error);
+
         return null;
     }
 }

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { NftContextType, NftProvider } from "./contexts/nft";
 import { NftMarketplaceListingProvider, NftMarketplaceListingsContextType } from "./contexts/nftMarketplaceListing";

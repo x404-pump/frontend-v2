@@ -25,10 +25,8 @@ function ConnectWalletDialog({
         <>
             <Button
                 fullWidth
-                variant={'solid'}
-                size={'md'}
-                radius="full"
-                className="bg-foreground-900 text-foreground-100 font-semibold"
+                radius="sm"
+                color="primary"
                 isLoading={isLoading}
                 onClick={onOpen}
                 startContent={<Wallet01Icon size={16} />}
@@ -132,6 +130,7 @@ function WalletRow({ wallet, onConnect }: WalletRowProps) {
             buttonRef.current.click();
         }
     }
+
     return (
         <WalletItem
             wallet={wallet}

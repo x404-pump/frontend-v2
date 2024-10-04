@@ -1,7 +1,6 @@
 import { Image } from "@nextui-org/image";
-import dynamic from "next/dynamic";
 
-function DemoDashboard() {
+export default function DemoDashboard() {
     return (
         <div className="flex flex-row w-full items-center justify-center gap-8">
             <Image
@@ -15,5 +14,3 @@ function DemoDashboard() {
         </div>
     );
 }
-
-export default dynamic(() => Promise.resolve(DemoDashboard), {});

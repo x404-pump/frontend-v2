@@ -1,6 +1,5 @@
-'use client';
+"use client";
 
-import EmptyContent from "@/components/empty-content";
 import { truncateAddress, useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Chip } from "@nextui-org/chip";
 import { Tooltip } from "@nextui-org/tooltip";
@@ -67,8 +66,7 @@ function Profile() {
                     {truncateAddress(account?.address) || "No address available"}
                 </Chip>
             </Tooltip>
-            <div className="w-full">
-            </div>
+            <div className="w-full" />
         </div>
     );
 }

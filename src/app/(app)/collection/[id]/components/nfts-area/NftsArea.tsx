@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import clsx from "clsx";
 import React from "react";
@@ -38,7 +38,7 @@ export function NftsArea() {
                         <Skeleton key={i} className="w-full min-w-64 aspect-square rounded-2xl" />
                     ))
                     : data?.map((token) => (
-                        <LazyNftCard key={token.token_data_id} token={token} />
+                        <LazyNftCard key={token.token_data_id} token={token}/>
                     ))
             }
         </div>

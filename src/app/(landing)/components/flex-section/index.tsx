@@ -1,14 +1,15 @@
-'use client';
+"use client";
 
-import { Image } from "@nextui-org/image";
-import clsx from "clsx";
+import {Image} from "@nextui-org/image";
 import { Chip } from "@nextui-org/chip";
-import dynamic from "next/dynamic";
-import { motion } from 'framer-motion';
+import clsx from "clsx";
+import { motion } from "framer-motion";
 
-const RectangleForFlexSvg = dynamic(() => import('../../assets/RectangleForFlexSvg'), { ssr: false });
+import RectangleForFlexSvg from "../../assets/RectangleForFlexSvg";
 
-function FlexSection() {
+
+
+export default function FlexSection() {
     const variants = {
         hidden: { opacity: 0, y: 50 },
         visible: { opacity: 1, y: 0 }
@@ -88,5 +89,3 @@ function FlexSection() {
         </section>
     );
 }
-
-export default dynamic(() => Promise.resolve(FlexSection));

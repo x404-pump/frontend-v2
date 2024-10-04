@@ -2,14 +2,14 @@ import { Metadata } from "next";
 
 import { siteConfig } from "@/config/site";
 import { Providers } from "./providers";
+import SideBar from "./components/sidebar";
+import BottomNavbar from "./components/bottom-navbar";
 import "./styles.css";
-import SideBar from "./sidebar";
-import BottomNavbar from "./bottom-navbar";
 
 export const metadata: Metadata = {
   title: {
     default: 'Dashboard',
-    template: `%s - ${siteConfig.name}`,
+    template: `%s`,
   },
   description: siteConfig.description,
   icons: {
@@ -28,7 +28,7 @@ function DashboardLayout({
       <div className="flex flex-row h-screen relative mx-auto hidden-scrollbar">
         <SideBar />
         <BottomNavbar />
-        <main className="flex-grow w-full mb-32 lg:mb-0 lg:ml-4 h-full py-4 hidden-scrollbar">
+        <main className="flex-grow w-full pb-32 lg:pb-0 lg:ml-4 h-full py-4 hidden-scrollbar">
           {children}
         </main>
       </div>

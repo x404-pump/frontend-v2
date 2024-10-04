@@ -1,13 +1,9 @@
 import { Metadata } from "next";
-import dynamic from "next/dynamic";
 import CreateCollectionForm from "./components/create-collection-form";
 
 
 export const metadata: Metadata = {
-    title: {
-        default: 'Create Collection',
-        template: `%s - X404`,
-    },
+    title: "Create collection",
     description: 'Create a collection with X404',
     keywords: 'create collection, X404, NFT',
     icons: {
@@ -15,12 +11,10 @@ export const metadata: Metadata = {
     },
 };
 
-function Page() {
-
+export default async function Page() {
     return (
-        <>
+        <div className="w-full h-full overflow-auto hidden-scrollbar">
             <CreateCollectionForm />
-        </>
+        </div>
     )
 }
-export default dynamic(() => Promise.resolve(Page));

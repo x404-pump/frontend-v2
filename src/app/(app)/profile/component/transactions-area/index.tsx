@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
@@ -8,7 +8,6 @@ import { USING_MOCK } from "@/config/contants";
 import { mockTransactions } from "@/mock";
 
 function TransactionsArea() {
-    const { account } = useWallet();
     let transactions: any = [];
 
     if (USING_MOCK) {

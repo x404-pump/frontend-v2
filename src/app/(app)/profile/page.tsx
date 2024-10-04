@@ -1,29 +1,27 @@
-'use client';
+"use client";
 
-import dynamic from "next/dynamic"
 import TransactionsArea from "./component/transactions-area"
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import EmptyContent from "@/components/empty-content";
-import ConnectWalletDialog from "@/components/wallet/ConnectWalletDialog";
 import { ColumnContainer } from "@/components/ui";
+import ConnectWalletDialog from "@/components/wallet/ConnectWalletDialog";
+import ProfileArea from "./component/profile-area";
+import TabContainer from "./component/tab-container";
 
-const ProfileArea = dynamic(() => import("./component/profile-area"))
-const TabContainer = dynamic(() => import("./component/tab-container"))
 
-function Page() {
+export default function Page() {
     const { connected } = useWallet();
 
     if (!connected) return (
-        <ColumnContainer className="w-full h-full mx-auto my-auto">
-            <EmptyContent content="Please connect your wallet!" >
-                <div className="px-32 lg:hidden">
-                    <ConnectWalletDialog />
-                </div>
+        <ColumnContainer className="w-full h-full">
+            <EmptyContent content="Please connect your wallet!" className="m-auto">
+                <ConnectWalletDialog />
             </EmptyContent>
         </ColumnContainer>
     );
+
     return (
-        <div className="flex flex-col lg:flex-row gap-8 w-full items-start">
+        <div className="flex flex-col lg:flex-row gap-8 w-full h-full items-start">
             <div className="flex flex-col gap-8 items-start w-full">
                 <ProfileArea />
                 <TabContainer />
@@ -35,4 +33,3 @@ function Page() {
 
     )
 }
-export default dynamic(() => Promise.resolve(Page), { ssr: false })

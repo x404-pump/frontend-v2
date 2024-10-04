@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useState } from 'react';
 import { Chip } from "@nextui-org/chip";
 import { motion } from 'framer-motion';
@@ -8,7 +8,7 @@ import clsx from "clsx";
 
 interface SolutionCardProps extends React.HTMLAttributes<HTMLDivElement> {
     tags?: string[];
-    title?: string;
+    name?: string;
     tagline?: string;
     descriptions?: string[];
     isHovered?: boolean;
@@ -18,7 +18,7 @@ interface SolutionCardProps extends React.HTMLAttributes<HTMLDivElement> {
 function SolutionCard(props: SolutionCardProps) {
     const {
         tags,
-        title,
+        name: title,
         tagline,
         descriptions,
         isHovered,
@@ -88,7 +88,7 @@ export default function ServiceSection(props: ServiceSectionProps) {
                     >
                         <SolutionCard
                             tags={solution.tags}
-                            title={solution.name}
+                            name={solution.name}
                             descriptions={solution.descriptions}
                             isHovered={hoveredIndex === index}
                             onHover={(hovered) => setHoveredIndex(hovered ? index : null)}

@@ -1,5 +1,5 @@
 import React from "react";
-import { truncateAddress, APTOS_CONNECT_ACCOUNT_URL, useWallet } from "@aptos-labs/wallet-adapter-react";
+import { truncateAddress, useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Skeleton } from "@nextui-org/skeleton";
 import { Avatar } from "@nextui-org/avatar";
 
@@ -15,7 +15,6 @@ export default function WalletCardV2() {
     const { wallet, disconnect } = useWallet();
     const [balance, setBalance] = React.useState<number | null>(null);
     const decimal = 8;
-    const [isOpen, setIsOpen] = React.useState(false);
 
     const fetchBalance = React.useCallback(async () => {
         if (!account) return;

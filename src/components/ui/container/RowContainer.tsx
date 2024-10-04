@@ -11,7 +11,6 @@ export function RowContainer({ children, className,  ...props }: RowContainerPro
                 "flex flex-row gap-4",
                 className
             )}
-            {...props}
         >
             {children}
         </div>

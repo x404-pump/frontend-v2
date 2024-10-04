@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Tabs, Tab } from "@nextui-org/tabs"
 import dynamic from "next/dynamic";
@@ -17,6 +17,7 @@ export default function TabContainer() {
     const createQueryString = React.useCallback(
         (name: string, value: string) => {
             const params = new URLSearchParams(searchParams.toString())
+
             params.set(name, value)
 
             return params.toString()

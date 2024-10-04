@@ -8,6 +8,7 @@ import clsx from 'clsx';
 import { getImage, truncate } from '@/lib';
 import { ICurrentTokenDatasV2, IX404TokenData } from '@/fetch-functions';
 import numeral from 'numeral';
+import { PriceTag } from '../tag';
 
 
 interface NftCardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -15,10 +16,10 @@ interface NftCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function NftCard(props: NftCardProps) {
-    const { token } = props;
+    const { token, className } = props;
     const router = useRouter();
     const [imageSrc, setImageSrc] = useState<string | null>(null);
-    
+
     const fetchImage = React.useCallback(async () => {
         const image = await getImage(token);
 
@@ -29,24 +30,34 @@ export function NftCard(props: NftCardProps) {
         fetchImage();
     }, [fetchImage]);
 
-    if(!imageSrc) {
-        return(
+    if (!imageSrc) {
+        return (
             <Skeleton className="w-full aspect-[4/3] rounded-2xl" />
         )
     }
 
     return (
         <div
-            className="relative flex w-full flex-none flex-col gap-4 cursor-pointer transition duration-500 hover:scale-105 transform"
+            className={clsx(
+                "relative flex w-full flex-none flex-col gap-4 cursor-pointer",
+                "bg-foreground-50 rounded-large border-2 border-default-200 p-4",
+                className
+            )}
             role="button"
             onClick={() => router.push(`/nft/${token.token_data_id}`)}
             onKeyDown={() => router.push(`/nft/${token.token_data_id}`)}
         >
+            <div className="w-full">
+                <h3 className="text-lg font-semibold cursor-pointer w-full break-words capitalize">
+                    {truncate(token.token_name!, 24)}
+                </h3>
+            </div>
             <Image
                 src={imageSrc || ""}
                 alt={token.token_name}
+                radius='md'
                 className={clsx(
-                    "w-full min-w-full aspect-[4/3] object-cover rounded-3xl",
+                    "w-full min-w-full aspect-[4/3] object-cover",
                 )}
                 width={'100%'}
                 height={'100%'}
@@ -54,19 +65,7 @@ export function NftCard(props: NftCardProps) {
                 fallbackSrc="https://via.placeholder.com/1000x1000"
                 loading="eager"
             />
-            <div className="w-full">
-                <Tooltip content={token.token_name}>
-                    <h3 className="text-lg font-semibold cursor-pointer w-full break-words capitalize">
-                        {truncate(token.token_name!, 24)}
-                    </h3>
-                </Tooltip>
-                <div className='flex flex-row justify-between w-full gap-2'>
-                    <h6 className='text-sm text-foreground-500'>Price</h6>
-                    <p className="text-sm font-semibold">
-                        {numeral(token.price).format('0,0.00')}
-                    </p>
-                </div>
-            </div>
+            <PriceTag price={numeral(token.price).format('0,0.00')} unit="APT" fullWidth/>
         </div>
     )
 
@@ -104,7 +103,7 @@ export const LazyNftCard: React.FC<LazyNftCardProps> = ({ token }) => {
 
     return (
         <div ref={ref} className="rounded-2xl">
-            {isVisible ? <NftCard token={token} /> : <Skeleton className="w-full aspect-square rounded-2xl" />}
+            {isVisible ? <NftCard token={token} className='bg-foreground-50/75'/> : <Skeleton className="w-full aspect-square rounded-2xl" />}
         </div>
     );
 };

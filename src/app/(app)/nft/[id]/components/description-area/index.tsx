@@ -1,5 +1,5 @@
-'use client';
-import { useNft } from "../contexts/nft"
+"use client";
+import { useNft } from "../../contexts/nft"
 
 export default function DescriptionArea() {
     const nft = useNft();

@@ -1,4 +1,8 @@
 import { Network } from "@aptos-labs/ts-sdk";
+/// ==============================
+// APP PARAMETERS
+// ==============================
+export const APP_VERSION = process.env.NEXT_PUBLIC_VERSION;
 
 // ==============================
 // PROJECT CONSTANTS

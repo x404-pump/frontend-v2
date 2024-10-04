@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
@@ -11,6 +11,7 @@ export default function Index() {
     const { account } = useWallet();
     
     let nfts;
+    
     if (USING_MOCK) {
         nfts = mockNfts;
     }

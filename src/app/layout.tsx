@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { Providers } from "./providers";
 
 import { siteConfig } from "@/config/site";
-import { fontSans } from "@/config/fonts";
+import { fontTitilliumWeb } from "@/config/fonts";
 
 export const metadata: Metadata = {
   title: {
@@ -35,8 +35,8 @@ export default function RootLayout({
       <head />
       <body
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased overflow-x-hidden mx-auto px-4",
-          fontSans.variable,
+          "min-h-screen h-full bg-background font-sans antialiased overflow-x-hidden mx-auto px-4 -z-50 !relative",
+          fontTitilliumWeb.className,
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>

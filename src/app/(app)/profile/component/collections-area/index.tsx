@@ -7,6 +7,7 @@ import { useWallet } from "@aptos-labs/wallet-adapter-react";
 export default function Index() {
     const { account } = useWallet();
     let collections;
+
     if (USING_MOCK) {
         collections = mockCollections;
     }
