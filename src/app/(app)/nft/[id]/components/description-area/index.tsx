@@ -6,7 +6,7 @@ export default function DescriptionArea() {
 
     return (
         <div>
-            <p className="text-base font-normal text-default-foreground my-auto w-full break-words">
+            <p className="text-base font-normal text-foreground my-auto w-full break-words">
                 {nft.description}
             </p>
         </div>

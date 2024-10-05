@@ -1,6 +1,6 @@
 "use client";
 
-import {Image} from "@nextui-org/image";
+import { Image } from "@nextui-org/image";
 import { Chip } from "@nextui-org/chip";
 import clsx from "clsx";
 import { motion } from "framer-motion";
@@ -35,7 +35,7 @@ export default function FlexSection() {
                     X404.PUMP
                 </motion.h1>
                 <motion.h1
-                    className="text-2xl md:text-4xl font-semibold text-center text-default-foreground z-10"
+                    className="text-2xl md:text-4xl font-semibold text-center text-foreground z-10"
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
@@ -45,7 +45,7 @@ export default function FlexSection() {
                     Hackathon Winner
                 </motion.h1>
                 <motion.p
-                    className="text-center text-base text-default-foreground z-10"
+                    className="text-center text-base text-foreground z-10"
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}

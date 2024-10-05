@@ -43,6 +43,7 @@ module.exports = {
           },
           default: {
             DEFAULT: semanticColors.dark.foreground[500],
+            foreground: semanticColors.dark.foreground[100],
             ...semanticColors.dark.foreground
           },
           

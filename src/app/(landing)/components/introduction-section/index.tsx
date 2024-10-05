@@ -1,12 +1,14 @@
 "use client";
 
 import { TX404AppYaml } from "@/types";
+import { Image } from "@nextui-org/image";
 import clsx from "clsx";
 import { motion } from 'framer-motion';
 import { ArrowDataTransferHorizontalIcon, BankIcon, Chatting01Icon, CheckmarkCircle01Icon, FlashIcon, NanoTechnologyIcon, PackageReceiveIcon } from "hugeicons-react";
+import dynamic from "next/dynamic";
 
 interface ServiceCardProps extends React.HTMLAttributes<HTMLDivElement> {
-    name: string;
+    title: string;
     description: string;
     tags?: string[];
     classNames?: {
@@ -18,7 +20,7 @@ interface ServiceCardProps extends React.HTMLAttributes<HTMLDivElement> {
     index?: number;
 }
 
-function FeatureCard({ name: title, description, classNames, tags, index }: ServiceCardProps) {
+function FeatureCard({ title, description, classNames, tags, index }: ServiceCardProps) {
     const getFeatureIcon = (feature: string) => {
         switch (feature.toLowerCase()) {
             case "wrap nft into erc404":
@@ -91,7 +93,7 @@ export default function IntroductionSection({ app }: IntroductionSectionProps) {
                         <FeatureCard
                             key={index}
                             index={index + 1}
-                            name={feature.name}
+                            title={feature.name}
                             description={feature.description || ""}
                         />
                     ))

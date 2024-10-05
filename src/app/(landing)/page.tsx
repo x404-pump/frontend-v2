@@ -10,6 +10,7 @@ import IntroductionSection from "./components/introduction-section";
 import ServiceSection from "./components/solution-section";
 import HeroSolutionSection from "./components/solution-section/HeroSolutionSection";
 import DemoDashboard from "./components/demo-dashboard";
+import DemoUINFTSection from "./components/demo-ui-nft";
 
 function fetchX404AppYaml() {
   const x404AppFile = fs.readFileSync(path.join(process.cwd(), "config/x404.yaml"), "utf8");
@@ -27,8 +28,9 @@ export default function Home() {
         <FlexSection />
         <HeroSolutionSection />
         <ServiceSection app={x404.app} />
-        <DemoCreateCollectionSection />
         <IntroductionSection app={x404.app} />
+        <DemoCreateCollectionSection />
+        <DemoUINFTSection />
       </section>
   );
 }

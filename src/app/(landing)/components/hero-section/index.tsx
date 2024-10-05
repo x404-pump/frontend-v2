@@ -18,13 +18,23 @@ import { GradientBorder } from "@/components/ui/gradient-border";
 export default function HeroSection() {
     const router = useRouter();
 
-    const tags = ["Launchpad", "NFTs", "Marketplace"];
-
     return (
         <section
             id="hero"
             className="w-full flex flex-col gap-8 justify-center items-center mb-16"
         >
+            <Chip
+                className="bg-foreground-50/25 shadow-2xl shadow-primary py-2 h-fit px-4"
+                classNames={{
+                    content: "text-foreground [text-shadow:_0px_2px_8px_rgba(255,255,255,0.5)]"
+                }}
+                color="primary"
+                variant="bordered"
+                radius="full"
+                size="lg"
+            >
+                On Aptos Chain
+            </Chip>
             <motion.div
                 className='flex flex-col gap-8 z-10 w-full items-center'
                 initial={{ opacity: 0, y: 50 }}
@@ -32,38 +42,15 @@ export default function HeroSection() {
                 transition={{ duration: 1 }}
             >
                 <motion.div
-                    className='relative w-full h-fit hidden lg:flex items-center justify-center'
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1 }}
-                >
-                    <Spline
-                        scene="https://draft.spline.design/NqRsjdQPUgyBMUmX/scene.splinecode"
-                        className='w-fit h-fit z-10'
-                        style={{
-                            width: '256px',
-                            height: '256px',
-                            zIndex: 10,
-                        }}
-                    />
-                </motion.div>
-                <div className="flex flex-row gap-2 w-fit">
-                    {tags.map((tag, index) => (
-                        <Chip key={index} color="primary" size="sm">
-                            {tag}
-                        </Chip>
-                    ))}
-                </div>
-                <motion.div
                     className="flex flex-col items-center lg:items-center gap-4 z-10 w-full"
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1 }}
                 >
-                    <h1 className="text-4xl text-center font-bold md:text-5xl text-default-foreground w-full break-words ">
-                        Fractionalized, NFTs and Focused Launchpad
+                    <h1 className="text-2xl text-center font-bold md:text-6xl text-foreground w-full break-words ">
+                        Fractionalized, NFTs and Focused <br /> Launchpad
                     </h1>
-                    <p className="text-sm text-center lg:text-base text-default-500  max-w-sm lg:max-w-screen-sm w-full">
+                    <p className="text-center text-base lg:text-lg font-medium text-foreground-500 max-w-sm lg:max-w-screen-sm w-full">
                         Groundbreaking ecosystem built on the Aptos blockchain, centered around the new ERC404 standard for tokenized NFTs.
                     </p>
                     <div className='w-fit items-center justify-center gap-4 flex flex-row'>
@@ -73,7 +60,7 @@ export default function HeroSection() {
                                 href={X404_APP + '/dashboard'}
                                 radius='full'
                                 color='secondary'
-                                endContent={<IoRocketSharp size={16} />}
+                                startContent={<IoRocketSharp size={16} />}
                                 className="bg-[#422B58]"
                             >
                                 Lauch now

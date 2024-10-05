@@ -8,7 +8,7 @@ import clsx from "clsx";
 
 interface SolutionCardProps extends React.HTMLAttributes<HTMLDivElement> {
     tags?: string[];
-    name?: string;
+    title?: string;
     tagline?: string;
     descriptions?: string[];
     isHovered?: boolean;
@@ -18,7 +18,7 @@ interface SolutionCardProps extends React.HTMLAttributes<HTMLDivElement> {
 function SolutionCard(props: SolutionCardProps) {
     const {
         tags,
-        name: title,
+        title,
         tagline,
         descriptions,
         isHovered,
@@ -47,10 +47,10 @@ function SolutionCard(props: SolutionCardProps) {
                 }
             </div>
             <div className="space-y-0">
-                <h2 className="text-lg md:text-2xl font-bold text-default-foreground">{title}</h2>
+                <h2 className="text-lg md:text-2xl font-bold text-foreground">{title}</h2>
                 <p className="text-xs text-default-500">{tagline}</p>
             </div>
-            <p className="text-sm md:text-base text-default-foreground w-full md:max-w-screen-sm break-words">
+            <p className="text-sm md:text-base text-foreground w-full md:max-w-screen-sm break-words">
                 {
                     descriptions?.map((description, index) => (
                         <span key={index}>{description}<br /></span>
@@ -88,7 +88,7 @@ export default function ServiceSection(props: ServiceSectionProps) {
                     >
                         <SolutionCard
                             tags={solution.tags}
-                            name={solution.name}
+                            title={solution.name}
                             descriptions={solution.descriptions}
                             isHovered={hoveredIndex === index}
                             onHover={(hovered) => setHoveredIndex(hovered ? index : null)}
