@@ -32,8 +32,8 @@ export function CollectionCard({ collection }: { collection: IX404Collection }) 
             />
             <div className="flex flex-col gap-2 items-start justify-center w-full">
                 <h3 className="capitalize text-base font-semibold w-full">
-                    {collection.collection_name.length > 24
-                        ? collection.collection_name.slice(0, 24) + "..."
+                    {collection.collection_name.length > 20
+                        ? collection.collection_name.slice(0, 20) + "..."
                         : collection.collection_name}
                 </h3>
                 <div className="flex flex-row gap-4">

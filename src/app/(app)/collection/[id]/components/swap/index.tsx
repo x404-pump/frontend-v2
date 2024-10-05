@@ -94,7 +94,7 @@ export default function Trader() {
                     labelPlacement="outside"
                     className="w-full"
                     classNames={{
-                        input: "text-2xl font-semibold w-full",
+                        input: "text-2xl font-semibold w-full !text-foreground-900",
                         inputWrapper: "bg-transparent data-[hover=true]:bg-transparent w-full"
                     }}
                     onChange={handleInputChange}
@@ -119,7 +119,7 @@ export default function Trader() {
                     labelPlacement="outside"
                     className="w-full"
                     classNames={{
-                        input: "text-2xl font-semibold w-full",
+                        input: "text-2xl font-semibold w-full !text-foreground-900",
                         inputWrapper: "bg-transparent data-[hover=true]:bg-transparent w-full"
                     }}
                     value={output.toString()}
