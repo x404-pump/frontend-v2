@@ -2,7 +2,6 @@
 import clsx from 'clsx';
 
 import { CollectionMetadataProvider } from './context';
-import CollectionDetailArea from './CollectionDetailArea';
 import CreateCollectionForm from './CreateCollectionForm';
 import FormHeader from './FormHeader';
 

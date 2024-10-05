@@ -26,6 +26,7 @@ const links = [
         icon: <TelegramIcon size={20} />,
     },
 ]
+
 export default function Footer() {
     return (
         <footer className="w-full flex flex-col gap-2 items-center justify-center py-3">

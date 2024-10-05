@@ -1,9 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { truncateAddress } from "@aptos-labs/wallet-adapter-react";
-import { Button } from "@nextui-org/button";
-import { BitcoinMoney02Icon, SaleTag01Icon } from "hugeicons-react";
+import { SaleTag01Icon } from "hugeicons-react";
 import React from "react";
 import numeral from "numeral";
 

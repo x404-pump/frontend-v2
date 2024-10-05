@@ -118,8 +118,7 @@ function Details() {
 }
 function Tools() {
     return (
-        <div className="flex flex-row gap-4 items-center md:items-end w-full md:w-fit">
-        </div>
+        <div className="flex flex-row gap-4 items-center md:items-end w-full md:w-fit" />
     );
 }
 export function CollectionProfileArea() {

@@ -1,4 +1,3 @@
-import { DashedLine02Icon } from "hugeicons-react";
 
 interface EmptyContentProps extends React.HTMLAttributes<HTMLDivElement> {
     content?: string;

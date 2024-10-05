@@ -1,6 +1,5 @@
 "use client";
 
-import { Chip } from "@nextui-org/chip";
 import { AiMagicIcon } from "hugeicons-react";
 
 const tagItems = [

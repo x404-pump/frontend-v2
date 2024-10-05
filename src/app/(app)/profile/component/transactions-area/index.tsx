@@ -1,6 +1,5 @@
 "use client";
 
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 import { TransactionCard } from "@/components/transaction-card";
 import { ColumnContainer, Container } from "@/components/ui";
@@ -13,6 +12,7 @@ function TransactionsArea() {
     if (USING_MOCK) {
         transactions = mockTransactions;
     }
+
     return (
         <Container title="Transactions">
             <ColumnContainer>

@@ -3,7 +3,6 @@
 import { useNft } from "../../contexts/nft";
 import React from "react";
 import { toast } from "react-toastify";
-import { Chip } from "@nextui-org/chip";
 import { Skeleton } from "@nextui-org/skeleton";
 import { useQuery } from "@tanstack/react-query";
 

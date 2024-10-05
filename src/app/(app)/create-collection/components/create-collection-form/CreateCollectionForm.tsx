@@ -11,7 +11,6 @@ import dynamic from "next/dynamic";
 import { uploadCollectionData } from "@/utils/assetUploader";
 import { createCollection } from "@/entry-functions/create_collection";
 import { aptosClient } from "@/utils/aptosClient";
-import CollectionDetailArea from "./CollectionDetailArea";
 
 const UploadFileInput = dynamic(() => import('./UploadFileInput'));
 

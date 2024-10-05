@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Skeleton } from "@nextui-org/skeleton";
 import { Image } from "@nextui-org/image";
 import { useRouter } from 'next/navigation';
-import { Tooltip } from '@nextui-org/tooltip';
 import clsx from 'clsx';
 
 import { getImage, truncate } from '@/lib';

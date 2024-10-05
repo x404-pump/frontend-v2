@@ -34,13 +34,11 @@ export function Field(props: FieldProps) {
                     )}>
                 {name}
             </p>
-            <p
-                className={
-                    clsx(
-                        'text-base text-foreground-900 cursor-pointer',
-                        props.classNames?.value
-                    )}
-                role={copyable ? 'button' : undefined}
+            <button
+                className={clsx(
+                    'text-base text-foreground-900 cursor-pointer',
+                    props.classNames?.value
+                )}
                 onClick={() => {
                     if (copyable) {
                         try {
@@ -54,7 +52,7 @@ export function Field(props: FieldProps) {
                 }}
             >
                 {content || value}
-            </p>
+            </button>
         </div>
     )
 }

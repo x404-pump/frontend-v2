@@ -42,6 +42,7 @@ export default function DetailsArea() {
             copyable: true
         }
     ];
+
     React.useEffect(() => {
         if (nftMarketplaceListings.length) {
             setNftMarketplaceListing(nftMarketplaceListings.pop());

@@ -12,7 +12,7 @@ export default function Tools() {
                 variant="faded"
                 radius="sm"
                 fullWidth
-                className="border-default-200 h-fit py-2"
+                className="border-default-200 text-foreground-900 h-fit py-2"
                 startContent={<Add01Icon size={16} />}
             >
                 Create Collection

@@ -1,11 +1,9 @@
 "use client";
 
 import { TX404AppYaml } from "@/types";
-import { Image } from "@nextui-org/image";
 import clsx from "clsx";
 import { motion } from 'framer-motion';
 import { ArrowDataTransferHorizontalIcon, BankIcon, Chatting01Icon, CheckmarkCircle01Icon, FlashIcon, NanoTechnologyIcon, PackageReceiveIcon } from "hugeicons-react";
-import dynamic from "next/dynamic";
 
 interface ServiceCardProps extends React.HTMLAttributes<HTMLDivElement> {
     title: string;

@@ -6,7 +6,6 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { DocumentAttachmentIcon } from 'hugeicons-react';
 
-import Spline from "@splinetool/react-spline";
 import { Link } from "@nextui-org/link";
 import { X404_APP, X404_DOCS } from "@/config/contants";
 import { Chip } from "@nextui-org/chip";

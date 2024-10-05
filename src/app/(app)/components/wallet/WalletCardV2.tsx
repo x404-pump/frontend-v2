@@ -5,10 +5,10 @@ import { Avatar } from "@nextui-org/avatar";
 
 import { useAccount } from "@/hooks/useAccount";
 import { getAccountAPTBalance } from "@/view-functions/accountBalance";
-import { Copy02Icon } from "hugeicons-react";
-import { Button } from "@nextui-org/button";
 import numeral from "numeral";
 import ConnectWalletDialog from "@/components/wallet/ConnectWalletDialog";
+import copy from "copy-to-clipboard";
+import { toast } from "react-toastify";
 
 export default function WalletCardV2() {
     const { account, isLoading } = useAccount();
@@ -44,24 +44,22 @@ export default function WalletCardV2() {
                     color="primary"
                 />
                 <div className="flex flex-col items-start gap-1">
-                    <p className="text-base font-semibold text-foreground-900">{truncateAddress(account?.address)}</p>
+                    <button
+                        className="text-base text-foreground-900"
+                        onClick={() => {
+                            try {
+                                if (!account) return;
+                                copy(account?.address);
+                                toast.success("Address copied to clipboard");
+                            } catch (error) {
+                                toast.error("Failed to copy address");
+                            }
+                        }}
+                    >
+                        {truncateAddress(account?.address)}
+                    </button>
                     <p className="text-xs text-foreground-500">{numeral(balance).format("0,0.00")} APT</p>
                 </div>
-            </div>
-
-            <div>
-                <Button
-                    className="data-[hover=true]:bg-transparent"
-                    size="sm"
-                    isIconOnly
-                    radius="full"
-                >
-                    <Copy02Icon
-                        className="text-foreground-500 "
-                        size={16}
-                        filter="drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.10)) drop-shadow(0px 1px 3px rgba(0, 0, 0, 0.10))"
-                    />
-                </Button>
             </div>
         </div>
     )

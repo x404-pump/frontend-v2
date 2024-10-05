@@ -1,6 +1,7 @@
 export function getPrimaryColor(src: string): Promise<string> {
     return new Promise((resolve, reject) => {
         const img = new Image();
+
         img.crossOrigin = "Anonymous"; // This is necessary if the image is from a different origin
         img.src = src;
 
@@ -10,6 +11,7 @@ export function getPrimaryColor(src: string): Promise<string> {
 
             if (!ctx) {
                 reject("Failed to get canvas context");
+
                 return;
             }
 
