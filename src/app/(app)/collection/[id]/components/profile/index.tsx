@@ -125,7 +125,7 @@ export function CollectionProfileArea() {
     return (
         <div className="my-2 w-full flex flex-col md:flex-row items-center md:items-end gap-8 relative">
             <Profile />
-            <div className="w-full flex flex-col gap-4 items-end">
+            <div className="w-full lg:w-fit flex flex-col gap-4 lg:items-end">
                 <Tools />
                 <Details />
             </div>

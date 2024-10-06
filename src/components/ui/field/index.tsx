@@ -21,7 +21,7 @@ export function Field(props: FieldProps) {
         <div
             className={
                 clsx(
-                    'flex items-center',
+                    'flex items-start w-fit',
                     direction === 'row' ? 'flex-row gap-2' : 'flex-col gap-1',
                     props.className
                 )}
@@ -29,14 +29,14 @@ export function Field(props: FieldProps) {
             <p
                 className={
                     clsx(
-                        'text-base text-foreground-500',
+                        'text-base text-foreground-500 w-fit text-nowrap',
                         props.classNames?.name
                     )}>
                 {name}
             </p>
             <button
                 className={clsx(
-                    'text-base text-foreground-900 cursor-pointer',
+                    'text-base text-foreground-900 cursor-pointer w-fit',
                     props.classNames?.value
                 )}
                 onClick={() => {

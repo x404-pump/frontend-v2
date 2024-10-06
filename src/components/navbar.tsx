@@ -76,7 +76,7 @@ const Navbar = () => {
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-2" href="/">
-            <Logo />
+            <Logo size={20}/>
             <p className="font-bold text-inherit">X404</p>
           </NextLink>
         </NavbarBrand>
