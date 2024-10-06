@@ -26,6 +26,7 @@ function ConnectWalletDialog({
             <Button
                 fullWidth
                 radius="sm"
+                size="lg"
                 color="primary"
                 isLoading={isLoading}
                 onClick={onOpen}
@@ -46,7 +47,7 @@ function ConnectWalletDialog({
             >
                 <ModalContent className="overflow-visible sm:m-0 shadow-none">
                     <ModalHeader className="flex flex-row justify-between items-center">
-                        <Logo className="h-8 w-8" />
+                        <Logo size={20}/>
                         <h6>Connect Wallet</h6>
                         <Button
                             isIconOnly

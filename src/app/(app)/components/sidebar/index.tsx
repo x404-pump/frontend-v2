@@ -92,7 +92,8 @@ export default function SideBar() {
                             key={item.href}
                             href={item.href}
                             className={clsx(
-                                "rounded-md text-foreground-500 px-4 py-2 data-[hover=true]:bg-foreground-100",
+                                "rounded-md text-foreground-500 px-4 py-2 data-[hover=true]:bg-foreground-100 data-[hover=true]:text-foreground-900",
+                                "transition-all duration-200 ease-in-out",
                                 pathname.startsWith(item.href) && "bg-gradient-to-r from-primary/50 to-primary/25 text-primary-300 border-l-3 border-primary shadow"
                             )}
                             classNames={{

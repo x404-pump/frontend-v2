@@ -28,7 +28,7 @@ export function CollectionCard({ collection }: { collection: IX404Collection }) 
             <img
                 src={collection.collection_image}
                 alt={collection.collection_name}
-                className="border-2 border-default-200 w-16 aspect-square rounded-small bg-foreground-100 shadow"
+                className="w-16 aspect-square rounded-small bg-foreground-100 shadow"
             />
             <div className="flex flex-col gap-2 items-start justify-center w-full">
                 <h3 className="capitalize text-base font-semibold w-full">

@@ -11,6 +11,7 @@ import dynamic from "next/dynamic";
 import { uploadCollectionData } from "@/utils/assetUploader";
 import { createCollection } from "@/entry-functions/create_collection";
 import { aptosClient } from "@/utils/aptosClient";
+import ConnectWalletDialog from "@/components/wallet/ConnectWalletDialog";
 
 const UploadFileInput = dynamic(() => import('./UploadFileInput'));
 
@@ -29,7 +30,7 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
         formState: { errors, isSubmitting, isLoading },
     } = useForm<FormData>();
 
-    const { account, wallet, signAndSubmitTransaction, connected } = useWallet();
+    const { signAndSubmitTransaction, connected } = useWallet();
     const [isUploading, setIsUploading] = React.useState(false);
     const [files, setFiles] = React.useState<FileList | null>(null);
 
@@ -124,17 +125,22 @@ export default function CreateCollectionForm({ ...props }: CreateCollectionFormP
                         {...register('initPrice', { required: false })}
                     />
                 </div>
-                <Button
-                    type="submit"
-                    className="bg-foreground-900 text-foreground-100"
-                    radius="sm"
-                    size="lg"
-                    fullWidth
-                    isLoading={isSubmitting || isUploading}
-                    disabled={isSubmitting || isUploading}
-                >
-                    Create
-                </Button>
+                {
+                    connected ?
+                        <Button
+                            type="submit"
+                            className="bg-foreground-900 text-foreground-100"
+                            radius="sm"
+                            size="lg"
+                            fullWidth
+                            isLoading={isSubmitting || isUploading}
+                            disabled={isSubmitting || isUploading}
+                        >
+                            Create
+                        </Button>
+                        :
+                        <ConnectWalletDialog />
+                }
             </form>
         </section>
     );
